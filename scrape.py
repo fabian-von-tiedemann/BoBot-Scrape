@@ -6,7 +6,7 @@ and navigates to the Botkyrka kommun intranet page.
 
 Usage:
     1. Start Chrome with remote debugging:
-       /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222
+       /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug
     2. Log in to Botkyrka intranet in Chrome if not already
     3. Run: .venv/bin/python scrape.py
 """
@@ -58,7 +58,7 @@ def main():
             print("Error: Chrome not running with --remote-debugging-port=9222")
             print()
             print("Start Chrome with remote debugging:")
-            print("  /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --remote-debugging-port=9222")
+            print("  /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug")
         else:
             print(f"Error: {error_msg}")
         sys.exit(1)
