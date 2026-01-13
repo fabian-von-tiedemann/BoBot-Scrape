@@ -14,7 +14,7 @@ None
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Setup** - Python-miljö, Playwright, Chrome CDP-anslutning
+- [x] **Phase 1: Setup** - Python-miljö, Playwright, Chrome CDP-anslutning
 - [ ] **Phase 2: Page Discovery** - Navigera startsida, extrahera kategorilänkar
 - [ ] **Phase 3: PDF Extraction** - Följ kategorier, hitta alla PDF-länkar
 - [ ] **Phase 4: Download System** - Ladda ner PDF:er till organiserad mappstruktur
@@ -29,8 +29,8 @@ None
 **Plans**: TBD
 
 Plans:
-- [ ] 01-01: Python environment and dependencies
-- [ ] 01-02: Chrome CDP connection
+- [x] 01-01: Python environment and dependencies
+- [x] 01-02: Chrome CDP connection
 
 ### Phase 2: Page Discovery
 **Goal**: Scriptet kan navigera till startsidan och extrahera alla kategorilänkar
@@ -64,9 +64,9 @@ Plans:
 **Execution Order:**
 Phases execute in numeric order: 1 → 2 → 3 → 4
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Setup | 0/2 | Not started | - |
-| 2. Page Discovery | 0/1 | Not started | - |
-| 3. PDF Extraction | 0/1 | Not started | - |
-| 4. Download System | 0/1 | Not started | - |
+| Phase              | Plans Complete | Status      | Completed  |
+|--------------------|----------------|-------------|------------|
+| 1. Setup           | 2/2            | Complete    | 2026-01-13 |
+| 2. Page Discovery  | 0/1            | Not started | -          |
+| 3. PDF Extraction  | 0/1            | Not started | -          |
+| 4. Download System | 0/1            | Not started | -          |
