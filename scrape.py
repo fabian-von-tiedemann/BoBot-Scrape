@@ -49,6 +49,55 @@ def main():
             title = page.title()
             print(f"Page title: {title}")
             print("Successfully connected and navigated!")
+            print()
+
+            # Extract all links from the page
+            print("Extracting links from page...")
+            all_links = page.query_selector_all("a")
+
+            # Filter and extract link information
+            category_links = []
+            base_domain = "botwebb.botkyrka.se"
+
+            for link in all_links:
+                href = link.get_attribute("href")
+                text = link.text_content()
+
+                # Skip empty links
+                if not href:
+                    continue
+
+                # Clean up text (remove extra whitespace)
+                text = " ".join(text.split()) if text else ""
+
+                # Filter for internal links (same domain or relative paths)
+                # Skip direct PDF links, anchors, and external links
+                is_internal = (
+                    href.startswith("/")
+                    or href.startswith("https://botwebb.botkyrka.se")
+                    or href.startswith("http://botwebb.botkyrka.se")
+                )
+                is_anchor = href.startswith("#")
+                is_pdf = href.lower().endswith(".pdf")
+                is_javascript = href.startswith("javascript:")
+
+                if is_internal and not is_anchor and not is_pdf and not is_javascript:
+                    # Normalize relative URLs to absolute
+                    if href.startswith("/"):
+                        href = f"https://{base_domain}{href}"
+                    category_links.append({"url": href, "text": text})
+
+            # Print extracted links
+            print(f"\n{'='*60}")
+            print(f"Found {len(category_links)} category/internal links:")
+            print(f"{'='*60}\n")
+
+            for i, link in enumerate(category_links, 1):
+                print(f"{i:3}. {link['text'][:50]:<50} -> {link['url']}")
+
+            print(f"\n{'='*60}")
+            print(f"Total links: {len(category_links)}")
+            print(f"{'='*60}")
 
             # Don't close browser - we're reusing user's session
 
