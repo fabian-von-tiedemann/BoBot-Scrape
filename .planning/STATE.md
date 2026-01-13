@@ -5,20 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** Alla PDF:er nedladdade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** MILESTONE COMPLETE
+**Current focus:** v1.0 MVP SHIPPED
 
 ## Current Position
 
 Phase: 4 of 4 (Download System)
-Plan: 1 of 1 in current phase
-Status: MILESTONE COMPLETE
-Last activity: 2026-01-13 — Completed 04-01-PLAN.md
+Plan: Complete
+Status: v1.0 MVP SHIPPED
+Last activity: 2026-01-13 — v1.0 milestone complete
 
 Progress: ██████████ 100%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 5
 - Average duration: ~10 min
 - Total execution time: ~49 min
@@ -42,16 +43,7 @@ Progress: ██████████ 100%
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- Use sync_playwright API for simplicity
-- Require `--user-data-dir` for Chrome remote debugging
-- Reuse existing browser tab to preserve user session
-- Use exact text match against predefined RUTINER_CATEGORIES list
-- Extract both PDF and Word files (.pdf, .doc, .docx)
-- Case-insensitive extension matching with .lower()
-- Skip existing files by default (incremental downloads)
-- Add --scan-only mode for CSV-only updates
+All decisions validated with ✓ Good outcome after v1.0 ship.
 
 ### Deferred Issues
 
@@ -64,5 +56,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Milestone complete
+Stopped at: v1.0 milestone shipped
 Resume file: None

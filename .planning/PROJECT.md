@@ -2,7 +2,7 @@
 
 ## What This Is
 
-En PDF-scraper som automatiserar nedladdning av rutindokument från Botkyrka kommuns intranät (BoTwebb). Använder användarens befintliga Chrome-session för att hantera SAML-autentisering och laddar ner alla PDF:er organiserade i mappar baserat på länkstrukturen.
+En PDF-scraper som automatiserar nedladdning av rutindokument från Botkyrka kommuns intranät (BoTwebb). Ansluter till användarens befintliga Chrome-session via CDP för att hantera SAML-autentisering och laddar ner alla PDF:er och Word-dokument organiserade i mappar baserat på kategori.
 
 ## Core Value
 
@@ -12,19 +12,19 @@ Alla PDF:er nedladdade — ingen PDF ska missas, oavsett hur sidstrukturen ser u
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Ansluta till befintlig Chrome-session med aktiv inloggning — v1.0
+- ✓ Navigera till startsidan och extrahera alla kategorilänkar — v1.0
+- ✓ Följa varje kategorilänk och hitta alla PDF-länkar — v1.0
+- ✓ Ladda ner varje PDF till rätt kategorimapp — v1.0
+- ✓ Skapa mappstruktur baserad på kategorilänkarnas namn — v1.0
 
 ### Active
 
-- [ ] Ansluta till befintlig Chrome-session med aktiv inloggning
-- [ ] Navigera till startsidan och extrahera alla kategorilänkar
-- [ ] Följa varje kategorilänk och hitta alla PDF-länkar
-- [ ] Ladda ner varje PDF till rätt kategorimapp
-- [ ] Skapa mappstruktur baserad på kategorilänkarnas namn
+(None — v1.0 MVP complete)
 
 ### Out of Scope
 
-- Inkrementella uppdateringar (bara ladda ner nya/ändrade) — håll v1 enkel
+- Inkrementella uppdateringar (bara ladda ner nya/ändrade) — delvis implementerat (skip existing by default)
 - Metadata-hantering (versioner, nedladdningstider) — onödig komplexitet
 - GUI/grafiskt gränssnitt — CLI-skript räcker
 - Felåterhämtning vid nätverksfel — kan läggas till senare
@@ -32,22 +32,29 @@ Alla PDF:er nedladdade — ingen PDF ska missas, oavsett hur sidstrukturen ser u
 
 ## Context
 
-**Källa:** https://botwebb.botkyrka.se/sidor/din-forvaltning/forvaltningar/vard--och-omsorgsforvaltningen/kvalitet/lagar-termer-och-styrdokument/styrdokument/rutiner-for-utforare.html
+**Shipped v1.0 with 375 LOC Python.**
 
-**Sidstruktur (förväntad):**
-1. Startsidan innehåller en lista med länkar till kategorisidor
-2. Varje kategorisida innehåller länkar till PDF-dokument
-3. PDF:erna är rutindokument för Vård- och omsorgsförvaltningen
+**Tech stack:** Python 3.11, Playwright (sync API), argparse, urllib.parse
 
-**Autentisering:**
-- Sidan kräver SAML-inloggning (kommunal SSO)
-- Användaren är redan inloggad via sin vanliga Chrome-webbläsare
-- Scriptet ska använda befintlig Chrome-profil för att ärva sessionen
+**Capabilities:**
+- Connect to Chrome via CDP (preserves user SAML session)
+- Extract 15 rutiner categories from intranet
+- Find all PDF and Word documents (~1195 files)
+- Download to organized folder structure (downloads/<category>/)
+- Export CSV with URLs for assistant integration
 
-**Teknisk approach:**
-- Playwright med `connect_over_cdp` för att ansluta till körande Chrome
-- Chrome måste startas med remote debugging aktiverat
-- Python för enkel scripting
+**Usage:**
+```bash
+# Start Chrome with remote debugging
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+  --remote-debugging-port=9222 \
+  --user-data-dir="/tmp/chrome-debug"
+
+# Run scraper
+.venv/bin/python scrape.py           # Download new files
+.venv/bin/python scrape.py --scan-only  # CSV only
+.venv/bin/python scrape.py --force      # Re-download all
+```
 
 ## Constraints
 
@@ -58,9 +65,14 @@ Alla PDF:er nedladdade — ingen PDF ska missas, oavsett hur sidstrukturen ser u
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Playwright över Selenium | Bättre CDP-stöd för att ansluta till körande Chrome | — Pending |
-| Python som språk | Enkelt, Playwright har bra Python-stöd | — Pending |
-| Två-nivå-traversering | Startsida → kategorisidor → PDF:er | — Pending |
+| Playwright över Selenium | Bättre CDP-stöd för att ansluta till körande Chrome | ✓ Good |
+| Python som språk | Enkelt, Playwright har bra Python-stöd | ✓ Good |
+| Två-nivå-traversering | Startsida → kategorisidor → PDF:er | ✓ Good |
+| sync_playwright API | Enklare för script, ingen async-komplexitet | ✓ Good |
+| --user-data-dir för Chrome | Krävs för remote debugging | ✓ Good |
+| Exact-match category filtering | Robust mot sidändringar | ✓ Good |
+| Skip existing files by default | Incremental downloads utan manuell flagga | ✓ Good |
+| CSV export med URLs | Integration med assistants/externa verktyg | ✓ Good |
 
 ---
-*Last updated: 2026-01-13 after initialization*
+*Last updated: 2026-01-13 after v1.0 milestone*
