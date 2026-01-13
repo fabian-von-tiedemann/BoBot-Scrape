@@ -17,6 +17,10 @@ from playwright.sync_api import sync_playwright
 
 TARGET_URL = "https://botwebb.botkyrka.se/sidor/din-forvaltning/forvaltningar/vard--och-omsorgsforvaltningen/kvalitet/lagar-termer-och-styrdokument/styrdokument/rutiner-for-utforare.html"
 CDP_ENDPOINT = "http://localhost:9222"
+BASE_DOMAIN = "botwebb.botkyrka.se"
+
+# Document file extensions to extract (case-insensitive)
+DOCUMENT_EXTENSIONS = (".pdf", ".doc", ".docx")
 
 # The 15 rutiner categories we want to extract
 RUTINER_CATEGORIES = [
@@ -76,7 +80,6 @@ def main():
 
             # Filter for the 15 rutiner category links
             category_links = []
-            base_domain = "botwebb.botkyrka.se"
 
             for link in all_links:
                 href = link.get_attribute("href")
@@ -93,7 +96,7 @@ def main():
                 if text in RUTINER_CATEGORIES:
                     # Normalize relative URLs to absolute
                     if href.startswith("/"):
-                        href = f"https://{base_domain}{href}"
+                        href = f"https://{BASE_DOMAIN}{href}"
                     category_links.append({"url": href, "text": text})
 
             # Print extracted category links
@@ -116,6 +119,80 @@ def main():
             print(f"\n{'='*60}")
             print(f"Total: {len(category_links)}/{len(RUTINER_CATEGORIES)} categories found")
             print(f"{'='*60}")
+
+            # Phase 3: Visit each category and extract document links
+            print("\n" + "="*60)
+            print("Phase 3: Extracting document links from categories...")
+            print("="*60 + "\n")
+
+            # Store documents by category: {category_name: [{"url": url, "type": "pdf"|"doc"|"docx"}]}
+            documents_by_category = {}
+            failed_categories = []
+            total_pdfs = 0
+            total_word = 0
+
+            for i, cat in enumerate(category_links, 1):
+                category_name = cat["text"]
+                category_url = cat["url"]
+                print(f"Processing category {i}/{len(category_links)}: {category_name}")
+
+                try:
+                    # Navigate to category page
+                    page.goto(category_url)
+                    page.wait_for_load_state("networkidle")
+
+                    # Extract all links from category page
+                    cat_links = page.query_selector_all("a")
+                    doc_links = []
+
+                    for link in cat_links:
+                        href = link.get_attribute("href")
+                        if not href:
+                            continue
+
+                        # Check for document extensions (case-insensitive)
+                        href_lower = href.lower()
+                        doc_type = None
+                        for ext in DOCUMENT_EXTENSIONS:
+                            if href_lower.endswith(ext):
+                                doc_type = ext[1:]  # Remove the dot
+                                break
+
+                        if doc_type:
+                            # Normalize relative URLs to absolute
+                            if href.startswith("/"):
+                                href = f"https://{BASE_DOMAIN}{href}"
+                            doc_links.append({"url": href, "type": doc_type})
+
+                    # Store results and update counts
+                    documents_by_category[category_name] = doc_links
+                    pdf_count = sum(1 for d in doc_links if d["type"] == "pdf")
+                    word_count = sum(1 for d in doc_links if d["type"] in ("doc", "docx"))
+                    total_pdfs += pdf_count
+                    total_word += word_count
+
+                    print(f"  Found {len(doc_links)} documents ({pdf_count} PDFs, {word_count} Word files)")
+
+                except Exception as e:
+                    print(f"  ERROR: Failed to process - {e}")
+                    failed_categories.append({"name": category_name, "error": str(e)})
+                    documents_by_category[category_name] = []
+
+            # Print final summary
+            print("\n" + "="*60)
+            print("Document Extraction Summary")
+            print("="*60)
+            total_docs = total_pdfs + total_word
+            print(f"\nTotal: {total_docs} documents across {len(category_links)} categories")
+            print(f"  - PDFs: {total_pdfs}")
+            print(f"  - Word files: {total_word}")
+
+            if failed_categories:
+                print(f"\n⚠️  Failed categories ({len(failed_categories)}):")
+                for fail in failed_categories:
+                    print(f"    - {fail['name']}: {fail['error']}")
+
+            print("="*60)
 
             # Don't close browser - we're reusing user's session
 
