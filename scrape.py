@@ -11,6 +11,8 @@ Usage:
     3. Run: .venv/bin/python scrape.py
 """
 
+import os
+import re
 import sys
 from playwright.sync_api import sync_playwright
 
@@ -191,6 +193,68 @@ def main():
                 print(f"\n⚠️  Failed categories ({len(failed_categories)}):")
                 for fail in failed_categories:
                     print(f"    - {fail['name']}: {fail['error']}")
+
+            print("="*60)
+
+            # Phase 4: Download all documents to organized folders
+            print("\n" + "="*60)
+            print("Phase 4: Downloading documents to category folders...")
+            print("="*60 + "\n")
+
+            # Create base downloads directory
+            downloads_dir = "downloads"
+            os.makedirs(downloads_dir, exist_ok=True)
+
+            downloaded_count = 0
+            failed_downloads = []
+
+            for category_name, docs in documents_by_category.items():
+                if not docs:
+                    continue
+
+                # Sanitize folder name (replace invalid chars with -)
+                safe_name = re.sub(r'[<>:"/\\|?*]', '-', category_name)
+                category_dir = os.path.join(downloads_dir, safe_name)
+                os.makedirs(category_dir, exist_ok=True)
+
+                print(f"Downloading {len(docs)} documents to {safe_name}/")
+
+                for doc in docs:
+                    url = doc["url"]
+                    # Extract filename from URL (last path segment)
+                    filename = url.split("/")[-1]
+                    # URL decode filename if needed
+                    filename = filename.split("?")[0]  # Remove query params
+                    filepath = os.path.join(category_dir, filename)
+
+                    try:
+                        # Download using Playwright's built-in HTTP client (shares session)
+                        response = page.context.request.get(url)
+                        if response.ok:
+                            with open(filepath, "wb") as f:
+                                f.write(response.body())
+                            downloaded_count += 1
+                            print(f"  Downloaded: {filename}")
+                        else:
+                            failed_downloads.append({"url": url, "category": category_name, "error": f"HTTP {response.status}"})
+                            print(f"  FAILED: {filename} (HTTP {response.status})")
+                    except Exception as e:
+                        failed_downloads.append({"url": url, "category": category_name, "error": str(e)})
+                        print(f"  FAILED: {filename} ({e})")
+
+            # Print download summary
+            print("\n" + "="*60)
+            print("Download Summary")
+            print("="*60)
+            print(f"\nSuccessfully downloaded: {downloaded_count} documents")
+            print(f"Failed downloads: {len(failed_downloads)}")
+
+            if failed_downloads:
+                print(f"\n⚠️  Failed downloads ({len(failed_downloads)}):")
+                for fail in failed_downloads[:10]:  # Show first 10 failures
+                    print(f"    - {fail['category']}: {fail['error']}")
+                if len(failed_downloads) > 10:
+                    print(f"    ... and {len(failed_downloads) - 10} more")
 
             print("="*60)
 
