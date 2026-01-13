@@ -1,19 +1,48 @@
 """
-BoBot-Scrape: CDP Connection Script
+BoBot-Scrape: Botkyrka Kommun Intranet Document Scraper
 
 Connects to a running Chrome browser via Chrome DevTools Protocol (CDP)
-and navigates to the Botkyrka kommun intranet page.
+and downloads routine documents from Botkyrka kommun's intranet.
 
-Usage:
+Prerequisites:
     1. Start Chrome with remote debugging:
        /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug
-    2. Log in to Botkyrka intranet in Chrome if not already
-    3. Run: .venv/bin/python scrape.py
+    2. Log in to Botkyrka intranet in Chrome
+
+Usage:
+    .venv/bin/python scrape.py [OPTIONS]
+
+Options:
+    --scan-only     Only scan for documents and create CSV, skip downloading
+    --download      Download documents (skips existing files) [default]
+    --force         Re-download all files, even if they exist
+    --help          Show this help message
+
+Examples:
+    # First run - download all documents
+    .venv/bin/python scrape.py
+
+    # Update CSV with latest URLs (no download)
+    .venv/bin/python scrape.py --scan-only
+
+    # Download only new/missing files
+    .venv/bin/python scrape.py --download
+
+    # Re-download everything
+    .venv/bin/python scrape.py --force
+
+Output:
+    downloads/                    - Base folder for all downloads
+    downloads/{category}/         - One folder per rutiner category (15 total)
+    downloads/documents.csv       - List of all documents with URLs
 """
 
+import argparse
+import csv
 import os
 import re
 import sys
+from urllib.parse import unquote
 from playwright.sync_api import sync_playwright
 
 
@@ -44,8 +73,53 @@ RUTINER_CATEGORIES = [
 ]
 
 
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Scrape routine documents from Botkyrka kommun intranet",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s                  Download all documents (skip existing)
+  %(prog)s --scan-only      Only scan and create CSV, no downloads
+  %(prog)s --force          Re-download all files
+        """
+    )
+    parser.add_argument(
+        "--scan-only",
+        action="store_true",
+        help="Only scan for documents and create CSV, skip downloading"
+    )
+    parser.add_argument(
+        "--download",
+        action="store_true",
+        default=True,
+        help="Download documents, skipping existing files (default)"
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Re-download all files, even if they already exist"
+    )
+    return parser.parse_args()
+
+
 def main():
-    """Connect to Chrome via CDP and navigate to the target intranet page."""
+    """Connect to Chrome via CDP and scrape documents from intranet."""
+    args = parse_args()
+
+    # Determine mode
+    skip_download = args.scan_only
+    force_download = args.force
+
+    if skip_download:
+        print("Mode: SCAN ONLY (no downloads, just CSV)")
+    elif force_download:
+        print("Mode: FORCE DOWNLOAD (re-download all files)")
+    else:
+        print("Mode: DOWNLOAD (skip existing files)")
+    print()
+
     try:
         with sync_playwright() as playwright:
             # Connect to running Chrome with remote debugging enabled
@@ -124,7 +198,7 @@ def main():
 
             # Phase 3: Visit each category and extract document links
             print("\n" + "="*60)
-            print("Phase 3: Extracting document links from categories...")
+            print("Extracting document links from categories...")
             print("="*60 + "\n")
 
             # Store documents by category: {category_name: [{"url": url, "type": "pdf"|"doc"|"docx"}]}
@@ -196,67 +270,92 @@ def main():
 
             print("="*60)
 
-            # Phase 4: Download all documents to organized folders
-            print("\n" + "="*60)
-            print("Phase 4: Downloading documents to category folders...")
-            print("="*60 + "\n")
-
             # Create base downloads directory
             downloads_dir = "downloads"
             os.makedirs(downloads_dir, exist_ok=True)
 
-            downloaded_count = 0
-            failed_downloads = []
+            # Phase 4: Download documents (unless --scan-only)
+            if not skip_download:
+                print("\n" + "="*60)
+                print("Downloading documents to category folders...")
+                print("="*60 + "\n")
 
-            for category_name, docs in documents_by_category.items():
-                if not docs:
-                    continue
+                downloaded_count = 0
+                skipped_count = 0
+                failed_downloads = []
 
-                # Sanitize folder name (replace invalid chars with -)
-                safe_name = re.sub(r'[<>:"/\\|?*]', '-', category_name)
-                category_dir = os.path.join(downloads_dir, safe_name)
-                os.makedirs(category_dir, exist_ok=True)
+                for category_name, docs in documents_by_category.items():
+                    if not docs:
+                        continue
 
-                print(f"Downloading {len(docs)} documents to {safe_name}/")
+                    # Sanitize folder name (replace invalid chars with -)
+                    safe_name = re.sub(r'[<>:"/\\|?*]', '-', category_name)
+                    category_dir = os.path.join(downloads_dir, safe_name)
+                    os.makedirs(category_dir, exist_ok=True)
 
-                for doc in docs:
-                    url = doc["url"]
-                    # Extract filename from URL (last path segment)
-                    filename = url.split("/")[-1]
-                    # URL decode filename if needed
-                    filename = filename.split("?")[0]  # Remove query params
-                    filepath = os.path.join(category_dir, filename)
+                    print(f"Downloading {len(docs)} documents to {safe_name}/")
 
-                    try:
-                        # Download using Playwright's built-in HTTP client (shares session)
-                        response = page.context.request.get(url)
-                        if response.ok:
-                            with open(filepath, "wb") as f:
-                                f.write(response.body())
-                            downloaded_count += 1
-                            print(f"  Downloaded: {filename}")
-                        else:
-                            failed_downloads.append({"url": url, "category": category_name, "error": f"HTTP {response.status}"})
-                            print(f"  FAILED: {filename} (HTTP {response.status})")
-                    except Exception as e:
-                        failed_downloads.append({"url": url, "category": category_name, "error": str(e)})
-                        print(f"  FAILED: {filename} ({e})")
+                    for doc in docs:
+                        url = doc["url"]
+                        # Extract filename from URL (last path segment)
+                        filename = url.split("/")[-1]
+                        filename = filename.split("?")[0]  # Remove query params
+                        filepath = os.path.join(category_dir, filename)
 
-            # Print download summary
-            print("\n" + "="*60)
-            print("Download Summary")
-            print("="*60)
-            print(f"\nSuccessfully downloaded: {downloaded_count} documents")
-            print(f"Failed downloads: {len(failed_downloads)}")
+                        # Skip if file already exists (unless --force)
+                        if os.path.exists(filepath) and not force_download:
+                            skipped_count += 1
+                            print(f"  Skipped (exists): {unquote(filename)}")
+                            continue
 
-            if failed_downloads:
-                print(f"\n⚠️  Failed downloads ({len(failed_downloads)}):")
-                for fail in failed_downloads[:10]:  # Show first 10 failures
-                    print(f"    - {fail['category']}: {fail['error']}")
-                if len(failed_downloads) > 10:
-                    print(f"    ... and {len(failed_downloads) - 10} more")
+                        try:
+                            # Download using Playwright's built-in HTTP client (shares session)
+                            response = page.context.request.get(url)
+                            if response.ok:
+                                with open(filepath, "wb") as f:
+                                    f.write(response.body())
+                                downloaded_count += 1
+                                print(f"  Downloaded: {unquote(filename)}")
+                            else:
+                                failed_downloads.append({"url": url, "category": category_name, "error": f"HTTP {response.status}"})
+                                print(f"  FAILED: {unquote(filename)} (HTTP {response.status})")
+                        except Exception as e:
+                            failed_downloads.append({"url": url, "category": category_name, "error": str(e)})
+                            print(f"  FAILED: {unquote(filename)} ({e})")
 
-            print("="*60)
+                # Print download summary
+                print("\n" + "="*60)
+                print("Download Summary")
+                print("="*60)
+                print(f"\nNewly downloaded: {downloaded_count} documents")
+                print(f"Skipped (existing): {skipped_count} documents")
+                print(f"Failed: {len(failed_downloads)} documents")
+
+                if failed_downloads:
+                    print(f"\n⚠️  Failed downloads ({len(failed_downloads)}):")
+                    for fail in failed_downloads[:10]:  # Show first 10 failures
+                        print(f"    - {fail['category']}: {fail['error']}")
+                    if len(failed_downloads) > 10:
+                        print(f"    ... and {len(failed_downloads) - 10} more")
+
+                print("="*60)
+            else:
+                print("\n(Skipping downloads - scan-only mode)")
+
+            # Export document list to CSV (always)
+            csv_path = os.path.join(downloads_dir, "documents.csv")
+            with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(["category", "filename", "filename_decoded", "type", "url"])
+                for category_name, docs in documents_by_category.items():
+                    safe_name = re.sub(r'[<>:"/\\|?*]', '-', category_name)
+                    for doc in docs:
+                        filename = doc["url"].split("/")[-1].split("?")[0]
+                        filename_decoded = unquote(filename)
+                        writer.writerow([safe_name, filename, filename_decoded, doc["type"], doc["url"]])
+
+            print(f"\nExported document list to: {csv_path}")
+            print(f"  - {total_docs} documents with URLs")
 
             # Don't close browser - we're reusing user's session
 
