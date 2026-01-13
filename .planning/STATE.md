@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** Alla PDF:er nedladdade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** Phase 2 — Page Discovery
+**Current focus:** Phase 3 — PDF Extraction
 
 ## Current Position
 
-Phase: 2 of 4 (Page Discovery)
+Phase: 3 of 4 (PDF Extraction)
 Plan: 1 of 1 in current phase
 Status: Phase complete
-Last activity: 2026-01-13 — Completed 02-01-PLAN.md
+Last activity: 2026-01-13 — Completed 03-01-PLAN.md
 
-Progress: ████░░░░░░ 40%
+Progress: ██████░░░░ 60%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: ~9 min
-- Total execution time: ~27 min
+- Total plans completed: 4
+- Average duration: ~8 min
+- Total execution time: ~31 min
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: ████░░░░░░ 40%
 |-------------------|-------|---------|----------|
 | 1. Setup          | 2/2   | ~20 min | ~10 min  |
 | 2. Page Discovery | 1/1   | ~7 min  | ~7 min   |
+| 3. PDF Extraction | 1/1   | ~4 min  | ~4 min   |
 
 **Recent Trend:**
 
-- Last 5 plans: 01-01, 01-02, 02-01
+- Last 5 plans: 01-01, 01-02, 02-01, 03-01
 - Trend: On track
 
 ## Accumulated Context
@@ -46,6 +47,8 @@ Recent decisions affecting current work:
 - Require `--user-data-dir` for Chrome remote debugging
 - Reuse existing browser tab to preserve user session
 - Use exact text match against predefined RUTINER_CATEGORIES list
+- Extract both PDF and Word files (.pdf, .doc, .docx)
+- Case-insensitive extension matching with .lower()
 
 ### Deferred Issues
 
@@ -58,5 +61,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Phase 2 complete
+Stopped at: Phase 3 complete
 Resume file: None
