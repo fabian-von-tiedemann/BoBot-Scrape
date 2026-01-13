@@ -1,0 +1,14 @@
+# Python virtual environment
+.venv/
+
+# Build artifacts
+*.egg-info/
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.vscode/
+
+# Downloads output
+downloads/
