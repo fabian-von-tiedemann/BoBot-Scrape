@@ -18,6 +18,25 @@ from playwright.sync_api import sync_playwright
 TARGET_URL = "https://botwebb.botkyrka.se/sidor/din-forvaltning/forvaltningar/vard--och-omsorgsforvaltningen/kvalitet/lagar-termer-och-styrdokument/styrdokument/rutiner-for-utforare.html"
 CDP_ENDPOINT = "http://localhost:9222"
 
+# The 15 rutiner categories we want to extract
+RUTINER_CATEGORIES = [
+    "Bemanningsenheten",
+    "Boendestöd",
+    "Dagverksamhet",
+    "Gruppbostad",
+    "Hemtjänst",
+    "Hälso- och sjukvård",
+    "Korttidsboende för äldre (SoL)",
+    "Korttidsvistelse för unga (LSS)",
+    "Kost-och måltidsenheten",
+    "Ledsagning, Avlösning och Kontaktperson",
+    "Mötesplatser",
+    "Personlig assistans",
+    "Serviceboende (LSS)",
+    "Servicehus (SoL)",
+    "Vård- och omsorgsboende",
+]
+
 
 def main():
     """Connect to Chrome via CDP and navigate to the target intranet page."""
@@ -52,10 +71,10 @@ def main():
             print()
 
             # Extract all links from the page
-            print("Extracting links from page...")
+            print("Extracting rutiner category links...")
             all_links = page.query_selector_all("a")
 
-            # Filter and extract link information
+            # Filter for the 15 rutiner category links
             category_links = []
             base_domain = "botwebb.botkyrka.se"
 
@@ -70,33 +89,32 @@ def main():
                 # Clean up text (remove extra whitespace)
                 text = " ".join(text.split()) if text else ""
 
-                # Filter for internal links (same domain or relative paths)
-                # Skip direct PDF links, anchors, and external links
-                is_internal = (
-                    href.startswith("/")
-                    or href.startswith("https://botwebb.botkyrka.se")
-                    or href.startswith("http://botwebb.botkyrka.se")
-                )
-                is_anchor = href.startswith("#")
-                is_pdf = href.lower().endswith(".pdf")
-                is_javascript = href.startswith("javascript:")
-
-                if is_internal and not is_anchor and not is_pdf and not is_javascript:
+                # Check if this link text matches one of our target categories
+                if text in RUTINER_CATEGORIES:
                     # Normalize relative URLs to absolute
                     if href.startswith("/"):
                         href = f"https://{base_domain}{href}"
                     category_links.append({"url": href, "text": text})
 
-            # Print extracted links
+            # Print extracted category links
             print(f"\n{'='*60}")
-            print(f"Found {len(category_links)} category/internal links:")
+            print(f"Found {len(category_links)} of {len(RUTINER_CATEGORIES)} rutiner categories:")
             print(f"{'='*60}\n")
 
             for i, link in enumerate(category_links, 1):
-                print(f"{i:3}. {link['text'][:50]:<50} -> {link['url']}")
+                print(f"{i:3}. {link['text']:<45} -> {link['url']}")
+
+            # Check for missing categories
+            found_texts = {link["text"] for link in category_links}
+            missing = [cat for cat in RUTINER_CATEGORIES if cat not in found_texts]
+
+            if missing:
+                print(f"\n⚠️  Missing categories ({len(missing)}):")
+                for cat in missing:
+                    print(f"    - {cat}")
 
             print(f"\n{'='*60}")
-            print(f"Total links: {len(category_links)}")
+            print(f"Total: {len(category_links)}/{len(RUTINER_CATEGORIES)} categories found")
             print(f"{'='*60}")
 
             # Don't close browser - we're reusing user's session
