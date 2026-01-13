@@ -17,7 +17,7 @@ None
 - [x] **Phase 1: Setup** - Python-miljö, Playwright, Chrome CDP-anslutning
 - [x] **Phase 2: Page Discovery** - Navigera startsida, extrahera kategorilänkar
 - [x] **Phase 3: PDF Extraction** - Följ kategorier, hitta alla PDF-länkar
-- [ ] **Phase 4: Download System** - Ladda ner PDF:er till organiserad mappstruktur
+- [x] **Phase 4: Download System** - Ladda ner PDF:er till organiserad mappstruktur
 
 ## Phase Details
 
@@ -57,7 +57,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 04-01: Download PDFs to category folders
+- [x] 04-01: Download PDFs to category folders
 
 ## Progress
 
@@ -69,4 +69,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Setup           | 2/2            | Complete    | 2026-01-13 |
 | 2. Page Discovery  | 1/1            | Complete    | 2026-01-13 |
 | 3. PDF Extraction  | 1/1            | Complete    | 2026-01-13 |
-| 4. Download System | 0/1            | Not started | -          |
+| 4. Download System | 1/1            | Complete    | 2026-01-13 |

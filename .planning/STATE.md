@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** Alla PDF:er nedladdade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** Phase 3 — PDF Extraction
+**Current focus:** MILESTONE COMPLETE
 
 ## Current Position
 
-Phase: 3 of 4 (PDF Extraction)
+Phase: 4 of 4 (Download System)
 Plan: 1 of 1 in current phase
-Status: Phase complete
-Last activity: 2026-01-13 — Completed 03-01-PLAN.md
+Status: MILESTONE COMPLETE
+Last activity: 2026-01-13 — Completed 04-01-PLAN.md
 
-Progress: ██████░░░░ 60%
+Progress: ██████████ 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: ~8 min
-- Total execution time: ~31 min
+- Total plans completed: 5
+- Average duration: ~10 min
+- Total execution time: ~49 min
 
 **By Phase:**
 
@@ -30,11 +30,12 @@ Progress: ██████░░░░ 60%
 | 1. Setup          | 2/2   | ~20 min | ~10 min  |
 | 2. Page Discovery | 1/1   | ~7 min  | ~7 min   |
 | 3. PDF Extraction | 1/1   | ~4 min  | ~4 min   |
+| 4. Download System| 1/1   | ~18 min | ~18 min  |
 
 **Recent Trend:**
 
-- Last 5 plans: 01-01, 01-02, 02-01, 03-01
-- Trend: On track
+- Last 5 plans: 01-01, 01-02, 02-01, 03-01, 04-01
+- Trend: Complete!
 
 ## Accumulated Context
 
@@ -49,17 +50,19 @@ Recent decisions affecting current work:
 - Use exact text match against predefined RUTINER_CATEGORIES list
 - Extract both PDF and Word files (.pdf, .doc, .docx)
 - Case-insensitive extension matching with .lower()
+- Skip existing files by default (incremental downloads)
+- Add --scan-only mode for CSV-only updates
 
 ### Deferred Issues
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-None yet.
+None.
 
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Phase 3 complete
+Stopped at: Milestone complete
 Resume file: None
