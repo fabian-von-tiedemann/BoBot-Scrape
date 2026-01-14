@@ -50,10 +50,10 @@ Plans:
 **Goal**: Lägg till verksamhet och rutin properties i markdown-konvertering
 **Depends on**: Phase 11
 **Research**: Unlikely (befintlig konverteringskod)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 12-01: TBD (run /gsd:plan-phase 12 to break down)
+- [x] 12-01: Add verksamhet and rutin to frontmatter — completed 2026-01-14
 
 #### Phase 13: Batch Apply
 
@@ -83,5 +83,5 @@ Phases execute in numeric order: 1 → 2 → ... → 10 → 11 → 12 → 13
 | 9. Output Quality        | v2.1      | 1/1            | Complete    | 2026-01-14 |
 | 10. Batch Re-convert     | v2.1      | 1/1            | Complete    | 2026-01-14 |
 | 11. Rutin Scraper Update | v2.2      | 1/1            | Complete    | 2026-01-14 |
-| 12. Frontmatter Props    | v2.2      | 0/?            | Not started | -          |
+| 12. Frontmatter Props    | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 13. Batch Apply          | v2.2      | 0/?            | Not started | -          |
