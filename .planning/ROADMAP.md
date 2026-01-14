@@ -9,7 +9,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v1.0 MVP** — Phases 1-4 (shipped 2026-01-13)
 - ✅ **v2.0 Document Processing Pipeline** — Phases 5-8 (shipped 2026-01-14)
 - ✅ **v2.1 Improvements** — Phases 9-10 (shipped 2026-01-14)
-- 🚧 **v2.2 Frontmatter Enrichment** — Phases 11-13 (in progress)
+- ✅ **v2.2 Frontmatter Enrichment** — Phases 11-13 (shipped 2026-01-14)
 
 ## Completed Milestones
 
@@ -31,7 +31,7 @@ See [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md) for full details.
 
 </details>
 
-### 🚧 v2.2 Frontmatter Enrichment (In Progress)
+### ✅ v2.2 Frontmatter Enrichment (Complete)
 
 **Milestone Goal:** Berika markdown-frontmatter med verksamhet och rutinkategori för bättre dokumentorganisation och AI-sökning.
 
@@ -60,10 +60,10 @@ Plans:
 **Goal**: Kör om konvertering på alla dokument med nya frontmatter-properties
 **Depends on**: Phase 12
 **Research**: Unlikely (samma mönster som Phase 10)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 13-01: TBD (run /gsd:plan-phase 13 to break down)
+- [x] 13-01: Re-convert all documents with verksamhet/rutin — completed 2026-01-14
 
 ## Progress
 
@@ -84,4 +84,4 @@ Phases execute in numeric order: 1 → 2 → ... → 10 → 11 → 12 → 13
 | 10. Batch Re-convert     | v2.1      | 1/1            | Complete    | 2026-01-14 |
 | 11. Rutin Scraper Update | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 12. Frontmatter Props    | v2.2      | 1/1            | Complete    | 2026-01-14 |
-| 13. Batch Apply          | v2.2      | 0/?            | Not started | -          |
+| 13. Batch Apply          | v2.2      | 1/1            | Complete    | 2026-01-14 |
