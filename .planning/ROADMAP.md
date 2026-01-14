@@ -7,61 +7,16 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 ## Milestones
 
 - ✅ **v1.0 MVP** — Phases 1-4 (shipped 2026-01-13)
-- 🚧 **v2.0 Document Processing Pipeline** — Phases 5-8 (in progress)
+- ✅ **v2.0 Document Processing Pipeline** — Phases 5-8 (shipped 2026-01-14)
 
 ## Completed Milestones
 
 - ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-4) — SHIPPED 2026-01-13
+- ✅ [v2.0 Document Processing Pipeline](milestones/v2.0-ROADMAP.md) (Phases 5-8) — SHIPPED 2026-01-14
 
 ## Domain Expertise
 
 None
-
-### 🚧 v2.0 Document Processing Pipeline (In Progress)
-
-**Milestone Goal:** Transform downloaded PDFs and Word docs into well-formatted Markdown with rich metadata for RAG/GraphRAG integration
-
-#### Phase 5: Text Extraction ✅
-
-**Goal**: PDF extraction with pymupdf/pdfplumber, Word extraction with python-docx
-**Depends on**: v1.0 complete
-**Research**: Likely (new library integrations)
-**Research topics**: pymupdf vs pdfplumber comparison, python-docx API patterns
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 05-01: Text extraction module (pymupdf + python-docx)
-
-#### Phase 6: Markdown Formatting ✅
-
-**Goal**: Convert extracted text to well-structured Markdown, preserve headings/lists/tables
-**Depends on**: Phase 5
-**Research**: Unlikely (internal patterns)
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 06-01: Markdown formatter (text_to_markdown)
-
-#### Phase 7: Metadata & AI ✅
-
-**Goal**: Gemini Flash 2 integration for summary/keywords/topics, frontmatter generation
-**Depends on**: Phase 6
-**Research**: Likely (external API integration)
-**Research topics**: Gemini 3 Flash Preview API, google-genai SDK, rate limits
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 07-01: Gemini metadata generator (generate_metadata with structured output)
-
-#### Phase 8: ETL Pipeline ✅
-
-**Goal**: convert.py CLI with options, batch processing, progress tracking
-**Depends on**: Phase 7
-**Research**: Unlikely (internal patterns, follow scrape.py CLI style)
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 08-01: convert.py CLI (batch processing, YAML frontmatter)
 
 ## Progress
 
