@@ -29,10 +29,10 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 **Depends on**: Previous milestone complete
 **Research**: Likely (behöver förstå exakt HTML-nästlingsstruktur)
 **Research topics**: HTML DOM-struktur för nästlade sol-collapsible sektioner
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 15-01: TBD
+- [x] 15-01: Rename CSV columns to category/subcategory — completed 2026-01-14
 
 #### Phase 16: Converter Frontmatter Upgrade
 
@@ -137,6 +137,6 @@ Phases execute in numeric order: 1 → 2 → ... → 14 → 15 → 16 → 17
 | 12. Frontmatter Props     | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 13. Batch Apply           | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 14. Fix Hierarchy         | v2.2      | 2/2            | Complete    | 2026-01-14 |
-| 15. Scraper Hierarchy     | v2.3      | 0/?            | Not started | -          |
+| 15. Scraper Hierarchy     | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 16. Frontmatter Upgrade   | v2.3      | 0/?            | Not started | -          |
 | 17. Batch Re-convert      | v2.3      | 0/?            | Not started | -          |
