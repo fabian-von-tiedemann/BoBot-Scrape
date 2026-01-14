@@ -1,6 +1,6 @@
 {
   "mode": "yolo",
-  "depth": "standard",
+  "depth": "quick",
   "parallelization": {
     "enabled": true,
     "plan_level": true,
