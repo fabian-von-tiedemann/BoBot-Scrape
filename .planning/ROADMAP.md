@@ -13,6 +13,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v2.3 Frontmatter Schema Upgrade** — Phases 15-17 (shipped 2026-01-14)
 - ✅ **v2.4 Knowledge Base Delivery** — Phase 18 (shipped 2026-01-14)
 - ✅ **v2.5 System Prompt Generation** — Phases 19-21 (shipped 2026-01-14)
+- 🚧 **v3.0 Digi Commands** — Phase 22 (in progress)
 
 ## Completed Milestones
 
@@ -36,6 +37,21 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 See [milestones/v2.5-ROADMAP.md](milestones/v2.5-ROADMAP.md) for full details.
 
 </details>
+
+### 🚧 v3.0 Digi Commands (In Progress)
+
+**Milestone Goal:** Create reusable Claude commands for pushing knowledge base content to GitHub.
+
+#### Phase 22: KB Push Command
+
+**Goal**: Create /digi:push-kb command with full sync behavior (converted/, indexes/, prompts/)
+**Depends on**: Previous milestone complete
+**Research**: Unlikely (internal patterns - git operations and file sync)
+**Plans**: TBD
+
+Plans:
+
+- [ ] 22-01: TBD (run /gsd:plan-phase 22 to break down)
 
 ## Domain Expertise
 
@@ -127,3 +143,4 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 19. Frontmatter Indexer   | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 20. System Prompt Gen     | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 21. General Prompt        | v2.5      | 1/1            | Complete    | 2026-01-14 |
+| 22. KB Push Command       | v3.0      | 0/?            | Not started | -          |
