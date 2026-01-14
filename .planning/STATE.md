@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** Project feature-complete (v2.1 shipped)
+**Current focus:** Berika frontmatter med verksamhet och rutinkategori (v2.2)
 
 ## Current Position
 
-Phase: 10 of 10 (all phases complete)
-Plan: All plans complete
-Status: v2.1 milestone shipped
-Last activity: 2026-01-14 — v2.1 milestone complete
+Phase: 11 of 13 (Rutin Scraper Update)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-14 — Milestone v2.2 created
 
-Progress: ██████████ 100%
+Progress: ██████████░░░ 77% (10/13 phases)
 
 ## Performance Metrics
 
@@ -56,9 +56,10 @@ None.
 - v1.0 MVP: Phases 1-4 (shipped 2026-01-13)
 - v2.0 Document Processing Pipeline: Phases 5-8 (shipped 2026-01-14)
 - v2.1 Improvements: Phases 9-10 (shipped 2026-01-14)
+- Milestone v2.2 created: Frontmatter Enrichment, 3 phases (Phase 11-13)
 
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: v2.1 milestone shipped, project feature-complete
+Stopped at: Milestone v2.2 initialization
 Resume file: None

@@ -9,6 +9,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v1.0 MVP** — Phases 1-4 (shipped 2026-01-13)
 - ✅ **v2.0 Document Processing Pipeline** — Phases 5-8 (shipped 2026-01-14)
 - ✅ **v2.1 Improvements** — Phases 9-10 (shipped 2026-01-14)
+- 🚧 **v2.2 Frontmatter Enrichment** — Phases 11-13 (in progress)
 
 ## Completed Milestones
 
@@ -30,20 +31,57 @@ See [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md) for full details.
 
 </details>
 
+### 🚧 v2.2 Frontmatter Enrichment (In Progress)
+
+**Milestone Goal:** Berika markdown-frontmatter med verksamhet och rutinkategori för bättre dokumentorganisation och AI-sökning.
+
+#### Phase 11: Rutin Scraper Update
+
+**Goal**: Uppdatera scraper för att extrahera rutinkategorier från webbsidor och spara till CSV
+**Depends on**: Previous milestone complete
+**Research**: Unlikely (befintlig scraper-kod, intern förbättring)
+**Plans**: TBD
+
+Plans:
+- [ ] 11-01: TBD (run /gsd:plan-phase 11 to break down)
+
+#### Phase 12: Frontmatter Properties
+
+**Goal**: Lägg till verksamhet och rutin properties i markdown-konvertering
+**Depends on**: Phase 11
+**Research**: Unlikely (befintlig konverteringskod)
+**Plans**: TBD
+
+Plans:
+- [ ] 12-01: TBD (run /gsd:plan-phase 12 to break down)
+
+#### Phase 13: Batch Apply
+
+**Goal**: Kör om konvertering på alla dokument med nya frontmatter-properties
+**Depends on**: Phase 12
+**Research**: Unlikely (samma mönster som Phase 10)
+**Plans**: TBD
+
+Plans:
+- [ ] 13-01: TBD (run /gsd:plan-phase 13 to break down)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10
+Phases execute in numeric order: 1 → 2 → ... → 10 → 11 → 12 → 13
 
-| Phase                  | Milestone | Plans Complete | Status      | Completed  |
-|------------------------|-----------|----------------|-------------|------------|
-| 1. Setup               | v1.0      | 2/2            | Complete    | 2026-01-13 |
-| 2. Page Discovery      | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 3. PDF Extraction      | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 4. Download System     | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 5. Text Extraction     | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 6. Markdown Formatting | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 7. Metadata & AI       | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 8. ETL Pipeline        | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 9. Output Quality      | v2.1      | 1/1            | Complete    | 2026-01-14 |
-| 10. Batch Re-convert   | v2.1      | 1/1            | Complete    | 2026-01-14 |
+| Phase                    | Milestone | Plans Complete | Status      | Completed  |
+|--------------------------|-----------|----------------|-------------|------------|
+| 1. Setup                 | v1.0      | 2/2            | Complete    | 2026-01-13 |
+| 2. Page Discovery        | v1.0      | 1/1            | Complete    | 2026-01-13 |
+| 3. PDF Extraction        | v1.0      | 1/1            | Complete    | 2026-01-13 |
+| 4. Download System       | v1.0      | 1/1            | Complete    | 2026-01-13 |
+| 5. Text Extraction       | v2.0      | 1/1            | Complete    | 2026-01-14 |
+| 6. Markdown Formatting   | v2.0      | 1/1            | Complete    | 2026-01-14 |
+| 7. Metadata & AI         | v2.0      | 1/1            | Complete    | 2026-01-14 |
+| 8. ETL Pipeline          | v2.0      | 1/1            | Complete    | 2026-01-14 |
+| 9. Output Quality        | v2.1      | 1/1            | Complete    | 2026-01-14 |
+| 10. Batch Re-convert     | v2.1      | 1/1            | Complete    | 2026-01-14 |
+| 11. Rutin Scraper Update | v2.2      | 0/?            | Not started | -          |
+| 12. Frontmatter Props    | v2.2      | 0/?            | Not started | -          |
+| 13. Batch Apply          | v2.2      | 0/?            | Not started | -          |
