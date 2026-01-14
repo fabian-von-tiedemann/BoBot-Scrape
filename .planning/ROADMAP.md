@@ -42,16 +42,16 @@ Plans:
 Plans:
 - [x] 06-01: Markdown formatter (text_to_markdown)
 
-#### Phase 7: Metadata & AI
+#### Phase 7: Metadata & AI ✅
 
 **Goal**: Gemini Flash 2 integration for summary/keywords/topics, frontmatter generation
 **Depends on**: Phase 6
 **Research**: Likely (external API integration)
-**Research topics**: Gemini Flash 2 Preview API, google-generativeai SDK, rate limits
-**Plans**: TBD
+**Research topics**: Gemini 3 Flash Preview API, google-genai SDK, rate limits
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 07-01: TBD
+- [x] 07-01: Gemini metadata generator (generate_metadata with structured output)
 
 #### Phase 8: ETL Pipeline
 
@@ -76,5 +76,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 4. Download System | v1.0      | 1/1            | Complete    | 2026-01-13 |
 | 5. Text Extraction     | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 6. Markdown Formatting | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 7. Metadata & AI   | v2.0      | 0/?            | Not started | -          |
+| 7. Metadata & AI   | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 8. ETL Pipeline    | v2.0      | 0/?            | Not started | -          |
