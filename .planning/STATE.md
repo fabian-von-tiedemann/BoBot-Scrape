@@ -5,24 +5,24 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** System prompt generation för AI-assistenten
+**Current focus:** Project complete — all phases delivered
 
 ## Current Position
 
-Phase: 20 of 21 (System Prompt Generator)
+Phase: 21 of 21 (General Prompt Template)
 Plan: 1 of 1 in current phase
-Status: Phase complete
-Last activity: 2026-01-14 — Completed 20-01-PLAN.md
+Status: **PROJECT COMPLETE**
+Last activity: 2026-01-14 — Completed 21-01-PLAN.md
 
-Progress: ████████████████████░ 95% (20/21 phases complete)
+Progress: █████████████████████ 100% (21/21 phases complete)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 21
+- Total plans completed: 22
 - Average duration: ~5 min
-- Total execution time: ~101 min
+- Total execution time: ~103 min
 
 **By Milestone:**
 
@@ -34,7 +34,7 @@ Progress: ████████████████████░ 95% (2
 | v2.2 Frontmatter    | 11-14  | 5     | ~10 min    |
 | v2.3 Schema Upgrade | 15-17  | 1     | ~3 min     |
 | v2.4 KB Delivery    | 18     | 1     | ~3 min     |
-| v2.5 System Prompt  | 19-20  | 2     | ~10 min    |
+| v2.5 System Prompt  | 19-21  | 3     | ~12 min    |
 
 ## Accumulated Context
 
@@ -59,11 +59,11 @@ None.
 - v2.2 Frontmatter Enrichment: Phases 11-14 (shipped 2026-01-14)
 - v2.3 Frontmatter Schema Upgrade: Phases 15-17 (shipped 2026-01-14)
 - v2.4 Knowledge Base Delivery: Phase 18 (shipped 2026-01-14)
-- v2.5 System Prompt Generation: Phases 19-21 (in progress)
+- v2.5 System Prompt Generation: Phases 19-21 (shipped 2026-01-14)
 
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: Completed Phase 20 (System Prompt Generator)
+Stopped at: **PROJECT COMPLETE** — All 21 phases delivered
 Resume file: None
-Next: /gsd:plan-phase 21
+Next: /gsd:complete-milestone (optional) or start new milestone

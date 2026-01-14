@@ -12,7 +12,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v2.2 Frontmatter Enrichment** — Phases 11-14 (shipped 2026-01-14)
 - ✅ **v2.3 Frontmatter Schema Upgrade** — Phases 15-17 (shipped 2026-01-14)
 - ✅ **v2.4 Knowledge Base Delivery** — Phase 18 (shipped 2026-01-14)
-- 🚧 **v2.5 System Prompt Generation** — Phases 19-21 (in progress)
+- ✅ **v2.5 System Prompt Generation** — Phases 19-21 (shipped 2026-01-14)
 
 ## Completed Milestones
 
@@ -23,7 +23,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ [v2.3 Frontmatter Schema Upgrade](milestones/v2.3-ROADMAP.md) (Phases 15-17) — SHIPPED 2026-01-14
 - ✅ [v2.4 Knowledge Base Delivery](milestones/v2.4-ROADMAP.md) (Phase 18) — SHIPPED 2026-01-14
 
-### 🚧 v2.5 System Prompt Generation (In Progress)
+### ✅ v2.5 System Prompt Generation (SHIPPED 2026-01-14)
 
 **Milestone Goal:** Generera skräddarsydda systemprompts per enhet/område baserat på dokumentinnehåll för AI-assistenten.
 
@@ -45,14 +45,14 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 
 - [x] 20-01: Create system prompt generator module and CLI — completed 2026-01-14
 
-#### Phase 21: General Prompt Template
+#### Phase 21: General Prompt Template ✅
 
 **Goal**: Skapa generell systemprompt-del som gäller alla enheter + kombinera med enhet-specifika delar
 **Depends on**: Phase 20
 **Research**: Unlikely (intern promptstruktur, ingen extern integration)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
-- [ ] 21-01: TBD (run /gsd:plan-phase 21 to break down)
+- [x] 21-01: Create general system prompt template and combiner — completed 2026-01-14
 
 ## Domain Expertise
 
@@ -143,4 +143,4 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 18. KB Delivery           | v2.4      | 1/1            | Complete    | 2026-01-14 |
 | 19. Frontmatter Indexer   | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 20. System Prompt Gen     | v2.5      | 1/1            | Complete    | 2026-01-14 |
-| 21. General Prompt        | v2.5      | 0/?            | Not started | -          |
+| 21. General Prompt        | v2.5      | 1/1            | Complete    | 2026-01-14 |
