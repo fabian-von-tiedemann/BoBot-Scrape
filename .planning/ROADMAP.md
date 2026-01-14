@@ -12,6 +12,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v2.2 Frontmatter Enrichment** — Phases 11-14 (shipped 2026-01-14)
 - ✅ **v2.3 Frontmatter Schema Upgrade** — Phases 15-17 (shipped 2026-01-14)
 - ✅ **v2.4 Knowledge Base Delivery** — Phase 18 (shipped 2026-01-14)
+- 🚧 **v2.5 System Prompt Generation** — Phases 19-21 (in progress)
 
 ## Completed Milestones
 
@@ -22,9 +23,37 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ [v2.3 Frontmatter Schema Upgrade](milestones/v2.3-ROADMAP.md) (Phases 15-17) — SHIPPED 2026-01-14
 - ✅ [v2.4 Knowledge Base Delivery](milestones/v2.4-ROADMAP.md) (Phase 18) — SHIPPED 2026-01-14
 
-## 🎉 Project Complete
+### 🚧 v2.5 System Prompt Generation (In Progress)
 
-All milestones shipped. Knowledge base available at [bobot-kb](https://github.com/fabian-von-tiedemann/bobot-kb).
+**Milestone Goal:** Generera skräddarsydda systemprompts per enhet/område baserat på dokumentinnehåll för AI-assistenten.
+
+#### Phase 19: Frontmatter Indexer
+
+**Goal**: Extrahera frontmatter från alla markdown-filer per mapp och skapa index-dokument
+**Depends on**: Previous milestone complete
+**Research**: Unlikely (befintlig frontmatter-struktur, Python YAML-parsing)
+**Plans**: TBD
+
+- [ ] 19-01: TBD (run /gsd:plan-phase 19 to break down)
+
+#### Phase 20: System Prompt Generator
+
+**Goal**: Generera enhet-specifika systemprompts med Gemini baserat på index-dokumenten
+**Depends on**: Phase 19
+**Research**: Likely (prompt engineering för optimal systemprompt-struktur)
+**Research topics**: Best practices för systemprompts, hur strukturera kontext för RAG-assistenter
+**Plans**: TBD
+
+- [ ] 20-01: TBD (run /gsd:plan-phase 20 to break down)
+
+#### Phase 21: General Prompt Template
+
+**Goal**: Skapa generell systemprompt-del som gäller alla enheter + kombinera med enhet-specifika delar
+**Depends on**: Phase 20
+**Research**: Unlikely (intern promptstruktur, ingen extern integration)
+**Plans**: TBD
+
+- [ ] 21-01: TBD (run /gsd:plan-phase 21 to break down)
 
 ## Domain Expertise
 
@@ -113,3 +142,6 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 16. Frontmatter Upgrade   | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 17. Batch Re-convert      | v2.3      | 0/0            | Skipped     | -          |
 | 18. KB Delivery           | v2.4      | 1/1            | Complete    | 2026-01-14 |
+| 19. Frontmatter Indexer   | v2.5      | 0/?            | Not started | -          |
+| 20. System Prompt Gen     | v2.5      | 0/?            | Not started | -          |
+| 21. General Prompt        | v2.5      | 0/?            | Not started | -          |

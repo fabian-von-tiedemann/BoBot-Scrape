@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** Project complete
+**Current focus:** System prompt generation för AI-assistenten
 
 ## Current Position
 
-Phase: 18 of 18 (KB Delivery)
-Plan: 1 of 1 complete
-Status: Project complete
-Last activity: 2026-01-14 — Completed 18-01-PLAN.md
+Phase: 19 of 21 (Frontmatter Indexer)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-14 — Milestone v2.5 created
 
-Progress: ██████████████████ 100% (18/18 phases complete)
+Progress: ██████████████████░░░ 86% (18/21 phases complete)
 
 ## Performance Metrics
 
@@ -58,10 +58,11 @@ None.
 - v2.2 Frontmatter Enrichment: Phases 11-14 (shipped 2026-01-14)
 - v2.3 Frontmatter Schema Upgrade: Phases 15-17 (shipped 2026-01-14)
 - v2.4 Knowledge Base Delivery: Phase 18 (shipped 2026-01-14)
+- v2.5 System Prompt Generation: Phases 19-21 (in progress)
 
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: Project complete - all milestones shipped
+Stopped at: Milestone v2.5 initialization
 Resume file: None
-Next: N/A - project finished
+Next: /gsd:plan-phase 19
