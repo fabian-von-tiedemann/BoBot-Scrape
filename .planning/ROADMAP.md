@@ -39,10 +39,10 @@ Plans:
 **Goal**: Uppdatera frontmatter-schemat med category, subcategory, document_type och updated_date
 **Depends on**: Phase 15
 **Research**: Unlikely (befintlig konverteringskod och AI-integration)
-**Plans**: 0/1 complete
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 16-01: Upgrade frontmatter schema with category/subcategory and updated_date
+- [x] 16-01: Upgrade frontmatter schema with category/subcategory and updated_date — completed 2026-01-14
 
 #### Phase 17: Batch Re-convert
 
@@ -138,5 +138,5 @@ Phases execute in numeric order: 1 → 2 → ... → 14 → 15 → 16 → 17
 | 13. Batch Apply           | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 14. Fix Hierarchy         | v2.2      | 2/2            | Complete    | 2026-01-14 |
 | 15. Scraper Hierarchy     | v2.3      | 1/1            | Complete    | 2026-01-14 |
-| 16. Frontmatter Upgrade   | v2.3      | 0/?            | Not started | -          |
+| 16. Frontmatter Upgrade   | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 17. Batch Re-convert      | v2.3      | 0/?            | Not started | -          |
