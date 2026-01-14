@@ -223,6 +223,19 @@ def main():
                         const EXTENSIONS = ['.pdf', '.doc', '.docx'];
                         const results = [];
 
+                        // Blocklist of headings to ignore (notification banners, etc.)
+                        const HEADING_BLOCKLIST = [
+                            'pågående strömavbrott',
+                            'driftstörning',
+                            'meddelande',
+                            'notis'
+                        ];
+
+                        function isBlocklistedHeading(text) {
+                            const lower = text.toLowerCase().trim();
+                            return HEADING_BLOCKLIST.some(blocked => lower.includes(blocked));
+                        }
+
                         // Get all links on the page
                         const links = document.querySelectorAll('a');
 
@@ -242,10 +255,12 @@ def main():
                             if (!docType) continue;
 
                             // Find the nearest preceding heading (h2, h3, or h4)
+                            // Skip any blocklisted headings (notification banners)
                             let rutin = '';
                             let element = link;
 
                             // Walk up and backwards through DOM to find heading
+                            outerLoop:
                             while (element) {
                                 // Check previous siblings
                                 let sibling = element.previousElementSibling;
@@ -253,18 +268,25 @@ def main():
                                     // Check if this element is a heading
                                     const tagName = sibling.tagName.toLowerCase();
                                     if (['h2', 'h3', 'h4'].includes(tagName)) {
-                                        rutin = sibling.textContent.trim();
-                                        break;
+                                        const headingText = sibling.textContent.trim();
+                                        if (!isBlocklistedHeading(headingText)) {
+                                            rutin = headingText;
+                                            break outerLoop;
+                                        }
+                                        // Blocklisted heading - continue searching
                                     }
                                     // Also check for headings inside the sibling
                                     const nestedHeading = sibling.querySelector('h2, h3, h4');
                                     if (nestedHeading) {
-                                        rutin = nestedHeading.textContent.trim();
-                                        break;
+                                        const headingText = nestedHeading.textContent.trim();
+                                        if (!isBlocklistedHeading(headingText)) {
+                                            rutin = headingText;
+                                            break outerLoop;
+                                        }
+                                        // Blocklisted heading - continue searching
                                     }
                                     sibling = sibling.previousElementSibling;
                                 }
-                                if (rutin) break;
 
                                 // Move up to parent and continue search
                                 element = element.parentElement;
