@@ -13,5 +13,8 @@ __pycache__/
 # Downloads output
 downloads/
 
+# Converted markdown output (regenerate with: python convert.py)
+converted/
+
 # Environment secrets
 .env
