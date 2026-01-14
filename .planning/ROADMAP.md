@@ -21,16 +21,16 @@ None
 
 **Milestone Goal:** Transform downloaded PDFs and Word docs into well-formatted Markdown with rich metadata for RAG/GraphRAG integration
 
-#### Phase 5: Text Extraction
+#### Phase 5: Text Extraction ✅
 
 **Goal**: PDF extraction with pymupdf/pdfplumber, Word extraction with python-docx
 **Depends on**: v1.0 complete
 **Research**: Likely (new library integrations)
 **Research topics**: pymupdf vs pdfplumber comparison, python-docx API patterns
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 05-01: TBD (run /gsd:plan-phase 5 to break down)
+- [x] 05-01: Text extraction module (pymupdf + python-docx)
 
 #### Phase 6: Markdown Formatting
 
@@ -74,7 +74,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 2. Page Discovery  | v1.0      | 1/1            | Complete    | 2026-01-13 |
 | 3. PDF Extraction  | v1.0      | 1/1            | Complete    | 2026-01-13 |
 | 4. Download System | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 5. Text Extraction | v2.0      | 0/?            | Not started | -          |
+| 5. Text Extraction | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 6. Markdown Formatting | v2.0  | 0/?            | Not started | -          |
 | 7. Metadata & AI   | v2.0      | 0/?            | Not started | -          |
 | 8. ETL Pipeline    | v2.0      | 0/?            | Not started | -          |
