@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-13)
 
 **Core value:** Alla PDF:er nedladdade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** v1.0 MVP SHIPPED
+**Current focus:** v2.0 Document Processing Pipeline
 
 ## Current Position
 
-Phase: 4 of 4 (Download System)
-Plan: Complete
-Status: v1.0 MVP SHIPPED
-Last activity: 2026-01-13 — v1.0 milestone complete
+Phase: 5 of 8 (Text Extraction)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-14 — Milestone v2.0 created
 
-Progress: ██████████ 100%
+Progress: ████░░░░░░ 50% (v1.0 complete, v2.0 starting)
 
 ## Performance Metrics
 
@@ -53,8 +53,12 @@ None.
 
 None.
 
+### Roadmap Evolution
+
+- Milestone v2.0 created: Document Processing Pipeline, 4 phases (Phase 5-8)
+
 ## Session Continuity
 
-Last session: 2026-01-13
-Stopped at: v1.0 milestone shipped
+Last session: 2026-01-14
+Stopped at: Milestone v2.0 initialization
 Resume file: None
