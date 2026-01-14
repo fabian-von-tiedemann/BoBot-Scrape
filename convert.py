@@ -55,12 +55,12 @@ load_dotenv()
 
 
 def load_document_metadata(csv_path: Path) -> dict[str, dict[str, str]]:
-    """Load category/filename -> metadata mapping from documents.csv.
+    """Load verksamhet/filename -> metadata mapping from documents.csv.
 
-    Returns a dict mapping category/filename to a dict with:
+    Returns a dict mapping verksamhet/filename to a dict with:
     - url: source URL
-    - verksamhet: department/organization
-    - rutin: category/routine name
+    - verksamhet: category name (e.g., "Bemanningsenheten", "Hemtjänst")
+    - rutin: subcategory heading from HTML (e.g., "Frånvaro för timvikarier")
     """
     lookup = {}
     if not csv_path.exists():
@@ -68,11 +68,12 @@ def load_document_metadata(csv_path: Path) -> dict[str, dict[str, str]]:
     with open(csv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            key = f"{row['category']}/{row['filename']}"
+            # Key uses verksamhet (which is now the category/folder name)
+            key = f"{row['verksamhet']}/{row['filename']}"
             lookup[key] = {
                 "url": row['url'],
                 "verksamhet": row['verksamhet'],
-                "rutin": row['category']
+                "rutin": row['rutin']
             }
     return lookup
 

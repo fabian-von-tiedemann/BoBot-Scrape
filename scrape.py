@@ -53,9 +53,6 @@ BASE_DOMAIN = "botwebb.botkyrka.se"
 # Document file extensions to extract (case-insensitive)
 DOCUMENT_EXTENSIONS = (".pdf", ".doc", ".docx")
 
-# Organizational unit for frontmatter enrichment
-VERKSAMHET = "Vård- och omsorgsförvaltningen"
-
 # The 15 rutiner categories we want to extract
 RUTINER_CATEGORIES = [
     "Bemanningsenheten",
@@ -199,12 +196,12 @@ def main():
             print(f"Total: {len(category_links)}/{len(RUTINER_CATEGORIES)} categories found")
             print(f"{'='*60}")
 
-            # Phase 3: Visit each category and extract document links
+            # Phase 3: Visit each category and extract document links with subcategory headings
             print("\n" + "="*60)
             print("Extracting document links from categories...")
             print("="*60 + "\n")
 
-            # Store documents by category: {category_name: [{"url": url, "type": "pdf"|"doc"|"docx"}]}
+            # Store documents by category: {category_name: [{"url": url, "type": "pdf"|"doc"|"docx", "rutin": str}]}
             documents_by_category = {}
             failed_categories = []
             total_pdfs = 0
@@ -220,28 +217,73 @@ def main():
                     page.goto(category_url)
                     page.wait_for_load_state("networkidle")
 
-                    # Extract all links from category page
-                    cat_links = page.query_selector_all("a")
-                    doc_links = []
+                    # Extract document links with their subcategory headings using JavaScript
+                    # This script finds all document links and their preceding h2/h3/h4 headings
+                    doc_links = page.evaluate("""() => {
+                        const EXTENSIONS = ['.pdf', '.doc', '.docx'];
+                        const results = [];
 
-                    for link in cat_links:
-                        href = link.get_attribute("href")
-                        if not href:
-                            continue
+                        // Get all links on the page
+                        const links = document.querySelectorAll('a');
 
-                        # Check for document extensions (case-insensitive)
-                        href_lower = href.lower()
-                        doc_type = None
-                        for ext in DOCUMENT_EXTENSIONS:
-                            if href_lower.endswith(ext):
-                                doc_type = ext[1:]  # Remove the dot
-                                break
+                        for (const link of links) {
+                            const href = link.getAttribute('href');
+                            if (!href) continue;
 
-                        if doc_type:
-                            # Normalize relative URLs to absolute
-                            if href.startswith("/"):
-                                href = f"https://{BASE_DOMAIN}{href}"
-                            doc_links.append({"url": href, "type": doc_type})
+                            // Check if it's a document link
+                            const hrefLower = href.toLowerCase();
+                            let docType = null;
+                            for (const ext of EXTENSIONS) {
+                                if (hrefLower.endsWith(ext)) {
+                                    docType = ext.substring(1);
+                                    break;
+                                }
+                            }
+                            if (!docType) continue;
+
+                            // Find the nearest preceding heading (h2, h3, or h4)
+                            let rutin = '';
+                            let element = link;
+
+                            // Walk up and backwards through DOM to find heading
+                            while (element) {
+                                // Check previous siblings
+                                let sibling = element.previousElementSibling;
+                                while (sibling) {
+                                    // Check if this element is a heading
+                                    const tagName = sibling.tagName.toLowerCase();
+                                    if (['h2', 'h3', 'h4'].includes(tagName)) {
+                                        rutin = sibling.textContent.trim();
+                                        break;
+                                    }
+                                    // Also check for headings inside the sibling
+                                    const nestedHeading = sibling.querySelector('h2, h3, h4');
+                                    if (nestedHeading) {
+                                        rutin = nestedHeading.textContent.trim();
+                                        break;
+                                    }
+                                    sibling = sibling.previousElementSibling;
+                                }
+                                if (rutin) break;
+
+                                // Move up to parent and continue search
+                                element = element.parentElement;
+                            }
+
+                            results.push({
+                                url: href,
+                                type: docType,
+                                rutin: rutin || ''
+                            });
+                        }
+
+                        return results;
+                    }""")
+
+                    # Normalize relative URLs to absolute
+                    for doc in doc_links:
+                        if doc["url"].startswith("/"):
+                            doc["url"] = f"https://{BASE_DOMAIN}{doc['url']}"
 
                     # Store results and update counts
                     documents_by_category[category_name] = doc_links
@@ -250,7 +292,10 @@ def main():
                     total_pdfs += pdf_count
                     total_word += word_count
 
-                    print(f"  Found {len(doc_links)} documents ({pdf_count} PDFs, {word_count} Word files)")
+                    # Count unique rutins found
+                    rutins = set(d["rutin"] for d in doc_links if d["rutin"])
+                    rutin_info = f", {len(rutins)} subcategories" if rutins else ""
+                    print(f"  Found {len(doc_links)} documents ({pdf_count} PDFs, {word_count} Word files{rutin_info})")
 
                 except Exception as e:
                     print(f"  ERROR: Failed to process - {e}")
@@ -346,16 +391,19 @@ def main():
                 print("\n(Skipping downloads - scan-only mode)")
 
             # Export document list to CSV (always)
+            # Schema: verksamhet (category name), rutin (subcategory heading), filename, filename_decoded, type, url
             csv_path = os.path.join(downloads_dir, "documents.csv")
             with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
                 writer = csv.writer(csvfile)
-                writer.writerow(["verksamhet", "category", "filename", "filename_decoded", "type", "url"])
+                writer.writerow(["verksamhet", "rutin", "filename", "filename_decoded", "type", "url"])
                 for category_name, docs in documents_by_category.items():
+                    # Use sanitized category name as verksamhet for folder consistency
                     safe_name = re.sub(r'[<>:"/\\|?*]', '-', category_name)
                     for doc in docs:
                         filename = doc["url"].split("/")[-1].split("?")[0]
                         filename_decoded = unquote(filename)
-                        writer.writerow([VERKSAMHET, safe_name, filename, filename_decoded, doc["type"], doc["url"]])
+                        rutin = doc.get("rutin", "")
+                        writer.writerow([safe_name, rutin, filename, filename_decoded, doc["type"], doc["url"]])
 
             print(f"\nExported document list to: {csv_path}")
             print(f"  - {total_docs} documents with URLs")
