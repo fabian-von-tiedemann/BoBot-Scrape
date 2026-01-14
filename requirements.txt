@@ -5,3 +5,4 @@ python-docx  # Word document extraction (.docx)
 # AI dependencies
 google-genai>=1.0.0  # Gemini API (unified SDK, NOT deprecated google-generativeai)
 pydantic>=2.0.0  # Structured output schemas
+python-dotenv>=1.0.0  # Load .env files automatically

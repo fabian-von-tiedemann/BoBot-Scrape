@@ -4,9 +4,14 @@ Gemini-powered metadata generation for Swedish municipal documents.
 import os
 import logging
 import time
+from pathlib import Path
 from typing import Optional
 
+from dotenv import load_dotenv
 from pydantic import BaseModel
+
+# Load .env from project root
+load_dotenv(Path(__file__).parent.parent.parent / '.env')
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +66,7 @@ Document text:
 """
 
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-3-flash-preview",
             contents=prompt + text,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",

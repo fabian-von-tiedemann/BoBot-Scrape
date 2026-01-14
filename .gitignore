@@ -12,3 +12,6 @@ __pycache__/
 
 # Downloads output
 downloads/
+
+# Environment secrets
+.env
