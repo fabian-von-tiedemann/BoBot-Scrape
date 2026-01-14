@@ -120,6 +120,7 @@ def create_frontmatter(
     source_url: str = "",
     category: str = "",
     subcategory: str = "",
+    updated_date: str = "",
     metadata=None
 ) -> str:
     """
@@ -131,6 +132,7 @@ def create_frontmatter(
         source_url: URL to original document (from documents.csv)
         category: Top-level category name
         subcategory: Subcategory heading
+        updated_date: Document update/revision date (YYYY-MM-DD)
         metadata: Optional DocumentMetadata from AI
 
     Returns:
@@ -142,6 +144,7 @@ def create_frontmatter(
     lines.append(f'source_url: "{source_url}"')
     lines.append(f'category: "{category}"')
     lines.append(f'subcategory: "{subcategory}"')
+    lines.append(f'updated_date: "{updated_date}"')
 
     if metadata:
         lines.append(f"document_type: {metadata.document_type}")
@@ -205,8 +208,9 @@ def process_file(
     source_url = doc_metadata.get("url", "")
     category = doc_metadata.get("category", "")
     subcategory = doc_metadata.get("subcategory", "")
+    updated_date = metadata.updated_date if metadata else ""
     frontmatter = create_frontmatter(
-        decoded_filename, source_path, source_url, category, subcategory, metadata
+        decoded_filename, source_path, source_url, category, subcategory, updated_date, metadata
     )
 
     # Combine and write

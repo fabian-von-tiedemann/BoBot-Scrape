@@ -22,6 +22,7 @@ class DocumentMetadata(BaseModel):
     keywords: list[str]  # 5-10 relevant keywords
     topics: list[str]  # 2-4 topic categories
     document_type: str  # rutin, policy, instruktion, etc.
+    updated_date: str = ""  # YYYY-MM-DD format, or empty if not found
 
 
 def generate_metadata(
@@ -60,6 +61,7 @@ Respond with:
 - keywords: 5-10 relevant Swedish keywords
 - topics: 2-4 topic categories in Swedish
 - document_type: One of: rutin, policy, instruktion, riktlinje, handbok, blankett, other
+- updated_date: The document's update/revision date in YYYY-MM-DD format (look for 'Uppdaterad', 'Senast ändrad', 'Reviderad', 'Gäller från', etc.), or empty string if not found
 
 Document text:
 
