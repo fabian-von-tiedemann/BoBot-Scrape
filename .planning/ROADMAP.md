@@ -36,15 +36,14 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 
 - [x] 19-01: Create frontmatter indexer and KB indexer CLI — completed 2026-01-14
 
-#### Phase 20: System Prompt Generator
+#### Phase 20: System Prompt Generator ✅
 
 **Goal**: Generera enhet-specifika systemprompts med Gemini baserat på index-dokumenten
 **Depends on**: Phase 19
-**Research**: Likely (prompt engineering för optimal systemprompt-struktur)
-**Research topics**: Best practices för systemprompts, hur strukturera kontext för RAG-assistenter
-**Plans**: TBD
+**Research**: Unlikely
+**Plans**: 1/1 complete
 
-- [ ] 20-01: TBD (run /gsd:plan-phase 20 to break down)
+- [x] 20-01: Create system prompt generator module and CLI — completed 2026-01-14
 
 #### Phase 21: General Prompt Template
 
@@ -143,5 +142,5 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 17. Batch Re-convert      | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 18. KB Delivery           | v2.4      | 1/1            | Complete    | 2026-01-14 |
 | 19. Frontmatter Indexer   | v2.5      | 1/1            | Complete    | 2026-01-14 |
-| 20. System Prompt Gen     | v2.5      | 0/?            | Not started | -          |
+| 20. System Prompt Gen     | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 21. General Prompt        | v2.5      | 0/?            | Not started | -          |

@@ -9,20 +9,20 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 
 ## Current Position
 
-Phase: 19 of 21 (Frontmatter Indexer)
+Phase: 20 of 21 (System Prompt Generator)
 Plan: 1 of 1 in current phase
 Status: Phase complete
-Last activity: 2026-01-14 — Completed 19-01-PLAN.md
+Last activity: 2026-01-14 — Completed 20-01-PLAN.md
 
-Progress: ███████████████████░░ 90% (19/21 phases complete)
+Progress: ████████████████████░ 95% (20/21 phases complete)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 20
+- Total plans completed: 21
 - Average duration: ~5 min
-- Total execution time: ~96 min
+- Total execution time: ~101 min
 
 **By Milestone:**
 
@@ -34,7 +34,7 @@ Progress: ███████████████████░░ 90% (1
 | v2.2 Frontmatter    | 11-14  | 5     | ~10 min    |
 | v2.3 Schema Upgrade | 15-17  | 1     | ~3 min     |
 | v2.4 KB Delivery    | 18     | 1     | ~3 min     |
-| v2.5 System Prompt  | 19     | 1     | ~5 min     |
+| v2.5 System Prompt  | 19-20  | 2     | ~10 min    |
 
 ## Accumulated Context
 
@@ -64,6 +64,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: Completed Phase 19 (Frontmatter Indexer)
+Stopped at: Completed Phase 20 (System Prompt Generator)
 Resume file: None
-Next: /gsd:plan-phase 20
+Next: /gsd:plan-phase 21
