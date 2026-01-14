@@ -32,15 +32,15 @@ None
 Plans:
 - [x] 05-01: Text extraction module (pymupdf + python-docx)
 
-#### Phase 6: Markdown Formatting
+#### Phase 6: Markdown Formatting ✅
 
 **Goal**: Convert extracted text to well-structured Markdown, preserve headings/lists/tables
 **Depends on**: Phase 5
 **Research**: Unlikely (internal patterns)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 06-01: TBD
+- [x] 06-01: Markdown formatter (text_to_markdown)
 
 #### Phase 7: Metadata & AI
 
@@ -74,7 +74,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 2. Page Discovery  | v1.0      | 1/1            | Complete    | 2026-01-13 |
 | 3. PDF Extraction  | v1.0      | 1/1            | Complete    | 2026-01-13 |
 | 4. Download System | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 5. Text Extraction | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 6. Markdown Formatting | v2.0  | 0/?            | Not started | -          |
+| 5. Text Extraction     | v2.0      | 1/1            | Complete    | 2026-01-14 |
+| 6. Markdown Formatting | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 7. Metadata & AI   | v2.0      | 0/?            | Not started | -          |
 | 8. ETL Pipeline    | v2.0      | 0/?            | Not started | -          |
