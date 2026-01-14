@@ -9,7 +9,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v1.0 MVP** — Phases 1-4 (shipped 2026-01-13)
 - ✅ **v2.0 Document Processing Pipeline** — Phases 5-8 (shipped 2026-01-14)
 - ✅ **v2.1 Improvements** — Phases 9-10 (shipped 2026-01-14)
-- ✅ **v2.2 Frontmatter Enrichment** — Phases 11-13 (shipped 2026-01-14)
+- 🚧 **v2.2 Frontmatter Enrichment** — Phases 11-14 (in progress)
 
 ## Completed Milestones
 
@@ -31,7 +31,7 @@ See [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md) for full details.
 
 </details>
 
-### ✅ v2.2 Frontmatter Enrichment (Complete)
+### 🚧 v2.2 Frontmatter Enrichment (In Progress)
 
 **Milestone Goal:** Berika markdown-frontmatter med verksamhet och rutinkategori för bättre dokumentorganisation och AI-sökning.
 
@@ -65,10 +65,20 @@ Plans:
 Plans:
 - [x] 13-01: Re-convert all documents with verksamhet/rutin — completed 2026-01-14
 
+#### Phase 14: Fix Verksamhet/Rutin Hierarchy
+
+**Goal**: Korrigera verksamhet/rutin-logiken - scrapa underkategorier från webbsidor
+**Depends on**: Phase 13
+**Research**: Likely (behöver förstå HTML-struktur för underkategorier)
+**Plans**: TBD
+
+Plans:
+- [ ] 14-01: TBD (run /gsd:plan-phase 14 to break down)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → ... → 10 → 11 → 12 → 13
+Phases execute in numeric order: 1 → 2 → ... → 10 → 11 → 12 → 13 → 14
 
 | Phase                    | Milestone | Plans Complete | Status      | Completed  |
 |--------------------------|-----------|----------------|-------------|------------|
@@ -85,3 +95,4 @@ Phases execute in numeric order: 1 → 2 → ... → 10 → 11 → 12 → 13
 | 11. Rutin Scraper Update | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 12. Frontmatter Props    | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 13. Batch Apply          | v2.2      | 1/1            | Complete    | 2026-01-14 |
+| 14. Fix Hierarchy        | v2.2      | 0/?            | Not started | -          |

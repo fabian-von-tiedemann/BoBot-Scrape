@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** v2.2 Frontmatter Enrichment complete
+**Current focus:** Korrigera verksamhet/rutin-hierarkin (v2.2)
 
 ## Current Position
 
-Phase: 13 of 13 (Batch Apply)
-Plan: 1 of 1 in current phase
-Status: Milestone complete
-Last activity: 2026-01-14 — Completed 13-01-PLAN.md
+Phase: 14 of 14 (Fix Hierarchy)
+Plan: Not started
+Status: Ready for planning
+Last activity: 2026-01-14 — Added Phase 14 to fix verksamhet/rutin hierarchy
 
-Progress: █████████████ 100% (13/13 phases)
+Progress: █████████████░ 93% (13/14 phases)
 
 ## Performance Metrics
 
@@ -57,7 +57,7 @@ None.
 - v1.0 MVP: Phases 1-4 (shipped 2026-01-13)
 - v2.0 Document Processing Pipeline: Phases 5-8 (shipped 2026-01-14)
 - v2.1 Improvements: Phases 9-10 (shipped 2026-01-14)
-- v2.2 Frontmatter Enrichment: Phases 11-13 (shipped 2026-01-14)
+- v2.2 Frontmatter Enrichment: Phases 11-14 (in progress)
 
 ## Session Continuity
 
