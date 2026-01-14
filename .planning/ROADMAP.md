@@ -10,8 +10,8 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v2.0 Document Processing Pipeline** — Phases 5-8 (shipped 2026-01-14)
 - ✅ **v2.1 Improvements** — Phases 9-10 (shipped 2026-01-14)
 - ✅ **v2.2 Frontmatter Enrichment** — Phases 11-14 (shipped 2026-01-14)
-- 🚧 **v2.3 Frontmatter Schema Upgrade** — Phases 15-17 (in progress)
-- 📋 **v2.4 Knowledge Base Delivery** — Phase 18 (planned)
+- ✅ **v2.3 Frontmatter Schema Upgrade** — Phases 15-17 (shipped 2026-01-14)
+- ✅ **v2.4 Knowledge Base Delivery** — Phase 18 (shipped 2026-01-14)
 
 ## Completed Milestones
 
@@ -19,56 +19,12 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ [v2.0 Document Processing Pipeline](milestones/v2.0-ROADMAP.md) (Phases 5-8) — SHIPPED 2026-01-14
 - ✅ [v2.1 Improvements](milestones/v2.1-ROADMAP.md) (Phases 9-10) — SHIPPED 2026-01-14
 - ✅ [v2.2 Frontmatter Enrichment](milestones/v2.2-ROADMAP.md) (Phases 11-14) — SHIPPED 2026-01-14
+- ✅ [v2.3 Frontmatter Schema Upgrade](milestones/v2.3-ROADMAP.md) (Phases 15-17) — SHIPPED 2026-01-14
+- ✅ [v2.4 Knowledge Base Delivery](milestones/v2.4-ROADMAP.md) (Phase 18) — SHIPPED 2026-01-14
 
-### 🚧 v2.3 Frontmatter Schema Upgrade (In Progress)
+## 🎉 Project Complete
 
-**Milestone Goal:** Uppgradera frontmatter-schemat med hierarkisk kategori/underkategori, AI-klassificerad dokumenttyp och extraherat uppdateringsdatum.
-
-#### Phase 15: Scraper Hierarchy Update
-
-**Goal**: Uppdatera scraper för att extrahera category/subcategory-hierarkin från nästlade collapsible-sektioner
-**Depends on**: Previous milestone complete
-**Research**: Likely (behöver förstå exakt HTML-nästlingsstruktur)
-**Research topics**: HTML DOM-struktur för nästlade sol-collapsible sektioner
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 15-01: Rename CSV columns to category/subcategory — completed 2026-01-14
-
-#### Phase 16: Converter Frontmatter Upgrade
-
-**Goal**: Uppdatera frontmatter-schemat med category, subcategory, document_type och updated_date
-**Depends on**: Phase 15
-**Research**: Unlikely (befintlig konverteringskod och AI-integration)
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 16-01: Upgrade frontmatter schema with category/subcategory and updated_date — completed 2026-01-14
-
-#### Phase 17: Batch Re-convert
-
-**Goal**: Kör om konvertering på alla dokument med nya frontmatter-schemat
-**Depends on**: Phase 16
-**Research**: Unlikely (samma mönster som Phase 10 och 13)
-**Plans**: TBD
-
-Plans:
-- [ ] 17-01: TBD
-
-### 📋 v2.4 Knowledge Base Delivery (Planned)
-
-**Milestone Goal:** Leverera markdown-filer till GitHub-repo för agentens kunskapsbas.
-
-#### Phase 18: KB Delivery
-
-**Goal**: Skapa repo och script för att pusha convert-mappen till fabian-von-tiedemann/bobot-kb
-**Depends on**: Phase 17
-**Research**: Unlikely (standard git/gh operations)
-**Plans**: TBD
-
-Plans:
-
-- [ ] 18-01: TBD (run /gsd:plan-phase 18 to break down)
+All milestones shipped. Knowledge base available at [bobot-kb](https://github.com/fabian-von-tiedemann/bobot-kb).
 
 ## Domain Expertise
 
@@ -155,5 +111,5 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 14. Fix Hierarchy         | v2.2      | 2/2            | Complete    | 2026-01-14 |
 | 15. Scraper Hierarchy     | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 16. Frontmatter Upgrade   | v2.3      | 1/1            | Complete    | 2026-01-14 |
-| 17. Batch Re-convert      | v2.3      | 0/?            | Not started | -          |
-| 18. KB Delivery           | v2.4      | 0/?            | Not started | -          |
+| 17. Batch Re-convert      | v2.3      | 0/0            | Skipped     | -          |
+| 18. KB Delivery           | v2.4      | 1/1            | Complete    | 2026-01-14 |
