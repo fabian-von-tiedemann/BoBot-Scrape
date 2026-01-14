@@ -27,14 +27,14 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 
 **Milestone Goal:** Generera skräddarsydda systemprompts per enhet/område baserat på dokumentinnehåll för AI-assistenten.
 
-#### Phase 19: Frontmatter Indexer
+#### Phase 19: Frontmatter Indexer ✅
 
 **Goal**: Extrahera frontmatter från alla markdown-filer per mapp och skapa index-dokument
 **Depends on**: Previous milestone complete
 **Research**: Unlikely (befintlig frontmatter-struktur, Python YAML-parsing)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
-- [ ] 19-01: TBD (run /gsd:plan-phase 19 to break down)
+- [x] 19-01: Create frontmatter indexer and KB indexer CLI — completed 2026-01-14
 
 #### Phase 20: System Prompt Generator
 
@@ -142,6 +142,6 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 16. Frontmatter Upgrade   | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 17. Batch Re-convert      | v2.3      | 0/0            | Skipped     | -          |
 | 18. KB Delivery           | v2.4      | 1/1            | Complete    | 2026-01-14 |
-| 19. Frontmatter Indexer   | v2.5      | 0/?            | Not started | -          |
+| 19. Frontmatter Indexer   | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 20. System Prompt Gen     | v2.5      | 0/?            | Not started | -          |
 | 21. General Prompt        | v2.5      | 0/?            | Not started | -          |
