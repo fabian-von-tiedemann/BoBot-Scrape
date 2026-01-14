@@ -140,7 +140,7 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 14. Fix Hierarchy         | v2.2      | 2/2            | Complete    | 2026-01-14 |
 | 15. Scraper Hierarchy     | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 16. Frontmatter Upgrade   | v2.3      | 1/1            | Complete    | 2026-01-14 |
-| 17. Batch Re-convert      | v2.3      | 0/0            | Skipped     | -          |
+| 17. Batch Re-convert      | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 18. KB Delivery           | v2.4      | 1/1            | Complete    | 2026-01-14 |
 | 19. Frontmatter Indexer   | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 20. System Prompt Gen     | v2.5      | 0/?            | Not started | -          |
