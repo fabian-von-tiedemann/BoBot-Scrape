@@ -54,8 +54,14 @@ from src.ai import generate_metadata
 load_dotenv()
 
 
-def load_url_lookup(csv_path: Path) -> dict[str, str]:
-    """Load category/filename -> URL mapping from documents.csv."""
+def load_document_metadata(csv_path: Path) -> dict[str, dict[str, str]]:
+    """Load category/filename -> metadata mapping from documents.csv.
+
+    Returns a dict mapping category/filename to a dict with:
+    - url: source URL
+    - verksamhet: department/organization
+    - rutin: category/routine name
+    """
     lookup = {}
     if not csv_path.exists():
         return lookup
@@ -63,7 +69,11 @@ def load_url_lookup(csv_path: Path) -> dict[str, str]:
         reader = csv.DictReader(f)
         for row in reader:
             key = f"{row['category']}/{row['filename']}"
-            lookup[key] = row['url']
+            lookup[key] = {
+                "url": row['url'],
+                "verksamhet": row['verksamhet'],
+                "rutin": row['category']
+            }
     return lookup
 
 
@@ -145,7 +155,7 @@ def process_file(
     input_path: Path,
     output_path: Path,
     input_base: Path,
-    url_lookup: dict[str, str],
+    metadata_lookup: dict[str, dict[str, str]],
     skip_ai: bool = False
 ) -> tuple[bool, str]:
     """
@@ -155,7 +165,7 @@ def process_file(
         input_path: Path to source document
         output_path: Path for output markdown file
         input_base: Base input directory (for relative path calculation)
-        url_lookup: Mapping of category/filename to source URL
+        metadata_lookup: Mapping of category/filename to metadata (url, verksamhet, rutin)
         skip_ai: Whether to skip AI metadata generation
 
     Returns:
@@ -218,10 +228,10 @@ def main():
         print(f"Error: Input directory not found: {input_dir}")
         sys.exit(1)
 
-    # Load URL lookup from documents.csv
-    url_lookup = load_url_lookup(input_dir / "documents.csv")
-    if url_lookup:
-        print(f"Loaded {len(url_lookup)} URLs from documents.csv")
+    # Load document metadata from documents.csv
+    metadata_lookup = load_document_metadata(input_dir / "documents.csv")
+    if metadata_lookup:
+        print(f"Loaded metadata for {len(metadata_lookup)} documents from documents.csv")
     print()
 
     # Find all documents
@@ -257,7 +267,7 @@ def main():
         # Process file
         try:
             success, message = process_file(
-                doc_path, output_path, input_dir, url_lookup, skip_ai
+                doc_path, output_path, input_dir, metadata_lookup, skip_ai
             )
             if success:
                 converted_count += 1
