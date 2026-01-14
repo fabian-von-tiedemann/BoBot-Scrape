@@ -1,5 +1,32 @@
 # Project Milestones: BoBot-Scrape
 
+## v2.2 Frontmatter Enrichment (Shipped: 2026-01-14)
+
+**Delivered:** Enriched markdown frontmatter with verksamhet and rutin properties — organizational hierarchy extracted from HTML DOM structure.
+
+**Phases completed:** 11-14 (5 plans total, including 14-FIX)
+
+**Key accomplishments:**
+
+- Added verksamhet column to CSV export (organizational unit hierarchy)
+- Added verksamhet and rutin properties to markdown frontmatter
+- Implemented JavaScript DOM walker to extract subcategory headings from collapsible sections
+- Filtered notification banners from rutin extraction
+- Re-converted all 1143 documents with correct metadata hierarchy
+
+**Stats:**
+
+- 791 lines of Python (total)
+- 4 phases, 5 plans
+- ~2.5 hours execution time (same day)
+- 2 core files modified (scrape.py, convert.py)
+
+**Git range:** `feat(11-01)` → `fix(14-FIX)`
+
+**What's next:** Project feature-complete. v2.2 validated via UAT.
+
+---
+
 ## v2.1 Improvements (Shipped: 2026-01-14)
 
 **Delivered:** Output quality improvements — URL-decoded filenames and source_url frontmatter for all 1143 converted documents.

@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** v2.2 Frontmatter Enrichment complete
+**Current focus:** Project feature-complete (v2.2 shipped)
 
 ## Current Position
 
-Phase: 14 of 14 (Fix Hierarchy)
-Plan: 2 of 2 complete
-Status: Phase complete
-Last activity: 2026-01-14 — Completed Phase 14 (parallel execution)
+Phase: 14 of 14 (All phases complete)
+Plan: All plans complete
+Status: Milestone v2.2 shipped and archived
+Last activity: 2026-01-14 — v2.2 milestone completed and archived
 
 Progress: ██████████████ 100% (14/14 phases)
 
@@ -62,5 +62,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: Completed Phase 14 — v2.2 milestone shipped
+Stopped at: v2.2 milestone archived — project feature-complete
 Resume file: None
+Next: Plan v2.3 if new features needed, or project complete

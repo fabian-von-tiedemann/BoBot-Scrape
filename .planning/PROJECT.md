@@ -32,9 +32,16 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 - ✓ source_url field in frontmatter for AI agents — v2.1
 - ✓ Human-readable Swedish titles — v2.1
 
+**v2.2 Frontmatter Enrichment:**
+
+- ✓ Verksamhet property in frontmatter (organizational unit) — v2.2
+- ✓ Rutin property in frontmatter (subcategory heading) — v2.2
+- ✓ DOM walker for collapsible section header extraction — v2.2
+- ✓ Notification banner filtering — v2.2
+
 ### Active
 
-(None — v2.1 complete, project feature-complete)
+(None — v2.2 complete, project feature-complete)
 
 ### Out of Scope
 
@@ -46,7 +53,7 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 
 ## Context
 
-**Current State:** Shipped v2.1 with 554 LOC Python (src/ modules) + CLIs.
+**Current State:** Shipped v2.2 with 791 LOC Python (scrape.py, convert.py, src/ modules).
 
 **Tech stack:**
 - Python 3.11
@@ -105,6 +112,9 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 | YAML frontmatter format | Kompatibelt med static site generators | ✓ Good |
 | URL decode display names only | Keep source paths URL-encoded for disk traceability | ✓ Good |
 | source_url as separate field | Enables AI agents to reference original documents | ✓ Good |
+| verksamhet/rutin hierarchy | Organizational metadata for document categorization | ✓ Good |
+| Collapsible header extraction | DOM walker finds sol-collapsible-header-text divs | ✓ Good |
+| Banner blocklist | Filters notification messages from rutin values | ✓ Good |
 
 ---
-*Last updated: 2026-01-14 after v2.1 milestone*
+*Last updated: 2026-01-14 after v2.2 milestone*
