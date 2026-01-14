@@ -1,0 +1,3 @@
+# Text extraction dependencies
+pymupdf  # PDF extraction (provides fitz module)
+python-docx  # Word document extraction (.docx)
