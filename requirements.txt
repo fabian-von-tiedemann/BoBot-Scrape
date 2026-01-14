@@ -1,3 +1,7 @@
 # Text extraction dependencies
 pymupdf  # PDF extraction (provides fitz module)
 python-docx  # Word document extraction (.docx)
+
+# AI dependencies
+google-genai>=1.0.0  # Gemini API (unified SDK, NOT deprecated google-generativeai)
+pydantic>=2.0.0  # Structured output schemas
