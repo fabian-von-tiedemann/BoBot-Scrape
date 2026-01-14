@@ -23,16 +23,16 @@ None
 
 **Milestone Goal:** Address deferred issues from v2.0 — clean up output quality and re-convert all documents.
 
-#### Phase 9: Output Quality
+#### Phase 9: Output Quality ✓
 
 **Goal**: Fix URL-encoded filenames, improve frontmatter, enhance markdown formatting
 **Depends on**: v2.0 complete
 **Research**: Unlikely (Python stdlib, internal patterns)
-**Plans**: TBD
+**Plans**: 1/1
 
 Plans:
 
-- [ ] 09-01: TBD (run /gsd:plan-phase 9 to break down)
+- [x] 09-01: URL decoding and source_url lookup
 
 #### Phase 10: Batch Re-convert
 
@@ -60,5 +60,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 6. Markdown Formatting | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 7. Metadata & AI       | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 8. ETL Pipeline        | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 9. Output Quality      | v2.1      | 0/?            | Not started | -          |
+| 9. Output Quality      | v2.1      | 1/1            | Complete    | 2026-01-14 |
 | 10. Batch Re-convert   | v2.1      | 0/?            | Not started | -          |
