@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** Planning next milestone (v2.1 improvements)
+**Current focus:** v2.1 Improvements — cleaning up deferred issues
 
 ## Current Position
 
-Phase: Milestone complete
-Plan: N/A
-Status: v2.0 shipped — ready for next milestone
-Last activity: 2026-01-14 — Completed v2.0 milestone
+Phase: 9 of 12 (Clean Filenames)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-14 — Milestone v2.1 created
 
-Progress: ██████████ 100% (10 of 10 plans complete across 2 milestones)
+Progress: ░░░░░░░░░░ 0%
 
 ## Performance Metrics
 
@@ -30,6 +30,7 @@ Progress: ██████████ 100% (10 of 10 plans complete across 2 
 |-----------|--------|-------|------------|
 | v1.0 MVP  | 1-4    | 5     | ~49 min    |
 | v2.0 Doc Processing | 5-8 | 4 | ~21 min |
+| v2.1 Improvements | 9-12 | 0 | - |
 
 ## Accumulated Context
 
@@ -40,9 +41,9 @@ All decisions validated with ✓ Good outcome after v2.0 ship.
 
 ### Deferred Issues
 
-- URL-encoded filenames in converted/ output (cosmetic)
-- Frontmatter format improvements
-- Markdown formatting enhancements
+- URL-encoded filenames in converted/ output (cosmetic) → Phase 9
+- Frontmatter format improvements → Phase 10
+- Markdown formatting enhancements → Phase 11
 
 ### Blockers/Concerns
 
@@ -52,9 +53,10 @@ None.
 
 - v1.0 MVP: Phases 1-4 (shipped 2026-01-13)
 - v2.0 Document Processing Pipeline: Phases 5-8 (shipped 2026-01-14)
+- v2.1 Improvements: Phases 9-12 (created 2026-01-14)
 
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: Completed v2.0 milestone
+Stopped at: Milestone v2.1 initialization
 Resume file: None
