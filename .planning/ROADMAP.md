@@ -10,6 +10,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v2.0 Document Processing Pipeline** — Phases 5-8 (shipped 2026-01-14)
 - ✅ **v2.1 Improvements** — Phases 9-10 (shipped 2026-01-14)
 - ✅ **v2.2 Frontmatter Enrichment** — Phases 11-14 (shipped 2026-01-14)
+- 🚧 **v2.3 Frontmatter Schema Upgrade** — Phases 15-17 (in progress)
 
 ## Completed Milestones
 
@@ -17,6 +18,41 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ [v2.0 Document Processing Pipeline](milestones/v2.0-ROADMAP.md) (Phases 5-8) — SHIPPED 2026-01-14
 - ✅ [v2.1 Improvements](milestones/v2.1-ROADMAP.md) (Phases 9-10) — SHIPPED 2026-01-14
 - ✅ [v2.2 Frontmatter Enrichment](milestones/v2.2-ROADMAP.md) (Phases 11-14) — SHIPPED 2026-01-14
+
+### 🚧 v2.3 Frontmatter Schema Upgrade (In Progress)
+
+**Milestone Goal:** Uppgradera frontmatter-schemat med hierarkisk kategori/underkategori, AI-klassificerad dokumenttyp och extraherat uppdateringsdatum.
+
+#### Phase 15: Scraper Hierarchy Update
+
+**Goal**: Uppdatera scraper för att extrahera category/subcategory-hierarkin från nästlade collapsible-sektioner
+**Depends on**: Previous milestone complete
+**Research**: Likely (behöver förstå exakt HTML-nästlingsstruktur)
+**Research topics**: HTML DOM-struktur för nästlade sol-collapsible sektioner
+**Plans**: TBD
+
+Plans:
+- [ ] 15-01: TBD
+
+#### Phase 16: Converter Frontmatter Upgrade
+
+**Goal**: Uppdatera frontmatter-schemat med category, subcategory, document_type och updated_date
+**Depends on**: Phase 15
+**Research**: Unlikely (befintlig konverteringskod och AI-integration)
+**Plans**: TBD
+
+Plans:
+- [ ] 16-01: TBD
+
+#### Phase 17: Batch Re-convert
+
+**Goal**: Kör om konvertering på alla dokument med nya frontmatter-schemat
+**Depends on**: Phase 16
+**Research**: Unlikely (samma mönster som Phase 10 och 13)
+**Plans**: TBD
+
+Plans:
+- [ ] 17-01: TBD
 
 ## Domain Expertise
 
@@ -83,21 +119,24 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → ... → 10 → 11 → 12 → 13 → 14
+Phases execute in numeric order: 1 → 2 → ... → 14 → 15 → 16 → 17
 
-| Phase                    | Milestone | Plans Complete | Status      | Completed  |
-|--------------------------|-----------|----------------|-------------|------------|
-| 1. Setup                 | v1.0      | 2/2            | Complete    | 2026-01-13 |
-| 2. Page Discovery        | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 3. PDF Extraction        | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 4. Download System       | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 5. Text Extraction       | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 6. Markdown Formatting   | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 7. Metadata & AI         | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 8. ETL Pipeline          | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 9. Output Quality        | v2.1      | 1/1            | Complete    | 2026-01-14 |
-| 10. Batch Re-convert     | v2.1      | 1/1            | Complete    | 2026-01-14 |
-| 11. Rutin Scraper Update | v2.2      | 1/1            | Complete    | 2026-01-14 |
-| 12. Frontmatter Props    | v2.2      | 1/1            | Complete    | 2026-01-14 |
-| 13. Batch Apply          | v2.2      | 1/1            | Complete    | 2026-01-14 |
-| 14. Fix Hierarchy        | v2.2      | 2/2            | Complete    | 2026-01-14 |
+| Phase                     | Milestone | Plans Complete | Status      | Completed  |
+|---------------------------|-----------|----------------|-------------|------------|
+| 1. Setup                  | v1.0      | 2/2            | Complete    | 2026-01-13 |
+| 2. Page Discovery         | v1.0      | 1/1            | Complete    | 2026-01-13 |
+| 3. PDF Extraction         | v1.0      | 1/1            | Complete    | 2026-01-13 |
+| 4. Download System        | v1.0      | 1/1            | Complete    | 2026-01-13 |
+| 5. Text Extraction        | v2.0      | 1/1            | Complete    | 2026-01-14 |
+| 6. Markdown Formatting    | v2.0      | 1/1            | Complete    | 2026-01-14 |
+| 7. Metadata & AI          | v2.0      | 1/1            | Complete    | 2026-01-14 |
+| 8. ETL Pipeline           | v2.0      | 1/1            | Complete    | 2026-01-14 |
+| 9. Output Quality         | v2.1      | 1/1            | Complete    | 2026-01-14 |
+| 10. Batch Re-convert      | v2.1      | 1/1            | Complete    | 2026-01-14 |
+| 11. Rutin Scraper Update  | v2.2      | 1/1            | Complete    | 2026-01-14 |
+| 12. Frontmatter Props     | v2.2      | 1/1            | Complete    | 2026-01-14 |
+| 13. Batch Apply           | v2.2      | 1/1            | Complete    | 2026-01-14 |
+| 14. Fix Hierarchy         | v2.2      | 2/2            | Complete    | 2026-01-14 |
+| 15. Scraper Hierarchy     | v2.3      | 0/?            | Not started | -          |
+| 16. Frontmatter Upgrade   | v2.3      | 0/?            | Not started | -          |
+| 17. Batch Re-convert      | v2.3      | 0/?            | Not started | -          |
