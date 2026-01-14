@@ -8,7 +8,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 
 - ✅ **v1.0 MVP** — Phases 1-4 (shipped 2026-01-13)
 - ✅ **v2.0 Document Processing Pipeline** — Phases 5-8 (shipped 2026-01-14)
-- 🚧 **v2.1 Improvements** — Phases 9-10 (in progress)
+- ✅ **v2.1 Improvements** — Phases 9-10 (shipped 2026-01-14)
 
 ## Completed Milestones
 
@@ -19,7 +19,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 
 None
 
-### 🚧 v2.1 Improvements (In Progress)
+### ✅ v2.1 Improvements (Complete)
 
 **Milestone Goal:** Address deferred issues from v2.0 — clean up output quality and re-convert all documents.
 
@@ -34,16 +34,16 @@ Plans:
 
 - [x] 09-01: URL decoding and source_url lookup
 
-#### Phase 10: Batch Re-convert
+#### Phase 10: Batch Re-convert ✓
 
 **Goal**: Re-run conversion pipeline on all existing PDFs with improvements
 **Depends on**: Phase 9
 **Research**: Unlikely (existing convert.py CLI)
-**Plans**: TBD
+**Plans**: 1/1
 
 Plans:
 
-- [ ] 10-01: TBD
+- [x] 10-01: Re-convert all documents
 
 ## Progress
 
@@ -61,4 +61,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 7. Metadata & AI       | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 8. ETL Pipeline        | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 9. Output Quality      | v2.1      | 1/1            | Complete    | 2026-01-14 |
-| 10. Batch Re-convert   | v2.1      | 0/?            | Not started | -          |
+| 10. Batch Re-convert   | v2.1      | 1/1            | Complete    | 2026-01-14 |
