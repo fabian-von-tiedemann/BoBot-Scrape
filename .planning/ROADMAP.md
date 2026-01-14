@@ -39,10 +39,10 @@ Plans:
 **Goal**: Uppdatera frontmatter-schemat med category, subcategory, document_type och updated_date
 **Depends on**: Phase 15
 **Research**: Unlikely (befintlig konverteringskod och AI-integration)
-**Plans**: TBD
+**Plans**: 0/1 complete
 
 Plans:
-- [ ] 16-01: TBD
+- [ ] 16-01: Upgrade frontmatter schema with category/subcategory and updated_date
 
 #### Phase 17: Batch Re-convert
 
