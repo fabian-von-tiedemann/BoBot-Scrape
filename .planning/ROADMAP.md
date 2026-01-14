@@ -40,10 +40,10 @@ See [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md) for full details.
 **Goal**: Uppdatera scraper för att extrahera rutinkategorier från webbsidor och spara till CSV
 **Depends on**: Previous milestone complete
 **Research**: Unlikely (befintlig scraper-kod, intern förbättring)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 11-01: TBD (run /gsd:plan-phase 11 to break down)
+- [x] 11-01: Add verksamhet column to CSV export — completed 2026-01-14
 
 #### Phase 12: Frontmatter Properties
 
@@ -82,6 +82,6 @@ Phases execute in numeric order: 1 → 2 → ... → 10 → 11 → 12 → 13
 | 8. ETL Pipeline          | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 9. Output Quality        | v2.1      | 1/1            | Complete    | 2026-01-14 |
 | 10. Batch Re-convert     | v2.1      | 1/1            | Complete    | 2026-01-14 |
-| 11. Rutin Scraper Update | v2.2      | 0/?            | Not started | -          |
+| 11. Rutin Scraper Update | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 12. Frontmatter Props    | v2.2      | 0/?            | Not started | -          |
 | 13. Batch Apply          | v2.2      | 0/?            | Not started | -          |
