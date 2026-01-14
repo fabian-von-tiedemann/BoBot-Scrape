@@ -11,6 +11,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v2.1 Improvements** — Phases 9-10 (shipped 2026-01-14)
 - ✅ **v2.2 Frontmatter Enrichment** — Phases 11-14 (shipped 2026-01-14)
 - 🚧 **v2.3 Frontmatter Schema Upgrade** — Phases 15-17 (in progress)
+- 📋 **v2.4 Knowledge Base Delivery** — Phase 18 (planned)
 
 ## Completed Milestones
 
@@ -53,6 +54,21 @@ Plans:
 
 Plans:
 - [ ] 17-01: TBD
+
+### 📋 v2.4 Knowledge Base Delivery (Planned)
+
+**Milestone Goal:** Leverera markdown-filer till GitHub-repo för agentens kunskapsbas.
+
+#### Phase 18: KB Delivery
+
+**Goal**: Skapa repo och script för att pusha convert-mappen till fabian-von-tiedemann/bobot-kb
+**Depends on**: Phase 17
+**Research**: Unlikely (standard git/gh operations)
+**Plans**: TBD
+
+Plans:
+
+- [ ] 18-01: TBD (run /gsd:plan-phase 18 to break down)
 
 ## Domain Expertise
 
@@ -119,7 +135,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → ... → 14 → 15 → 16 → 17
+Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 
 | Phase                     | Milestone | Plans Complete | Status      | Completed  |
 |---------------------------|-----------|----------------|-------------|------------|
@@ -140,3 +156,4 @@ Phases execute in numeric order: 1 → 2 → ... → 14 → 15 → 16 → 17
 | 15. Scraper Hierarchy     | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 16. Frontmatter Upgrade   | v2.3      | 1/1            | Complete    | 2026-01-14 |
 | 17. Batch Re-convert      | v2.3      | 0/?            | Not started | -          |
+| 18. KB Delivery           | v2.4      | 0/?            | Not started | -          |
