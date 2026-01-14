@@ -14,36 +14,21 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 
 - ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-4) — SHIPPED 2026-01-13
 - ✅ [v2.0 Document Processing Pipeline](milestones/v2.0-ROADMAP.md) (Phases 5-8) — SHIPPED 2026-01-14
+- ✅ [v2.1 Improvements](milestones/v2.1-ROADMAP.md) (Phases 9-10) — SHIPPED 2026-01-14
 
 ## Domain Expertise
 
 None
 
-### ✅ v2.1 Improvements (Complete)
+<details>
+<summary>✅ v2.1 Improvements (Phases 9-10) — SHIPPED 2026-01-14</summary>
 
-**Milestone Goal:** Address deferred issues from v2.0 — clean up output quality and re-convert all documents.
+- [x] Phase 9: Output Quality (1/1 plan) — completed 2026-01-14
+- [x] Phase 10: Batch Re-convert (1/1 plan) — completed 2026-01-14
 
-#### Phase 9: Output Quality ✓
+See [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md) for full details.
 
-**Goal**: Fix URL-encoded filenames, improve frontmatter, enhance markdown formatting
-**Depends on**: v2.0 complete
-**Research**: Unlikely (Python stdlib, internal patterns)
-**Plans**: 1/1
-
-Plans:
-
-- [x] 09-01: URL decoding and source_url lookup
-
-#### Phase 10: Batch Re-convert ✓
-
-**Goal**: Re-run conversion pipeline on all existing PDFs with improvements
-**Depends on**: Phase 9
-**Research**: Unlikely (existing convert.py CLI)
-**Plans**: 1/1
-
-Plans:
-
-- [x] 10-01: Re-convert all documents
+</details>
 
 ## Progress
 

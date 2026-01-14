@@ -26,9 +26,15 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 - ✓ Generera AI-metadata med Gemini (summary, keywords, topics) — v2.0
 - ✓ CLI för batch-konvertering med progress-tracking — v2.0
 
+**v2.1 Improvements:**
+
+- ✓ URL-decoded filenames in converted output — v2.1
+- ✓ source_url field in frontmatter for AI agents — v2.1
+- ✓ Human-readable Swedish titles — v2.1
+
 ### Active
 
-(None — v2.0 complete, planning next milestone)
+(None — v2.1 complete, project feature-complete)
 
 ### Out of Scope
 
@@ -40,7 +46,7 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 
 ## Context
 
-**Current State:** Shipped v2.0 with 822 LOC Python (src/ modules + CLIs).
+**Current State:** Shipped v2.1 with 554 LOC Python (src/ modules) + CLIs.
 
 **Tech stack:**
 - Python 3.11
@@ -97,6 +103,8 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 | Pydantic för Gemini output | Type-safe structured responses | ✓ Good |
 | Graceful AI degradation | Fortsätt utan metadata om API misslyckas | ✓ Good |
 | YAML frontmatter format | Kompatibelt med static site generators | ✓ Good |
+| URL decode display names only | Keep source paths URL-encoded for disk traceability | ✓ Good |
+| source_url as separate field | Enables AI agents to reference original documents | ✓ Good |
 
 ---
-*Last updated: 2026-01-14 after v2.0 milestone*
+*Last updated: 2026-01-14 after v2.1 milestone*

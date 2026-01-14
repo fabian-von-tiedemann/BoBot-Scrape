@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** v2.1 Improvements — COMPLETE
+**Current focus:** Project feature-complete (v2.1 shipped)
 
 ## Current Position
 
-Phase: 10 of 10 (Batch Re-convert)
-Plan: 1 of 1 in current phase
-Status: Milestone complete
-Last activity: 2026-01-14 — Completed 10-01-PLAN.md
+Phase: 10 of 10 (all phases complete)
+Plan: All plans complete
+Status: v2.1 milestone shipped
+Last activity: 2026-01-14 — v2.1 milestone complete
 
 Progress: ██████████ 100%
 
@@ -60,5 +60,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: Completed 10-01-PLAN.md (Milestone v2.1 complete)
+Stopped at: v2.1 milestone shipped, project feature-complete
 Resume file: None

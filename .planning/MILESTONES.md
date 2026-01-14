@@ -1,5 +1,57 @@
 # Project Milestones: BoBot-Scrape
 
+## v2.1 Improvements (Shipped: 2026-01-14)
+
+**Delivered:** Output quality improvements — URL-decoded filenames and source_url frontmatter for all 1143 converted documents.
+
+**Phases completed:** 9-10 (2 plans total)
+
+**Key accomplishments:**
+
+- URL-decoded filenames in output (readable Swedish characters: ä, å, ö)
+- Added source_url field to frontmatter for AI agent document referencing
+- Re-converted all 1143 documents with Phase 9 improvements
+- Human-readable Swedish titles in frontmatter
+
+**Stats:**
+
+- 554 lines of Python (src/)
+- 2 phases, 2 plans, 4 tasks
+- ~5 minutes execution time
+- 1150 files modified (mostly re-converted markdown)
+
+**Git range:** `feat(09-01)` → `docs(10-01)`
+
+**What's next:** Project feature-complete. Consider maintenance or new features as needed.
+
+---
+
+## v2.0 Document Processing Pipeline (Shipped: 2026-01-14)
+
+**Delivered:** Complete document processing pipeline — extracts text from PDF/DOCX, converts to structured Markdown, and generates AI metadata with Gemini.
+
+**Phases completed:** 5-8 (4 plans total)
+
+**Key accomplishments:**
+
+- Text extraction from PDF documents using pymupdf
+- Text extraction from Word documents using python-docx
+- Markdown formatter with Swedish heading detection
+- Gemini AI metadata generator (summary, keywords, topics, document_type)
+- ETL pipeline CLI with batch processing and progress tracking
+
+**Stats:**
+
+- 822 lines of Python (total after v2.0)
+- 4 phases, 4 plans
+- ~21 minutes execution time
+
+**Git range:** `feat(05-01)` → `docs(08-01)`
+
+**What's next:** Address deferred issues in v2.1.
+
+---
+
 ## v1.0 MVP (Shipped: 2026-01-13)
 
 **Delivered:** Fully functional PDF/Word scraper that connects to Chrome via CDP, extracts all rutiner documents from Botkyrka kommun intranät, and downloads them to organized folders.
