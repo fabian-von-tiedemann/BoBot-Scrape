@@ -113,7 +113,14 @@ Examples:
     return parser.parse_args()
 
 
-def create_frontmatter(filename: str, source_path: str, source_url: str = "", metadata=None) -> str:
+def create_frontmatter(
+    filename: str,
+    source_path: str,
+    source_url: str = "",
+    verksamhet: str = "",
+    rutin: str = "",
+    metadata=None
+) -> str:
     """
     Create YAML frontmatter for a markdown document.
 
@@ -121,6 +128,8 @@ def create_frontmatter(filename: str, source_path: str, source_url: str = "", me
         filename: Original filename (without extension)
         source_path: Relative path from input directory
         source_url: URL to original document (from documents.csv)
+        verksamhet: Department/organization name
+        rutin: Category/routine name
         metadata: Optional DocumentMetadata from AI
 
     Returns:
@@ -129,8 +138,9 @@ def create_frontmatter(filename: str, source_path: str, source_url: str = "", me
     lines = ["---"]
     lines.append(f'title: "{filename}"')
     lines.append(f'source_file: "{source_path}"')
-    if source_url:
-        lines.append(f'source_url: "{source_url}"')
+    lines.append(f'source_url: "{source_url}"')
+    lines.append(f'verksamhet: "{verksamhet}"')
+    lines.append(f'rutin: "{rutin}"')
 
     if metadata:
         lines.append(f"document_type: {metadata.document_type}")
@@ -187,11 +197,16 @@ def process_file(
         metadata = generate_metadata(text)
         # If AI fails, we continue without metadata
 
-    # Create frontmatter with decoded filename and source URL
+    # Create frontmatter with decoded filename and document metadata
     source_path = str(input_path.relative_to(input_base))
     decoded_filename = unquote(input_path.stem)
-    source_url = url_lookup.get(source_path, "")
-    frontmatter = create_frontmatter(decoded_filename, source_path, source_url, metadata)
+    doc_metadata = metadata_lookup.get(source_path, {})
+    source_url = doc_metadata.get("url", "")
+    verksamhet = doc_metadata.get("verksamhet", "")
+    rutin = doc_metadata.get("rutin", "")
+    frontmatter = create_frontmatter(
+        decoded_filename, source_path, source_url, verksamhet, rutin, metadata
+    )
 
     # Combine and write
     full_content = f"{frontmatter}\n\n{markdown_body}"
