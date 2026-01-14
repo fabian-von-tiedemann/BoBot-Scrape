@@ -38,9 +38,11 @@ Output:
 """
 
 import argparse
+import csv
 import os
 import sys
 from pathlib import Path
+from urllib.parse import unquote
 
 from dotenv import load_dotenv
 
@@ -50,6 +52,19 @@ from src.ai import generate_metadata
 
 # Load .env at startup
 load_dotenv()
+
+
+def load_url_lookup(csv_path: Path) -> dict[str, str]:
+    """Load category/filename -> URL mapping from documents.csv."""
+    lookup = {}
+    if not csv_path.exists():
+        return lookup
+    with open(csv_path, encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            key = f"{row['category']}/{row['filename']}"
+            lookup[key] = row['url']
+    return lookup
 
 
 def parse_args():
@@ -88,21 +103,24 @@ Examples:
     return parser.parse_args()
 
 
-def create_frontmatter(filename: str, source_path: str, metadata=None) -> str:
+def create_frontmatter(filename: str, source_path: str, source_url: str = "", metadata=None) -> str:
     """
     Create YAML frontmatter for a markdown document.
 
     Args:
         filename: Original filename (without extension)
         source_path: Relative path from input directory
+        source_url: URL to original document (from documents.csv)
         metadata: Optional DocumentMetadata from AI
 
     Returns:
         YAML frontmatter string including opening and closing ---
     """
     lines = ["---"]
-    lines.append(f"title: \"{filename}\"")
-    lines.append(f"source_file: \"{source_path}\"")
+    lines.append(f'title: "{filename}"')
+    lines.append(f'source_file: "{source_path}"')
+    if source_url:
+        lines.append(f'source_url: "{source_url}"')
 
     if metadata:
         lines.append(f"document_type: {metadata.document_type}")
@@ -127,6 +145,7 @@ def process_file(
     input_path: Path,
     output_path: Path,
     input_base: Path,
+    url_lookup: dict[str, str],
     skip_ai: bool = False
 ) -> tuple[bool, str]:
     """
@@ -136,6 +155,7 @@ def process_file(
         input_path: Path to source document
         output_path: Path for output markdown file
         input_base: Base input directory (for relative path calculation)
+        url_lookup: Mapping of category/filename to source URL
         skip_ai: Whether to skip AI metadata generation
 
     Returns:
@@ -157,10 +177,11 @@ def process_file(
         metadata = generate_metadata(text)
         # If AI fails, we continue without metadata
 
-    # Create frontmatter
-    filename = input_path.stem
+    # Create frontmatter with decoded filename and source URL
     source_path = str(input_path.relative_to(input_base))
-    frontmatter = create_frontmatter(filename, source_path, metadata)
+    decoded_filename = unquote(input_path.stem)
+    source_url = url_lookup.get(source_path, "")
+    frontmatter = create_frontmatter(decoded_filename, source_path, source_url, metadata)
 
     # Combine and write
     full_content = f"{frontmatter}\n\n{markdown_body}"
@@ -197,6 +218,12 @@ def main():
         print(f"Error: Input directory not found: {input_dir}")
         sys.exit(1)
 
+    # Load URL lookup from documents.csv
+    url_lookup = load_url_lookup(input_dir / "documents.csv")
+    if url_lookup:
+        print(f"Loaded {len(url_lookup)} URLs from documents.csv")
+    print()
+
     # Find all documents
     document_extensions = {'.pdf', '.docx'}
     documents = []
@@ -216,9 +243,10 @@ def main():
     failed_files = []
 
     for doc_path in documents:
-        # Calculate output path (mirror structure, change extension)
+        # Calculate output path with decoded filename
         relative_path = doc_path.relative_to(input_dir)
-        output_path = output_dir / relative_path.with_suffix('.md')
+        decoded_stem = unquote(relative_path.stem)
+        output_path = output_dir / relative_path.parent / f"{decoded_stem}.md"
 
         # Skip if exists (unless --force)
         if output_path.exists() and not force:
@@ -229,7 +257,7 @@ def main():
         # Process file
         try:
             success, message = process_file(
-                doc_path, output_path, input_dir, skip_ai
+                doc_path, output_path, input_dir, url_lookup, skip_ai
             )
             if success:
                 converted_count += 1
