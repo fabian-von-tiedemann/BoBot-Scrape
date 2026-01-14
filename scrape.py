@@ -201,7 +201,7 @@ def main():
             print("Extracting document links from categories...")
             print("="*60 + "\n")
 
-            # Store documents by category: {category_name: [{"url": url, "type": "pdf"|"doc"|"docx", "rutin": str}]}
+            # Store documents by category: {category_name: [{"url": url, "type": "pdf"|"doc"|"docx", "subcategory": str}]}
             documents_by_category = {}
             failed_categories = []
             total_pdfs = 0
@@ -257,7 +257,7 @@ def main():
 
                             // Find the collapsible section this link belongs to
                             // Look for parent with class "sol-collapsible" or similar
-                            let rutin = '';
+                            let subcategory = '';
                             let element = link;
 
                             // Walk up DOM to find collapsible container
@@ -278,7 +278,7 @@ def main():
                                     if (headerDiv) {
                                         const headerText = headerDiv.textContent.trim();
                                         if (!isBlocklistedHeading(headerText)) {
-                                            rutin = headerText;
+                                            subcategory = headerText;
                                             break;
                                         }
                                     }
@@ -291,7 +291,7 @@ def main():
                                     if (['h2', 'h3', 'h4'].includes(tagName)) {
                                         const headingText = sibling.textContent.trim();
                                         if (!isBlocklistedHeading(headingText)) {
-                                            rutin = headingText;
+                                            subcategory = headingText;
                                             break;
                                         }
                                     }
@@ -300,13 +300,13 @@ def main():
                                     if (collapsibleHeader) {
                                         const headerText = collapsibleHeader.textContent.trim();
                                         if (!isBlocklistedHeading(headerText)) {
-                                            rutin = headerText;
+                                            subcategory = headerText;
                                             break;
                                         }
                                     }
                                     sibling = sibling.previousElementSibling;
                                 }
-                                if (rutin) break;
+                                if (subcategory) break;
 
                                 // Move up to parent
                                 element = element.parentElement;
@@ -315,7 +315,7 @@ def main():
                             results.push({
                                 url: href,
                                 type: docType,
-                                rutin: rutin || ''
+                                subcategory: subcategory || ''
                             });
                         }
 
@@ -334,10 +334,10 @@ def main():
                     total_pdfs += pdf_count
                     total_word += word_count
 
-                    # Count unique rutins found
-                    rutins = set(d["rutin"] for d in doc_links if d["rutin"])
-                    rutin_info = f", {len(rutins)} subcategories" if rutins else ""
-                    print(f"  Found {len(doc_links)} documents ({pdf_count} PDFs, {word_count} Word files{rutin_info})")
+                    # Count unique subcategories found
+                    subcats = set(d["subcategory"] for d in doc_links if d["subcategory"])
+                    subcat_info = f", {len(subcats)} subcategories" if subcats else ""
+                    print(f"  Found {len(doc_links)} documents ({pdf_count} PDFs, {word_count} Word files{subcat_info})")
 
                 except Exception as e:
                     print(f"  ERROR: Failed to process - {e}")
@@ -433,19 +433,19 @@ def main():
                 print("\n(Skipping downloads - scan-only mode)")
 
             # Export document list to CSV (always)
-            # Schema: verksamhet (category name), rutin (subcategory heading), filename, filename_decoded, type, url
+            # Schema: category (category name), subcategory (heading), filename, filename_decoded, type, url
             csv_path = os.path.join(downloads_dir, "documents.csv")
             with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
                 writer = csv.writer(csvfile)
-                writer.writerow(["verksamhet", "rutin", "filename", "filename_decoded", "type", "url"])
+                writer.writerow(["category", "subcategory", "filename", "filename_decoded", "type", "url"])
                 for category_name, docs in documents_by_category.items():
-                    # Use sanitized category name as verksamhet for folder consistency
+                    # Use sanitized category name as category for folder consistency
                     safe_name = re.sub(r'[<>:"/\\|?*]', '-', category_name)
                     for doc in docs:
                         filename = doc["url"].split("/")[-1].split("?")[0]
                         filename_decoded = unquote(filename)
-                        rutin = doc.get("rutin", "")
-                        writer.writerow([safe_name, rutin, filename, filename_decoded, doc["type"], doc["url"]])
+                        subcategory = doc.get("subcategory", "")
+                        writer.writerow([safe_name, subcategory, filename, filename_decoded, doc["type"], doc["url"]])
 
             print(f"\nExported document list to: {csv_path}")
             print(f"  - {total_docs} documents with URLs")
