@@ -39,9 +39,27 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 - ✓ DOM walker for collapsible section header extraction — v2.2
 - ✓ Notification banner filtering — v2.2
 
+**v2.3 Frontmatter Schema Upgrade:**
+
+- ✓ category/subcategory naming convention for standardized hierarchy — v2.3
+- ✓ updated_date AI extraction for document currency tracking — v2.3
+
+**v2.4 Knowledge Base Delivery:**
+
+- ✓ Private GitHub repo (bobot-kb) with all converted documents — v2.4
+- ✓ README documenting KB structure and frontmatter schema — v2.4
+
+**v2.5 System Prompt Generation:**
+
+- ✓ Frontmatter indexer extracting metadata from 1,086 documents — v2.5
+- ✓ 15 verksamhet-specific index files for AI context — v2.5
+- ✓ Gemini-powered system prompt generator — v2.5
+- ✓ General Swedish system prompt template (6 sections) — v2.5
+- ✓ 15 combined prompts ready for AI assistant deployment — v2.5
+
 ### Active
 
-(None — v2.2 complete, project feature-complete)
+(None — v2.5 complete, project feature-complete)
 
 ### Out of Scope
 
@@ -53,7 +71,7 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 
 ## Context
 
-**Current State:** Shipped v2.2 with 791 LOC Python (scrape.py, convert.py, src/ modules).
+**Current State:** Shipped v2.5 with ~1,200 LOC Python (scrape.py, convert.py, index_kb.py, generate_prompts.py, combine_prompts.py, src/ modules).
 
 **Tech stack:**
 - Python 3.11
@@ -69,8 +87,11 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 - Find and download all PDF/Word documents (~1149 files)
 - Extract text from PDF and DOCX files
 - Convert to structured Markdown with Swedish heading detection
-- Generate AI metadata (summary, keywords, topics, document_type)
-- Batch convert with YAML frontmatter output
+- Generate AI metadata (summary, keywords, topics, document_type, updated_date)
+- Batch convert with YAML frontmatter output (category/subcategory hierarchy)
+- Generate verksamhet-specific index files from frontmatter
+- Generate AI-powered system prompts per verksamhet
+- Combine general + specific prompts for AI assistant deployment
 
 **Usage:**
 ```bash
@@ -115,6 +136,11 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 | verksamhet/rutin hierarchy | Organizational metadata for document categorization | ✓ Good |
 | Collapsible header extraction | DOM walker finds sol-collapsible-header-text divs | ✓ Good |
 | Banner blocklist | Filters notification messages from rutin values | ✓ Good |
+| category/subcategory naming | Standardized hierarchy terminology | ✓ Good |
+| updated_date AI extraction | Track document currency via AI | ✓ Good |
+| Private bobot-kb repo | Secure knowledge base delivery | ✓ Good |
+| Verksamhet-specific prompts | AI-generated per-unit guidance | ✓ Good |
+| General prompt template | 6 Swedish sections for consistency | ✓ Good |
 
 ---
-*Last updated: 2026-01-14 after v2.2 milestone*
+*Last updated: 2026-01-14 after v2.5 milestone*

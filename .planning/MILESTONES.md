@@ -1,5 +1,81 @@
 # Project Milestones: BoBot-Scrape
 
+## v2.5 System Prompt Generation (Shipped: 2026-01-14)
+
+**Delivered:** AI-powered system prompt generation pipeline — creates verksamhet-specific prompts from document metadata for AI assistant deployment.
+
+**Phases completed:** 19-21 (3 plans total)
+
+**Key accomplishments:**
+
+- Built frontmatter indexer extracting metadata from 1,086 documents
+- Generated 15 verksamhet-specific index files in indexes/
+- Created Gemini-powered system prompt generator with Pydantic models
+- Built general Swedish system prompt template with 6 sections (Identitet, Uppgift, Tonalitet, Principer, Språk, Format)
+- Generated 15 combined final prompts ready for AI assistant deployment
+
+**Stats:**
+
+- ~1,200 lines of Python (total after v2.5)
+- 3 phases, 3 plans, 6 tasks
+- ~12 minutes execution time
+- 45 files created/modified
+
+**Git range:** `feat(19-01)` → `docs(21-01)`
+
+**What's next:** Project feature-complete. All 21 phases delivered.
+
+---
+
+## v2.4 Knowledge Base Delivery (Shipped: 2026-01-14)
+
+**Delivered:** Private GitHub repository with all converted markdown documents for AI assistant consumption.
+
+**Phases completed:** 18 (1 plan total)
+
+**Key accomplishments:**
+
+- Created private GitHub repo fabian-von-tiedemann/bobot-kb
+- Pushed 488 converted markdown documents with proper folder structure
+- Created README.md documenting KB structure and frontmatter schema
+
+**Stats:**
+
+- 1 phase, 1 plan
+- ~3 minutes execution time
+- 488 files delivered
+
+**Git range:** `feat(18-01)` → `docs(18-01)`
+
+**What's next:** v2.5 System Prompt Generation.
+
+---
+
+## v2.3 Frontmatter Schema Upgrade (Shipped: 2026-01-14)
+
+**Delivered:** Upgraded frontmatter schema with standardized category/subcategory naming and AI-extracted updated_date field.
+
+**Phases completed:** 15-17 (3 plans total)
+
+**Key accomplishments:**
+
+- Renamed CSV columns from verksamhet/rutin to category/subcategory
+- Added updated_date field to DocumentMetadata Pydantic model
+- Updated AI prompt to extract dates (Uppdaterad, Senast ändrad, Reviderad)
+- Re-converted all 1143 documents with v2.3 frontmatter schema
+
+**Stats:**
+
+- 3 phases, 3 plans
+- ~147 minutes execution time (mostly AI extraction)
+- 1143 files regenerated
+
+**Git range:** `refactor(15-01)` → `docs(17-01)`
+
+**What's next:** v2.4 Knowledge Base Delivery.
+
+---
+
 ## v2.2 Frontmatter Enrichment (Shipped: 2026-01-14)
 
 **Delivered:** Enriched markdown frontmatter with verksamhet and rutin properties — organizational hierarchy extracted from HTML DOM structure.

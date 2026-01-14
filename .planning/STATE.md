@@ -64,6 +64,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: **PROJECT COMPLETE** — All 21 phases delivered
+Stopped at: **PROJECT COMPLETE** — All 21 phases delivered, v2.5 milestone archived
 Resume file: None
-Next: /gsd:complete-milestone (optional) or start new milestone
+Next: Start new milestone or archive project

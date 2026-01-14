@@ -22,37 +22,20 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ [v2.2 Frontmatter Enrichment](milestones/v2.2-ROADMAP.md) (Phases 11-14) — SHIPPED 2026-01-14
 - ✅ [v2.3 Frontmatter Schema Upgrade](milestones/v2.3-ROADMAP.md) (Phases 15-17) — SHIPPED 2026-01-14
 - ✅ [v2.4 Knowledge Base Delivery](milestones/v2.4-ROADMAP.md) (Phase 18) — SHIPPED 2026-01-14
+- ✅ [v2.5 System Prompt Generation](milestones/v2.5-ROADMAP.md) (Phases 19-21) — SHIPPED 2026-01-14
 
-### ✅ v2.5 System Prompt Generation (SHIPPED 2026-01-14)
+<details>
+<summary>✅ v2.5 System Prompt Generation (Phases 19-21) — SHIPPED 2026-01-14</summary>
 
 **Milestone Goal:** Generera skräddarsydda systemprompts per enhet/område baserat på dokumentinnehåll för AI-assistenten.
 
-#### Phase 19: Frontmatter Indexer ✅
+- [x] Phase 19: Frontmatter Indexer (1/1 plan) — completed 2026-01-14
+- [x] Phase 20: System Prompt Generator (1/1 plan) — completed 2026-01-14
+- [x] Phase 21: General Prompt Template (1/1 plan) — completed 2026-01-14
 
-**Goal**: Extrahera frontmatter från alla markdown-filer per mapp och skapa index-dokument
-**Depends on**: Previous milestone complete
-**Research**: Unlikely (befintlig frontmatter-struktur, Python YAML-parsing)
-**Plans**: 1/1 complete
+See [milestones/v2.5-ROADMAP.md](milestones/v2.5-ROADMAP.md) for full details.
 
-- [x] 19-01: Create frontmatter indexer and KB indexer CLI — completed 2026-01-14
-
-#### Phase 20: System Prompt Generator ✅
-
-**Goal**: Generera enhet-specifika systemprompts med Gemini baserat på index-dokumenten
-**Depends on**: Phase 19
-**Research**: Unlikely
-**Plans**: 1/1 complete
-
-- [x] 20-01: Create system prompt generator module and CLI — completed 2026-01-14
-
-#### Phase 21: General Prompt Template ✅
-
-**Goal**: Skapa generell systemprompt-del som gäller alla enheter + kombinera med enhet-specifika delar
-**Depends on**: Phase 20
-**Research**: Unlikely (intern promptstruktur, ingen extern integration)
-**Plans**: 1/1 complete
-
-- [x] 21-01: Create general system prompt template and combiner — completed 2026-01-14
+</details>
 
 ## Domain Expertise
 
