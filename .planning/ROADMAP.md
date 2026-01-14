@@ -9,13 +9,14 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v1.0 MVP** — Phases 1-4 (shipped 2026-01-13)
 - ✅ **v2.0 Document Processing Pipeline** — Phases 5-8 (shipped 2026-01-14)
 - ✅ **v2.1 Improvements** — Phases 9-10 (shipped 2026-01-14)
-- 🚧 **v2.2 Frontmatter Enrichment** — Phases 11-14 (in progress)
+- ✅ **v2.2 Frontmatter Enrichment** — Phases 11-14 (shipped 2026-01-14)
 
 ## Completed Milestones
 
 - ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-4) — SHIPPED 2026-01-13
 - ✅ [v2.0 Document Processing Pipeline](milestones/v2.0-ROADMAP.md) (Phases 5-8) — SHIPPED 2026-01-14
 - ✅ [v2.1 Improvements](milestones/v2.1-ROADMAP.md) (Phases 9-10) — SHIPPED 2026-01-14
+- ✅ [v2.2 Frontmatter Enrichment](milestones/v2.2-ROADMAP.md) (Phases 11-14) — SHIPPED 2026-01-14
 
 ## Domain Expertise
 
@@ -31,7 +32,8 @@ See [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md) for full details.
 
 </details>
 
-### 🚧 v2.2 Frontmatter Enrichment (In Progress)
+<details>
+<summary>✅ v2.2 Frontmatter Enrichment (Phases 11-14) — SHIPPED 2026-01-14</summary>
 
 **Milestone Goal:** Berika markdown-frontmatter med verksamhet och rutinkategori för bättre dokumentorganisation och AI-sökning.
 
@@ -70,10 +72,13 @@ Plans:
 **Goal**: Korrigera verksamhet/rutin-logiken - scrapa underkategorier från webbsidor
 **Depends on**: Phase 13
 **Research**: Likely (behöver förstå HTML-struktur för underkategorier)
-**Plans**: TBD
+**Plans**: 2/2 complete
 
 Plans:
-- [ ] 14-01: TBD (run /gsd:plan-phase 14 to break down)
+- [x] 14-01: Extract subcategory headings from HTML DOM — completed 2026-01-14
+- [x] 14-02: Re-convert all documents with correct hierarchy — completed 2026-01-14
+
+</details>
 
 ## Progress
 
@@ -95,4 +100,4 @@ Phases execute in numeric order: 1 → 2 → ... → 10 → 11 → 12 → 13 →
 | 11. Rutin Scraper Update | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 12. Frontmatter Props    | v2.2      | 1/1            | Complete    | 2026-01-14 |
 | 13. Batch Apply          | v2.2      | 1/1            | Complete    | 2026-01-14 |
-| 14. Fix Hierarchy        | v2.2      | 0/?            | Not started | -          |
+| 14. Fix Hierarchy        | v2.2      | 2/2            | Complete    | 2026-01-14 |
