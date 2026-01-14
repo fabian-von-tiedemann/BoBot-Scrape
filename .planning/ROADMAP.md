@@ -53,15 +53,15 @@ Plans:
 Plans:
 - [x] 07-01: Gemini metadata generator (generate_metadata with structured output)
 
-#### Phase 8: ETL Pipeline
+#### Phase 8: ETL Pipeline ✅
 
 **Goal**: convert.py CLI with options, batch processing, progress tracking
 **Depends on**: Phase 7
 **Research**: Unlikely (internal patterns, follow scrape.py CLI style)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 08-01: TBD
+- [x] 08-01: convert.py CLI (batch processing, YAML frontmatter)
 
 ## Progress
 
@@ -77,4 +77,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 5. Text Extraction     | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 6. Markdown Formatting | v2.0      | 1/1            | Complete    | 2026-01-14 |
 | 7. Metadata & AI   | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 8. ETL Pipeline    | v2.0      | 0/?            | Not started | -          |
+| 8. ETL Pipeline    | v2.0      | 1/1            | Complete    | 2026-01-14 |
