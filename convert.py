@@ -55,12 +55,12 @@ load_dotenv()
 
 
 def load_document_metadata(csv_path: Path) -> dict[str, dict[str, str]]:
-    """Load verksamhet/filename -> metadata mapping from documents.csv.
+    """Load category/filename -> metadata mapping from documents.csv.
 
-    Returns a dict mapping verksamhet/filename to a dict with:
+    Returns a dict mapping category/filename to a dict with:
     - url: source URL
-    - verksamhet: category name (e.g., "Bemanningsenheten", "Hemtjänst")
-    - rutin: subcategory heading from HTML (e.g., "Frånvaro för timvikarier")
+    - category: top-level category name (e.g., "Bemanningsenheten", "Hemtjänst")
+    - subcategory: subcategory heading from HTML (e.g., "Frånvaro för timvikarier")
     """
     lookup = {}
     if not csv_path.exists():
@@ -68,12 +68,12 @@ def load_document_metadata(csv_path: Path) -> dict[str, dict[str, str]]:
     with open(csv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            # Key uses verksamhet (which is now the category/folder name)
-            key = f"{row['verksamhet']}/{row['filename']}"
+            # Key uses category (which is the folder name)
+            key = f"{row['category']}/{row['filename']}"
             lookup[key] = {
                 "url": row['url'],
-                "verksamhet": row['verksamhet'],
-                "rutin": row['rutin']
+                "category": row['category'],
+                "subcategory": row['subcategory']
             }
     return lookup
 
@@ -118,8 +118,8 @@ def create_frontmatter(
     filename: str,
     source_path: str,
     source_url: str = "",
-    verksamhet: str = "",
-    rutin: str = "",
+    category: str = "",
+    subcategory: str = "",
     metadata=None
 ) -> str:
     """
@@ -129,8 +129,8 @@ def create_frontmatter(
         filename: Original filename (without extension)
         source_path: Relative path from input directory
         source_url: URL to original document (from documents.csv)
-        verksamhet: Department/organization name
-        rutin: Category/routine name
+        category: Top-level category name
+        subcategory: Subcategory heading
         metadata: Optional DocumentMetadata from AI
 
     Returns:
@@ -140,8 +140,8 @@ def create_frontmatter(
     lines.append(f'title: "{filename}"')
     lines.append(f'source_file: "{source_path}"')
     lines.append(f'source_url: "{source_url}"')
-    lines.append(f'verksamhet: "{verksamhet}"')
-    lines.append(f'rutin: "{rutin}"')
+    lines.append(f'category: "{category}"')
+    lines.append(f'subcategory: "{subcategory}"')
 
     if metadata:
         lines.append(f"document_type: {metadata.document_type}")
@@ -203,10 +203,10 @@ def process_file(
     decoded_filename = unquote(input_path.stem)
     doc_metadata = metadata_lookup.get(source_path, {})
     source_url = doc_metadata.get("url", "")
-    verksamhet = doc_metadata.get("verksamhet", "")
-    rutin = doc_metadata.get("rutin", "")
+    category = doc_metadata.get("category", "")
+    subcategory = doc_metadata.get("subcategory", "")
     frontmatter = create_frontmatter(
-        decoded_filename, source_path, source_url, verksamhet, rutin, metadata
+        decoded_filename, source_path, source_url, category, subcategory, metadata
     )
 
     # Combine and write
