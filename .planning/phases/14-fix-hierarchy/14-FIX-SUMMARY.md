@@ -1,38 +1,44 @@
-# Phase 14 FIX: Filter Banner Headings Summary
+# Phase 14 FIX: Correct Rutin Extraction Summary
 
-**Added blocklist to filter notification banners from rutin extraction, re-scraped and re-converted 1145 documents.**
+**Updated DOM walker to find collapsible section headers (sol-collapsible-header-text) for correct rutin extraction.**
 
 ## Accomplishments
 
-- Added `HEADING_BLOCKLIST` to JavaScript DOM walker in scrape.py
-- Blocklist filters: "pågående strömavbrott", "driftstörning", "meddelande", "notis"
-- Re-ran scraper: 0 documents now have banner text as rutin (was 54)
-- Re-converted all 1145 documents with corrected metadata
+- Updated JavaScript DOM walker to find `sol-collapsible-header-text` divs
+- Added blocklist to filter notification banners ("pågående strömavbrott", etc.)
+- Re-ran scraper: Documents now have correct subcategory values
+- Re-converted all 1145 documents with proper rutin metadata
+
+## Fix Details
+
+**Before:** DOM walker only looked for `h2/h3/h4` tags
+**After:** DOM walker first checks for `sol-collapsible` containers and extracts header text from `sol-collapsible-header-text` divs
+
+**Results:**
+- Bemanningsenheten: 0 → 6 subcategories found
+- Hälso- och sjukvård: 1 → 33 subcategories found
+- Kost-och måltidsenheten: 3 → 6 subcategories found
 
 ## Files Modified
 
-- `scrape.py` - Added heading blocklist and filter function to JavaScript evaluate block
-- `downloads/documents.csv` - Regenerated with corrected rutin values
-- `converted/**/*.md` - All 1145 files re-converted with updated frontmatter
+- `scrape.py` - Updated JavaScript evaluate block with collapsible header detection
+- `downloads/documents.csv` - Regenerated with correct rutin values
+- `converted/**/*.md` - All 1145 files re-converted with proper frontmatter
 
 ## UAT Issue Resolved
 
-- **UAT-001:** "Pågående strömavbrott" felaktigt som rutin för 54 dokument → **FIXED**
-  - Previously affected documents now have empty rutin (correct - no valid subcategory)
-  - Verified: `grep -r "Pågående strömavbrott" converted/` returns 0 matches
+- **UAT-001:** "Pågående strömavbrott" felaktigt som rutin → **FIXED**
+  - Documents now have correct subcategory names like "Frånvaro för timvikarier", "Bemanna med timvikarier", etc.
+  - Example: "Anmäla frånvaro för timvikarier BE.md" now has `rutin: "Frånvaro för timvikarier"`
 
 ## Decisions Made
 
-- Used blocklist approach (minimal change) rather than rewriting DOM traversal logic
-- Documents without valid subcategory heading get empty rutin (acceptable)
+- Look for collapsible sections first, fall back to h2/h3/h4 tags
+- Keep banner blocklist as additional safety measure
 
 ## Issues Encountered
 
-None - fix applied cleanly.
-
-## Next Step
-
-Ready for re-verification with `/gsd:verify-work 14`
+None - fix worked correctly.
 
 ---
 

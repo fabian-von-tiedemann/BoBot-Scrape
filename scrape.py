@@ -218,7 +218,8 @@ def main():
                     page.wait_for_load_state("networkidle")
 
                     # Extract document links with their subcategory headings using JavaScript
-                    # This script finds all document links and their preceding h2/h3/h4 headings
+                    # Documents are inside collapsible sections with class "sol-collapsible"
+                    # The section title is in "sol-collapsible-header-text" div
                     doc_links = page.evaluate("""() => {
                         const EXTENSIONS = ['.pdf', '.doc', '.docx'];
                         const results = [];
@@ -254,41 +255,60 @@ def main():
                             }
                             if (!docType) continue;
 
-                            // Find the nearest preceding heading (h2, h3, or h4)
-                            // Skip any blocklisted headings (notification banners)
+                            // Find the collapsible section this link belongs to
+                            // Look for parent with class "sol-collapsible" or similar
                             let rutin = '';
                             let element = link;
 
-                            // Walk up and backwards through DOM to find heading
-                            outerLoop:
+                            // Walk up DOM to find collapsible container
                             while (element) {
-                                // Check previous siblings
+                                // Check if this element or its parent is a collapsible section
+                                if (element.classList && (
+                                    element.classList.contains('sol-collapsible') ||
+                                    element.classList.contains('sol-collapsible-content')
+                                )) {
+                                    // Found collapsible content, look for header in parent or sibling
+                                    let collapsible = element;
+                                    if (element.classList.contains('sol-collapsible-content')) {
+                                        collapsible = element.closest('.sol-collapsible') || element.parentElement;
+                                    }
+
+                                    // Find the header text div
+                                    const headerDiv = collapsible.querySelector('.sol-collapsible-header-text');
+                                    if (headerDiv) {
+                                        const headerText = headerDiv.textContent.trim();
+                                        if (!isBlocklistedHeading(headerText)) {
+                                            rutin = headerText;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                // Also check for traditional headings (h2, h3, h4) as fallback
                                 let sibling = element.previousElementSibling;
                                 while (sibling) {
-                                    // Check if this element is a heading
                                     const tagName = sibling.tagName.toLowerCase();
                                     if (['h2', 'h3', 'h4'].includes(tagName)) {
                                         const headingText = sibling.textContent.trim();
                                         if (!isBlocklistedHeading(headingText)) {
                                             rutin = headingText;
-                                            break outerLoop;
+                                            break;
                                         }
-                                        // Blocklisted heading - continue searching
                                     }
-                                    // Also check for headings inside the sibling
-                                    const nestedHeading = sibling.querySelector('h2, h3, h4');
-                                    if (nestedHeading) {
-                                        const headingText = nestedHeading.textContent.trim();
-                                        if (!isBlocklistedHeading(headingText)) {
-                                            rutin = headingText;
-                                            break outerLoop;
+                                    // Check for collapsible header in sibling
+                                    const collapsibleHeader = sibling.querySelector('.sol-collapsible-header-text');
+                                    if (collapsibleHeader) {
+                                        const headerText = collapsibleHeader.textContent.trim();
+                                        if (!isBlocklistedHeading(headerText)) {
+                                            rutin = headerText;
+                                            break;
                                         }
-                                        // Blocklisted heading - continue searching
                                     }
                                     sibling = sibling.previousElementSibling;
                                 }
+                                if (rutin) break;
 
-                                // Move up to parent and continue search
+                                // Move up to parent
                                 element = element.parentElement;
                             }
 
