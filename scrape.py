@@ -53,6 +53,9 @@ BASE_DOMAIN = "botwebb.botkyrka.se"
 # Document file extensions to extract (case-insensitive)
 DOCUMENT_EXTENSIONS = (".pdf", ".doc", ".docx")
 
+# Organizational unit for frontmatter enrichment
+VERKSAMHET = "Vård- och omsorgsförvaltningen"
+
 # The 15 rutiner categories we want to extract
 RUTINER_CATEGORIES = [
     "Bemanningsenheten",
@@ -346,13 +349,13 @@ def main():
             csv_path = os.path.join(downloads_dir, "documents.csv")
             with open(csv_path, "w", newline="", encoding="utf-8") as csvfile:
                 writer = csv.writer(csvfile)
-                writer.writerow(["category", "filename", "filename_decoded", "type", "url"])
+                writer.writerow(["verksamhet", "category", "filename", "filename_decoded", "type", "url"])
                 for category_name, docs in documents_by_category.items():
                     safe_name = re.sub(r'[<>:"/\\|?*]', '-', category_name)
                     for doc in docs:
                         filename = doc["url"].split("/")[-1].split("?")[0]
                         filename_decoded = unquote(filename)
-                        writer.writerow([safe_name, filename, filename_decoded, doc["type"], doc["url"]])
+                        writer.writerow([VERKSAMHET, safe_name, filename, filename_decoded, doc["type"], doc["url"]])
 
             print(f"\nExported document list to: {csv_path}")
             print(f"  - {total_docs} documents with URLs")
