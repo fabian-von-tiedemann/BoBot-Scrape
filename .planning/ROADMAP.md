@@ -14,6 +14,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v2.4 Knowledge Base Delivery** — Phase 18 (shipped 2026-01-14)
 - ✅ **v2.5 System Prompt Generation** — Phases 19-21 (shipped 2026-01-14)
 - ✅ **v3.0 Digi Commands** — Phase 22 (shipped 2026-01-14)
+- 🚧 **v3.1 Improvements** — Phase 23 (in progress)
 
 ## Completed Milestones
 
@@ -51,6 +52,21 @@ See [milestones/v2.5-ROADMAP.md](milestones/v2.5-ROADMAP.md) for full details.
 Plans:
 
 - [x] 22-01: Create push-kb command — completed 2026-01-14
+
+### 🚧 v3.1 Improvements (In Progress)
+
+**Milestone Goal:** Förbättra prestanda genom parallella AI-anrop för snabbare dokumentaugmentering.
+
+#### Phase 23: Parallel AI Calls
+
+**Goal**: Implementera asynkron batch-processing med parallella Gemini-anrop
+**Depends on**: Previous milestone complete
+**Research**: Unlikely (Python asyncio/concurrent.futures är standard patterns)
+**Plans**: TBD
+
+Plans:
+
+- [ ] 23-01: TBD (run /gsd:plan-phase 23 to break down)
 
 ## Domain Expertise
 
@@ -143,3 +159,4 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 20. System Prompt Gen     | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 21. General Prompt        | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 22. KB Push Command       | v3.0      | 1/1            | Complete    | 2026-01-14 |
+| 23. Parallel AI Calls     | v3.1      | 0/?            | Not started | -          |
