@@ -48,7 +48,7 @@ from dotenv import load_dotenv
 
 from src.extractors import extract_text
 from src.formatters import text_to_markdown
-from src.ai import generate_metadata
+from src.ai import generate_metadata, batch_generate_metadata
 
 # Load .env at startup
 load_dotenv()
@@ -110,6 +110,12 @@ Examples:
         "--skip-ai",
         action="store_true",
         help="Skip Gemini metadata generation (faster, no API calls)"
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=50,
+        help="Number of documents to process in parallel batches (default: 50)"
     )
     return parser.parse_args()
 
@@ -233,14 +239,15 @@ def main():
     output_dir = Path(args.output)
     force = args.force
     skip_ai = args.skip_ai
+    batch_size = args.batch_size
 
     # Print mode
     if skip_ai:
         print("Mode: CONVERT (skip AI metadata)")
     elif force:
-        print("Mode: FORCE CONVERT (re-convert all files, with AI)")
+        print(f"Mode: FORCE CONVERT (re-convert all files, with AI, batch size: {batch_size})")
     else:
-        print("Mode: CONVERT (skip existing files, with AI)")
+        print(f"Mode: CONVERT (skip existing files, with AI, batch size: {batch_size})")
     print()
 
     # Validate input directory
@@ -266,12 +273,16 @@ def main():
     print(f"Found {len(documents)} documents in {input_dir}")
     print()
 
-    # Process documents
+    # Counters
     converted_count = 0
     skipped_count = 0
     failed_count = 0
     failed_files = []
 
+    # ========== PASS 1: Extract text from documents that need processing ==========
+    docs_to_process = []  # List of (doc_path, output_path, relative_path, text, markdown)
+
+    print("Pass 1: Extracting text from documents...")
     for doc_path in documents:
         # Calculate output path with decoded filename
         relative_path = doc_path.relative_to(input_dir)
@@ -281,28 +292,97 @@ def main():
         # Skip if exists (unless --force)
         if output_path.exists() and not force:
             skipped_count += 1
-            print(f"Skipped (exists): {relative_path}")
             continue
 
-        # Process file
+        # Extract text
         try:
-            success, message = process_file(
-                doc_path, output_path, input_dir, metadata_lookup, skip_ai
-            )
-            if success:
-                converted_count += 1
-                print(f"Converted: {relative_path}")
-            else:
+            text = extract_text(str(doc_path))
+            if not text:
                 failed_count += 1
-                failed_files.append((relative_path, message))
-                print(f"Failed: {relative_path} ({message})")
+                failed_files.append((relative_path, "text extraction failed"))
+                print(f"  Failed (text extraction): {relative_path}")
+                continue
+
+            markdown_body = text_to_markdown(text)
+            if not markdown_body:
+                failed_count += 1
+                failed_files.append((relative_path, "markdown formatting failed"))
+                print(f"  Failed (markdown): {relative_path}")
+                continue
+
+            docs_to_process.append((doc_path, output_path, relative_path, text, markdown_body))
         except Exception as e:
             failed_count += 1
             failed_files.append((relative_path, str(e)))
-            print(f"Failed: {relative_path} ({e})")
+            print(f"  Failed: {relative_path} ({e})")
+
+    print(f"  Extracted text from {len(docs_to_process)} documents")
+    if skipped_count > 0:
+        print(f"  Skipped {skipped_count} existing files")
+    print()
+
+    # ========== PASS 2: Batch AI metadata generation ==========
+    metadata_results = []
+    if not skip_ai and docs_to_process:
+        texts = [doc[3] for doc in docs_to_process]  # Extract text from tuples
+        print(f"Pass 2: Generating AI metadata for {len(texts)} documents (batch size: {batch_size})...")
+
+        # Process in batches
+        for i in range(0, len(texts), batch_size):
+            batch_texts = texts[i:i + batch_size]
+            batch_num = (i // batch_size) + 1
+            total_batches = (len(texts) + batch_size - 1) // batch_size
+            print(f"  Batch {batch_num}/{total_batches}: processing {len(batch_texts)} documents...")
+
+            batch_results = batch_generate_metadata(batch_texts, max_workers=min(batch_size, 10))
+            metadata_results.extend(batch_results)
+
+        success_count = sum(1 for r in metadata_results if r is not None)
+        print(f"  AI metadata generated: {success_count}/{len(texts)} successful")
+        print()
+    elif skip_ai:
+        print("Pass 2: Skipped (--skip-ai)")
+        metadata_results = [None] * len(docs_to_process)
+        print()
+    else:
+        print("Pass 2: Skipped (no documents to process)")
+        print()
+
+    # ========== PASS 3: Write markdown files ==========
+    if docs_to_process:
+        print(f"Pass 3: Writing {len(docs_to_process)} markdown files...")
+        for idx, (doc_path, output_path, relative_path, text, markdown_body) in enumerate(docs_to_process):
+            try:
+                # Get metadata for this document
+                metadata = metadata_results[idx] if idx < len(metadata_results) else None
+
+                # Create frontmatter
+                source_path = str(doc_path.relative_to(input_dir))
+                decoded_filename = unquote(doc_path.stem)
+                doc_metadata = metadata_lookup.get(source_path, {})
+                source_url = doc_metadata.get("url", "")
+                category = doc_metadata.get("category", "")
+                subcategory = doc_metadata.get("subcategory", "")
+                updated_date = metadata.updated_date if metadata else ""
+                frontmatter = create_frontmatter(
+                    decoded_filename, source_path, source_url, category, subcategory, updated_date, metadata
+                )
+
+                # Combine and write
+                full_content = f"{frontmatter}\n\n{markdown_body}"
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                output_path.write_text(full_content, encoding="utf-8")
+
+                converted_count += 1
+            except Exception as e:
+                failed_count += 1
+                failed_files.append((relative_path, str(e)))
+                print(f"  Failed to write: {relative_path} ({e})")
+
+        print(f"  Written {converted_count} files")
+        print()
 
     # Print summary
-    print()
     print("=" * 60)
     print("Conversion Summary")
     print("=" * 60)
