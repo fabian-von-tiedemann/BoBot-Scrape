@@ -4,6 +4,7 @@ Gemini-powered metadata generation for Swedish municipal documents.
 import os
 import logging
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Optional
 
@@ -95,3 +96,37 @@ Document text:
     except Exception as e:
         logger.warning(f"Gemini API error: {e}")
         return None
+
+
+def batch_generate_metadata(
+    texts: list[str],
+    max_workers: int = 10,
+    delay: float = 0.05
+) -> list[Optional[DocumentMetadata]]:
+    """
+    Generate metadata for multiple documents in parallel using Gemini.
+
+    Args:
+        texts: List of document text contents to analyze
+        max_workers: Maximum number of parallel API calls (default 10 for rate limits)
+        delay: Delay in seconds after each API call (rate limit awareness)
+
+    Returns:
+        List of DocumentMetadata (or None for failures), in same order as input texts
+    """
+    if not texts:
+        return []
+
+    logger.info(f"Batch processing {len(texts)} documents with {max_workers} workers")
+
+    def process_single(text: str) -> Optional[DocumentMetadata]:
+        """Wrapper for single text processing."""
+        return generate_metadata(text, delay=delay)
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        results = list(executor.map(process_single, texts))
+
+    success_count = sum(1 for r in results if r is not None)
+    logger.info(f"Batch complete: {success_count}/{len(texts)} successful")
+
+    return results
