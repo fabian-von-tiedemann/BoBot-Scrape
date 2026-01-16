@@ -89,11 +89,11 @@ Plans:
 **Goal**: Detect new/changed documents and process only those (skip already-processed files)
 **Depends on**: Phase 24
 **Research**: Unlikely (file comparison, existing skip-existing pattern)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
 
-- [ ] 25-01: TBD
+- [x] 25-01: Implement manifest-based diff detection and incremental convert — completed 2026-01-16
 
 #### Phase 26: KB Sync Integration
 
@@ -199,5 +199,5 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 22. KB Push Command       | v3.0      | 1/1            | Complete    | 2026-01-14 |
 | 23. Parallel AI Calls     | v3.1      | 1/1            | Complete    | 2026-01-15 |
 | 24. Pipeline Runner       | v4.0      | 1/1            | Complete    | 2026-01-16 |
-| 25. Incremental Updates   | v4.0      | 0/?            | Not started | -          |
+| 25. Incremental Updates   | v4.0      | 1/1            | Complete    | 2026-01-16 |
 | 26. KB Sync Integration   | v4.0      | 0/?            | Not started | -          |
