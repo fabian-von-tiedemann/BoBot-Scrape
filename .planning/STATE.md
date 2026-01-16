@@ -50,7 +50,7 @@ None.
 
 ### Pending Todos
 
-1 todo — `/gsd:check-todos` to review
+2 todos — `/gsd:check-todos` to review
 
 ### Blockers/Concerns
 
