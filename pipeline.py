@@ -94,6 +94,12 @@ Examples:
         action="store_true",
         help="Re-process everything (passed to scrape.py and convert.py)"
     )
+    parser.add_argument(
+        "--prev-run",
+        type=str,
+        default=None,
+        help="Previous run directory to compare against for incremental updates"
+    )
     return parser.parse_args()
 
 
@@ -166,6 +172,61 @@ def load_manifest(run_dir: Path) -> dict | None:
 
     with open(manifest_path, encoding="utf-8") as f:
         return json.load(f)
+
+
+def compute_diff(current: dict, previous: dict) -> dict:
+    """
+    Compute diff between current and previous manifests.
+
+    Args:
+        current: Current manifest dict
+        previous: Previous manifest dict
+
+    Returns:
+        Dict with new, changed, removed, unchanged document lists
+    """
+    current_docs = current.get("documents", {})
+    previous_docs = previous.get("documents", {})
+
+    current_keys = set(current_docs.keys())
+    previous_keys = set(previous_docs.keys())
+
+    # New: in current but not previous
+    new_docs = list(current_keys - previous_keys)
+
+    # Removed: in previous but not current
+    removed_docs = list(previous_keys - current_keys)
+
+    # Check for changed/unchanged among common keys
+    common_keys = current_keys & previous_keys
+    changed_docs = []
+    unchanged_docs = []
+
+    for key in common_keys:
+        current_hash = current_docs[key].get("url_hash", "")
+        previous_hash = previous_docs[key].get("url_hash", "")
+
+        if current_hash != previous_hash:
+            changed_docs.append(key)
+        else:
+            unchanged_docs.append(key)
+
+    return {
+        "new": sorted(new_docs),
+        "changed": sorted(changed_docs),
+        "removed": sorted(removed_docs),
+        "unchanged": sorted(unchanged_docs)
+    }
+
+
+def print_diff_summary(diff: dict) -> None:
+    """Print a summary of document changes."""
+    print()
+    print("Document changes detected:")
+    print(f"  New:       {len(diff['new'])} documents")
+    print(f"  Changed:   {len(diff['changed'])} documents")
+    print(f"  Removed:   {len(diff['removed'])} documents")
+    print(f"  Unchanged: {len(diff['unchanged'])} documents")
 
 
 def run_stage(name: str, cmd: list[str], cwd: str = None) -> tuple[bool, float]:
@@ -245,6 +306,7 @@ def main():
     print(f"  --skip-scrape: {args.skip_scrape}")
     print(f"  --skip-ai:     {args.skip_ai}")
     print(f"  --force:       {args.force}")
+    print(f"  --prev-run:    {args.prev_run if args.prev_run else 'None'}")
     print()
 
     # Determine input directory for convert stage
@@ -293,6 +355,19 @@ def main():
     csv_path = input_dir / "documents.csv"
     run_id = run_dir.name  # Use timestamp directory name as run_id
     manifest = create_manifest(csv_path, run_id)
+
+    # Compute diff against previous run if specified
+    diff = None
+    if args.prev_run:
+        prev_run_dir = Path(args.prev_run)
+        prev_manifest = load_manifest(prev_run_dir)
+        if prev_manifest:
+            diff = compute_diff(manifest, prev_manifest)
+            manifest["diff"] = diff  # Store diff in manifest
+            print_diff_summary(diff)
+        else:
+            print(f"WARNING: No manifest.json found in {prev_run_dir}, running full pipeline")
+
     save_manifest(manifest, run_dir)
     print()
 
