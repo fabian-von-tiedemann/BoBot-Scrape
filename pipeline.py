@@ -49,11 +49,14 @@ Output:
 """
 
 import argparse
+import csv
+import hashlib
+import json
 import os
 import subprocess
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -92,6 +95,77 @@ Examples:
         help="Re-process everything (passed to scrape.py and convert.py)"
     )
     return parser.parse_args()
+
+
+def create_manifest(csv_path: Path, run_id: str) -> dict:
+    """
+    Create manifest structure from documents.csv.
+
+    Args:
+        csv_path: Path to documents.csv file
+        run_id: Identifier for this run (timestamp)
+
+    Returns:
+        Manifest dict with document URLs and hashes
+    """
+    manifest = {
+        "run_id": run_id,
+        "created": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "document_count": 0,
+        "documents": {}
+    }
+
+    if not csv_path.exists():
+        return manifest
+
+    with open(csv_path, encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            # Key is category/filename (relative path)
+            key = f"{row['category']}/{row['filename']}"
+            url = row['url']
+            manifest["documents"][key] = {
+                "url": url,
+                "url_hash": hashlib.md5(url.encode()).hexdigest(),
+                "category": row['category'],
+                "subcategory": row.get('subcategory', '')
+            }
+
+    manifest["document_count"] = len(manifest["documents"])
+    return manifest
+
+
+def save_manifest(manifest: dict, run_dir: Path) -> None:
+    """
+    Write manifest.json to run directory.
+
+    Args:
+        manifest: Manifest dict to save
+        run_dir: Run directory path
+    """
+    manifest_path = run_dir / "manifest.json"
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2, ensure_ascii=False)
+    print(f"Manifest saved: {manifest_path}")
+    print(f"  - {manifest['document_count']} documents tracked")
+
+
+def load_manifest(run_dir: Path) -> dict | None:
+    """
+    Load manifest.json from run directory.
+
+    Args:
+        run_dir: Run directory path
+
+    Returns:
+        Manifest dict or None if not found
+    """
+    manifest_path = run_dir / "manifest.json"
+    if not manifest_path.exists():
+        return None
+
+    with open(manifest_path, encoding="utf-8") as f:
+        return json.load(f)
 
 
 def run_stage(name: str, cmd: list[str], cwd: str = None) -> tuple[bool, float]:
@@ -214,6 +288,13 @@ def main():
     else:
         print("Skipping scrape stage (--skip-scrape)")
         stage_times["scrape"] = 0
+
+    # Create manifest from documents.csv
+    csv_path = input_dir / "documents.csv"
+    run_id = run_dir.name  # Use timestamp directory name as run_id
+    manifest = create_manifest(csv_path, run_id)
+    save_manifest(manifest, run_dir)
+    print()
 
     # ========== STAGE 2: Convert ==========
     cmd = [
