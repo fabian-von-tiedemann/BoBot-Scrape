@@ -101,6 +101,16 @@ Examples:
         default=None,
         help="Previous run directory to compare against for incremental updates"
     )
+    parser.add_argument(
+        "--push-kb",
+        action="store_true",
+        help="Push KB content to bobot-kb GitHub repo after pipeline completes"
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Show what would be synced without actually pushing (use with --push-kb)"
+    )
     return parser.parse_args()
 
 
@@ -228,6 +238,217 @@ def print_diff_summary(diff: dict) -> None:
     print(f"  Changed:   {len(diff['changed'])} documents")
     print(f"  Removed:   {len(diff['removed'])} documents")
     print(f"  Unchanged: {len(diff['unchanged'])} documents")
+
+
+def sync_to_kb(
+    run_dir: Path = None,
+    dry_run: bool = False
+) -> tuple[bool, str]:
+    """
+    Sync KB content to bobot-kb GitHub repository.
+
+    Syncs three directories (converted/, indexes/, prompts/) to the bobot-kb
+    repository. Uses run directory sources if they exist, else root directories.
+
+    Args:
+        run_dir: Run directory to sync from (optional, uses root if not provided)
+        dry_run: If True, show what would be synced without pushing
+
+    Returns:
+        Tuple of (success: bool, message: str)
+    """
+    temp_dir = Path("/tmp/bobot-kb-sync")
+    repo_url = "https://github.com/fabian-von-tiedemann/bobot-kb.git"
+    source_root = Path.cwd()
+
+    # Determine source directories - prefer run_dir outputs if they exist
+    if run_dir and (run_dir / "converted").exists():
+        converted_src = run_dir / "converted"
+        indexes_src = run_dir / "indexes"
+        prompts_src = run_dir / "prompts"
+        print(f"Using run directory sources: {run_dir}")
+    else:
+        converted_src = source_root / "converted"
+        indexes_src = source_root / "indexes"
+        prompts_src = source_root / "prompts"
+        print("Using root directory sources")
+
+    # Check that source directories exist
+    missing = []
+    for src, name in [(converted_src, "converted"), (indexes_src, "indexes"), (prompts_src, "prompts")]:
+        if not src.exists():
+            missing.append(name)
+
+    if missing:
+        return False, f"Missing source directories: {', '.join(missing)}"
+
+    try:
+        # Step 1: Clone or update repo
+        print()
+        print("Setting up bobot-kb repository...")
+
+        if (temp_dir / ".git").exists():
+            print("Updating existing clone...")
+            result = subprocess.run(
+                ["git", "fetch", "origin"],
+                cwd=temp_dir,
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                return False, f"Git fetch failed: {result.stderr}"
+
+            result = subprocess.run(
+                ["git", "reset", "--hard", "origin/main"],
+                cwd=temp_dir,
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                return False, f"Git reset failed: {result.stderr}"
+        else:
+            print("Cloning repository...")
+            if temp_dir.exists():
+                subprocess.run(["rm", "-rf", str(temp_dir)], check=True)
+
+            result = subprocess.run(
+                ["git", "clone", repo_url, str(temp_dir)],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                return False, f"Git clone failed: {result.stderr}"
+
+        # Step 2: Rsync directories
+        print()
+        print("Syncing directories...")
+
+        rsync_args = ["-av", "--delete", "--exclude=.DS_Store"]
+
+        for src, name in [(converted_src, "converted"), (indexes_src, "indexes"), (prompts_src, "prompts")]:
+            dest = temp_dir / name
+            dest.mkdir(parents=True, exist_ok=True)
+
+            print(f"  Syncing {name}/...")
+            result = subprocess.run(
+                ["rsync"] + rsync_args + [f"{src}/", f"{dest}/"],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                return False, f"Rsync failed for {name}: {result.stderr}"
+
+        # Step 3: Count synced files
+        def count_md_files(directory: Path) -> int:
+            if not directory.exists():
+                return 0
+            return len(list(directory.rglob("*.md")))
+
+        converted_count = count_md_files(temp_dir / "converted")
+        indexes_count = count_md_files(temp_dir / "indexes")
+        prompts_count = count_md_files(temp_dir / "prompts")
+        total_count = converted_count + indexes_count + prompts_count
+
+        print()
+        print("Files synced:")
+        print(f"  converted/: {converted_count} files")
+        print(f"  indexes/:   {indexes_count} files")
+        print(f"  prompts/:   {prompts_count} files")
+        print(f"  Total:      {total_count} files")
+
+        # Step 4: Stage and check for changes
+        result = subprocess.run(
+            ["git", "add", "-A"],
+            cwd=temp_dir,
+            capture_output=True,
+            text=True
+        )
+        if result.returncode != 0:
+            return False, f"Git add failed: {result.stderr}"
+
+        # Check if there are changes
+        result = subprocess.run(
+            ["git", "diff", "--staged", "--quiet"],
+            cwd=temp_dir,
+            capture_output=True,
+            text=True
+        )
+        no_changes = result.returncode == 0
+
+        if no_changes:
+            print()
+            print("No changes to commit - KB is already in sync")
+            return True, "KB already in sync (no changes)"
+
+        # Step 5: Commit
+        timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+        commit_msg = f"sync: KB update {timestamp}"
+
+        if dry_run:
+            # Show what would be committed
+            result = subprocess.run(
+                ["git", "diff", "--staged", "--stat"],
+                cwd=temp_dir,
+                capture_output=True,
+                text=True
+            )
+            print()
+            print("DRY RUN - Would commit:")
+            print(f"  Message: {commit_msg}")
+            print()
+            print("Changes:")
+            print(result.stdout)
+            return True, f"DRY RUN: Would sync {total_count} files with message '{commit_msg}'"
+
+        result = subprocess.run(
+            ["git", "commit", "-m", commit_msg],
+            cwd=temp_dir,
+            capture_output=True,
+            text=True
+        )
+        if result.returncode != 0:
+            return False, f"Git commit failed: {result.stderr}"
+
+        # Step 6: Push
+        print()
+        print("Pushing to GitHub...")
+
+        # Set large buffer for large repos
+        subprocess.run(
+            ["git", "config", "http.postBuffer", "524288000"],
+            cwd=temp_dir,
+            capture_output=True
+        )
+
+        result = subprocess.run(
+            ["git", "push", "origin", "main"],
+            cwd=temp_dir,
+            capture_output=True,
+            text=True
+        )
+        if result.returncode != 0:
+            return False, f"Git push failed: {result.stderr}"
+
+        # Get commit hash
+        result = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=temp_dir,
+            capture_output=True,
+            text=True
+        )
+        commit_hash = result.stdout.strip()
+
+        print()
+        print("Success! KB synced to GitHub")
+        print(f"  Commit: {commit_hash}")
+        print(f"  Repo:   https://github.com/fabian-von-tiedemann/bobot-kb")
+
+        return True, f"KB synced successfully ({total_count} files, commit: {commit_hash})"
+
+    except subprocess.CalledProcessError as e:
+        return False, f"Command failed: {e}"
+    except Exception as e:
+        return False, f"Sync failed: {e}"
 
 
 def run_stage(name: str, cmd: list[str], cwd: str = None) -> tuple[bool, float]:
@@ -506,6 +727,23 @@ def main():
         combined_count = len(list(combined_dir.glob("*-COMBINED.md")))
         print(f"  {combined_dir}: {combined_count} combined prompts")
     print()
+
+    # ========== OPTIONAL: KB Sync ==========
+    if args.push_kb:
+        print()
+        print("=" * 60)
+        print("KB SYNC")
+        print("=" * 60)
+
+        sync_success, sync_message = sync_to_kb(run_dir=run_dir, dry_run=args.dry_run)
+
+        print()
+        if sync_success:
+            print(f"KB Sync: {sync_message}")
+        else:
+            print(f"KB Sync FAILED: {sync_message}")
+            # Don't exit with error - pipeline completed, just sync failed
+        print()
 
 
 if __name__ == "__main__":
