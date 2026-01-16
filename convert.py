@@ -117,6 +117,12 @@ Examples:
         default=50,
         help="Number of documents to process in parallel batches (default: 50)"
     )
+    parser.add_argument(
+        "--include-files",
+        type=str,
+        default=None,
+        help="File containing list of relative paths to process (one per line), all others skipped"
+    )
     return parser.parse_args()
 
 
@@ -270,7 +276,30 @@ def main():
     # Sort for consistent order
     documents = sorted(documents)
 
-    print(f"Found {len(documents)} documents in {input_dir}")
+    total_found = len(documents)
+    print(f"Found {total_found} documents in {input_dir}")
+
+    # Filter to only include-files if specified
+    include_set = None
+    if args.include_files:
+        include_path = Path(args.include_files)
+        if include_path.exists():
+            with open(include_path, encoding="utf-8") as f:
+                include_set = {line.strip() for line in f if line.strip()}
+            print(f"Filtering to {len(include_set)} documents from --include-files")
+
+            # Filter documents to only those in include_set
+            # include_set contains relative paths like "category/filename.pdf"
+            filtered = []
+            for doc_path in documents:
+                relative_path = str(doc_path.relative_to(input_dir))
+                if relative_path in include_set:
+                    filtered.append(doc_path)
+            documents = filtered
+            print(f"After filtering: {len(documents)} documents to process")
+        else:
+            print(f"WARNING: --include-files {include_path} not found, processing all documents")
+
     print()
 
     # Counters

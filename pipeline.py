@@ -55,6 +55,7 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -372,23 +373,55 @@ def main():
     print()
 
     # ========== STAGE 2: Convert ==========
-    cmd = [
-        python_exe, "convert.py",
-        "--input", str(input_dir),
-        "--output", str(converted_dir)
-    ]
-    if args.skip_ai:
-        cmd.append("--skip-ai")
-    if args.force:
-        cmd.append("--force")
+    # Check if we should use incremental mode
+    skip_convert = False
+    include_files_path = None
 
-    success, duration = run_stage("Convert (documents to markdown)", cmd)
-    stage_times["convert"] = duration
+    if diff is not None:
+        changed_docs = diff["new"] + diff["changed"]
+        if not changed_docs:
+            print()
+            print("No changes detected, skipping convert stage")
+            skip_convert = True
+            stage_times["convert"] = 0
+        else:
+            # Write changed files to temp file for --include-files
+            include_files_path = tempfile.NamedTemporaryFile(
+                mode='w', suffix='.txt', delete=False, encoding='utf-8'
+            )
+            for doc_path in changed_docs:
+                include_files_path.write(f"{doc_path}\n")
+            include_files_path.close()
+            print()
+            print(f"Converting {len(changed_docs)} changed documents (skipping {len(diff['unchanged'])} unchanged)")
 
-    if not success:
-        print()
-        print("Pipeline failed at convert stage")
-        sys.exit(1)
+    if not skip_convert:
+        cmd = [
+            python_exe, "convert.py",
+            "--input", str(input_dir),
+            "--output", str(converted_dir)
+        ]
+        if args.skip_ai:
+            cmd.append("--skip-ai")
+        if args.force:
+            cmd.append("--force")
+        if include_files_path:
+            cmd.extend(["--include-files", include_files_path.name])
+
+        success, duration = run_stage("Convert (documents to markdown)", cmd)
+        stage_times["convert"] = duration
+
+        # Clean up temp file
+        if include_files_path:
+            try:
+                os.unlink(include_files_path.name)
+            except OSError:
+                pass
+
+        if not success:
+            print()
+            print("Pipeline failed at convert stage")
+            sys.exit(1)
 
     # ========== STAGE 3: Index ==========
     cmd = [
