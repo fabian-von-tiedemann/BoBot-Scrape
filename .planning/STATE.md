@@ -48,6 +48,10 @@ All decisions validated with ✓ Good outcome after v2.0 ship.
 
 None.
 
+### Pending Todos
+
+1 todo — `/gsd:check-todos` to review
+
 ### Blockers/Concerns
 
 None.
