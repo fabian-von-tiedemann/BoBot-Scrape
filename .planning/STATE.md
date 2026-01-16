@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** v3.1 Improvements — Parallel AI Calls
+**Current focus:** v4.0 Pipeline Refactor — Generalized ETL pipeline
 
 ## Current Position
 
-Phase: 23 of 23 (Parallel AI Calls)
-Plan: 1 of 1 in current phase
-Status: Phase complete
-Last activity: 2026-01-15 — Completed 23-01-PLAN.md
+Phase: 24 of 26 (Pipeline Runner)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-16 — Milestone v4.0 created
 
-Progress: ██████████ 100%
+Progress: ░░░░░░░░░░ 0%
 
 ## Performance Metrics
 
@@ -66,10 +66,11 @@ None.
 - v2.4 Knowledge Base Delivery: Phase 18 (shipped 2026-01-14)
 - v2.5 System Prompt Generation: Phases 19-21 (shipped 2026-01-14)
 - v3.0 Digi Commands: Phase 22 (shipped 2026-01-14)
-- v3.1 Improvements: Phase 23 (created 2026-01-15)
+- v3.1 Improvements: Phase 23 (shipped 2026-01-15)
+- v4.0 Pipeline Refactor: Phases 24-26 (created 2026-01-16)
 
 ## Session Continuity
 
-Last session: 2026-01-15
-Stopped at: Completed 23-01-PLAN.md (phase complete, milestone complete)
+Last session: 2026-01-16
+Stopped at: Milestone v4.0 initialization
 Resume file: None

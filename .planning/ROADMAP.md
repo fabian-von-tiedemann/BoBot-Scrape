@@ -15,6 +15,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v2.5 System Prompt Generation** — Phases 19-21 (shipped 2026-01-14)
 - ✅ **v3.0 Digi Commands** — Phase 22 (shipped 2026-01-14)
 - ✅ **v3.1 Improvements** — Phase 23 (shipped 2026-01-15)
+- 🚧 **v4.0 Pipeline Refactor** — Phases 24-26 (in progress)
 
 ## Completed Milestones
 
@@ -67,6 +68,43 @@ Plans:
 Plans:
 
 - [x] 23-01: Implement parallel Gemini API calls — completed 2026-01-15
+
+### 🚧 v4.0 Pipeline Refactor (In Progress)
+
+**Milestone Goal:** Generalisera ETL-flödet till en versionshanterbar pipeline med timestampade output-mappar och stöd för inkrementella uppdateringar.
+
+#### Phase 24: Pipeline Runner
+
+**Goal**: Unified CLI that orchestrates all stages (scrape, convert, index, prompts) with timestamped output directories
+**Depends on**: Previous milestone complete
+**Research**: Unlikely (internal patterns, existing scripts to orchestrate)
+**Plans**: TBD
+
+Plans:
+
+- [ ] 24-01: TBD (run /gsd:plan-phase 24 to break down)
+
+#### Phase 25: Incremental Updates
+
+**Goal**: Detect new/changed documents and process only those (skip already-processed files)
+**Depends on**: Phase 24
+**Research**: Unlikely (file comparison, existing skip-existing pattern)
+**Plans**: TBD
+
+Plans:
+
+- [ ] 25-01: TBD
+
+#### Phase 26: KB Sync Integration
+
+**Goal**: Automatic push to bobot-kb repo after pipeline run completes
+**Depends on**: Phase 25
+**Research**: Unlikely (existing /digi:push-kb command to integrate)
+**Plans**: TBD
+
+Plans:
+
+- [ ] 26-01: TBD
 
 ## Domain Expertise
 
@@ -160,3 +198,6 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 21. General Prompt        | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 22. KB Push Command       | v3.0      | 1/1            | Complete    | 2026-01-14 |
 | 23. Parallel AI Calls     | v3.1      | 1/1            | Complete    | 2026-01-15 |
+| 24. Pipeline Runner       | v4.0      | 0/?            | Not started | -          |
+| 25. Incremental Updates   | v4.0      | 0/?            | Not started | -          |
+| 26. KB Sync Integration   | v4.0      | 0/?            | Not started | -          |
