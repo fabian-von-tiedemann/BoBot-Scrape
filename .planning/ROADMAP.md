@@ -78,11 +78,11 @@ Plans:
 **Goal**: Unified CLI that orchestrates all stages (scrape, convert, index, prompts) with timestamped output directories
 **Depends on**: Previous milestone complete
 **Research**: Unlikely (internal patterns, existing scripts to orchestrate)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
 
-- [ ] 24-01: TBD (run /gsd:plan-phase 24 to break down)
+- [x] 24-01: Create pipeline.py CLI with timestamped run directories — completed 2026-01-16
 
 #### Phase 25: Incremental Updates
 
@@ -198,6 +198,6 @@ Phases execute in numeric order: 1 → 2 → ... → 17 → 18
 | 21. General Prompt        | v2.5      | 1/1            | Complete    | 2026-01-14 |
 | 22. KB Push Command       | v3.0      | 1/1            | Complete    | 2026-01-14 |
 | 23. Parallel AI Calls     | v3.1      | 1/1            | Complete    | 2026-01-15 |
-| 24. Pipeline Runner       | v4.0      | 0/?            | Not started | -          |
+| 24. Pipeline Runner       | v4.0      | 1/1            | Complete    | 2026-01-16 |
 | 25. Incremental Updates   | v4.0      | 0/?            | Not started | -          |
 | 26. KB Sync Integration   | v4.0      | 0/?            | Not started | -          |
