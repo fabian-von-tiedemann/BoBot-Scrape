@@ -333,10 +333,11 @@ def sync_to_kb(
             result = subprocess.run(
                 ["rsync"] + rsync_args + [f"{src}/", f"{dest}/"],
                 capture_output=True,
-                text=True
+                # Use errors='replace' to handle filenames with special encoding
             )
             if result.returncode != 0:
-                return False, f"Rsync failed for {name}: {result.stderr}"
+                stderr_text = result.stderr.decode('utf-8', errors='replace') if result.stderr else ''
+                return False, f"Rsync failed for {name}: {stderr_text}"
 
         # Step 3: Count synced files
         def count_md_files(directory: Path) -> int:
