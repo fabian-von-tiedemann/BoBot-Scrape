@@ -1,5 +1,75 @@
 # Project Milestones: BoBot-Scrape
 
+## v4.0 Pipeline Refactor (Shipped: 2026-01-16)
+
+**Delivered:** Generalized ETL pipeline with unified CLI, timestamped run directories, manifest-based incremental updates, and automatic GitHub sync to bobot-kb repository.
+
+**Phases completed:** 24-26 (3 plans total)
+
+**Key accomplishments:**
+
+- Unified pipeline.py CLI orchestrating all 5 ETL stages (scrape, convert, index, generate, combine) with timestamped run directories
+- Manifest-based diff detection tracking document URLs and MD5 hashes between runs
+- Incremental convert mode processing only new/changed documents via --include-files
+- Automatic GitHub sync with --push-kb flag to push converted/, indexes/, prompts/ to bobot-kb repo
+- Dry-run preview mode for safe sync operations before pushing
+
+**Stats:**
+
+- 8 files created/modified
+- ~3,036 lines of Python (total)
+- 3 phases, 3 plans, 7 tasks
+- 1 day from v3.1 to v4.0
+
+**Git range:** `feat(24-01)` → `feat(26-01)`
+
+**What's next:** Project feature-complete. Pipeline ready for production use.
+
+---
+
+## v3.1 Improvements (Shipped: 2026-01-15)
+
+**Delivered:** Parallel AI calls for faster document augmentation.
+
+**Phases completed:** 23 (1 plan total)
+
+**Key accomplishments:**
+
+- Implemented asyncio/concurrent batch processing for parallel Gemini API calls
+- Significantly reduced batch conversion time for large document sets
+
+**Stats:**
+
+- 1 phase, 1 plan
+- ~3 minutes execution time
+
+**Git range:** `feat(23-01)` → `feat(23-01)`
+
+**What's next:** v4.0 Pipeline Refactor.
+
+---
+
+## v3.0 Digi Commands (Shipped: 2026-01-14)
+
+**Delivered:** Reusable Claude commands for pushing knowledge base content to GitHub.
+
+**Phases completed:** 22 (1 plan total)
+
+**Key accomplishments:**
+
+- Created /digi:push-kb command with full sync behavior (converted/, indexes/, prompts/)
+
+**Stats:**
+
+- 1 phase, 1 plan
+- ~3 minutes execution time
+
+**Git range:** `feat(22-01)` → `feat(22-01)`
+
+**What's next:** v3.1 Improvements.
+
+---
+
 ## v2.5 System Prompt Generation (Shipped: 2026-01-14)
 
 **Delivered:** AI-powered system prompt generation pipeline — creates verksamhet-specific prompts from document metadata for AI assistant deployment.

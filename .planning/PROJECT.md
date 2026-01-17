@@ -2,7 +2,7 @@
 
 ## What This Is
 
-En PDF-scraper och dokumentprocessor som automatiserar nedladdning och konvertering av rutindokument från Botkyrka kommuns intranät (BoTwebb). Ansluter till användarens befintliga Chrome-session via CDP för att hantera SAML-autentisering, laddar ner alla PDF:er och Word-dokument, och konverterar dem till AI-berikad Markdown.
+En komplett ETL-pipeline för rutindokument från Botkyrka kommuns intranät (BoTwebb). Ansluter till användarens befintliga Chrome-session via CDP, laddar ner alla PDF:er och Word-dokument, konverterar till AI-berikad Markdown, genererar verksamhetsspecifika system prompts, och synkar automatiskt till kunskapsbas-repo för AI-assistenter.
 
 ## Core Value
 
@@ -57,13 +57,30 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 - ✓ General Swedish system prompt template (6 sections) — v2.5
 - ✓ 15 combined prompts ready for AI assistant deployment — v2.5
 
+**v3.0 Digi Commands:**
+
+- ✓ /digi:push-kb command with full sync behavior — v3.0
+
+**v3.1 Improvements:**
+
+- ✓ Parallel Gemini API calls for faster batch conversion — v3.1
+
+**v4.0 Pipeline Refactor:**
+
+- ✓ Unified pipeline.py CLI orchestrating all 5 ETL stages — v4.0
+- ✓ Timestamped run directories under runs/ — v4.0
+- ✓ Manifest-based diff detection with MD5 hashes — v4.0
+- ✓ Incremental convert mode processing only changed docs — v4.0
+- ✓ Automatic GitHub sync with --push-kb flag — v4.0
+- ✓ Dry-run preview mode for sync operations — v4.0
+
 ### Active
 
-(None — v2.5 complete, project feature-complete)
+(None — v4.0 complete, project feature-complete)
 
 ### Out of Scope
 
-- Inkrementella uppdateringar (bara ladda ner nya/ändrade) — delvis implementerat (skip existing by default)
+- ~~Inkrementella uppdateringar (bara ladda ner nya/ändrade)~~ — **Implemented in v4.0** (manifest-based diff detection)
 - Metadata-hantering (versioner, nedladdningstider) — onödig komplexitet
 - GUI/grafiskt gränssnitt — CLI-skript räcker
 - Felåterhämtning vid nätverksfel — kan läggas till senare
@@ -71,7 +88,7 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 
 ## Context
 
-**Current State:** Shipped v2.5 with ~1,200 LOC Python (scrape.py, convert.py, index_kb.py, generate_prompts.py, combine_prompts.py, src/ modules).
+**Current State:** Shipped v4.0 with ~3,036 LOC Python (pipeline.py, scrape.py, convert.py, index_kb.py, generate_prompts.py, combine_prompts.py, src/ modules).
 
 **Tech stack:**
 - Python 3.11
@@ -80,6 +97,7 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 - python-docx — Word text extraction
 - google-genai — Gemini API for AI metadata
 - argparse, python-dotenv
+- subprocess, hashlib — Pipeline orchestration
 
 **Capabilities:**
 - Connect to Chrome via CDP (preserves user SAML session)
@@ -92,6 +110,9 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 - Generate verksamhet-specific index files from frontmatter
 - Generate AI-powered system prompts per verksamhet
 - Combine general + specific prompts for AI assistant deployment
+- **Unified pipeline CLI with timestamped run directories**
+- **Manifest-based incremental updates (only process changed docs)**
+- **Automatic sync to bobot-kb GitHub repository**
 
 **Usage:**
 ```bash
@@ -100,13 +121,16 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
   --remote-debugging-port=9222 \
   --user-data-dir="/tmp/chrome-debug"
 
-# Download documents
-.venv/bin/python scrape.py           # Download new files
-.venv/bin/python scrape.py --force   # Re-download all
+# Run full pipeline (recommended)
+.venv/bin/python pipeline.py                           # Full run: scrape → convert → index → prompts → sync
+.venv/bin/python pipeline.py --skip-scrape             # Skip scrape, use existing downloads
+.venv/bin/python pipeline.py --prev-run runs/latest    # Incremental: only process changes
+.venv/bin/python pipeline.py --push-kb                 # Push to bobot-kb after completion
+.venv/bin/python pipeline.py --push-kb --dry-run       # Preview sync without pushing
 
-# Convert to Markdown
+# Individual scripts (legacy)
+.venv/bin/python scrape.py           # Download new files
 .venv/bin/python convert.py          # Convert with AI metadata
-.venv/bin/python convert.py --skip-ai  # Fast, no API calls
 ```
 
 ## Constraints
@@ -141,6 +165,12 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 | Private bobot-kb repo | Secure knowledge base delivery | ✓ Good |
 | Verksamhet-specific prompts | AI-generated per-unit guidance | ✓ Good |
 | General prompt template | 6 Swedish sections for consistency | ✓ Good |
+| sys.executable for subprocess | Ensures correct Python interpreter in venv | ✓ Good |
+| Timestamped run directories | Versioned output under runs/YYYY-MM-DD-HHMM/ | ✓ Good |
+| MD5 hash for URL comparison | Fast, deterministic, no security concerns | ✓ Good |
+| Manifest-based diff detection | Track changes between pipeline runs | ✓ Good |
+| Fallback source directories | Prefer run_dir, fall back to root | ✓ Good |
+| Git CLI over gh CLI | Standard git more portable than GitHub CLI | ✓ Good |
 
 ---
-*Last updated: 2026-01-14 after v2.5 milestone*
+*Last updated: 2026-01-16 after v4.0 milestone*

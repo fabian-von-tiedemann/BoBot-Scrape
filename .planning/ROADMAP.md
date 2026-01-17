@@ -15,7 +15,7 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ **v2.5 System Prompt Generation** — Phases 19-21 (shipped 2026-01-14)
 - ✅ **v3.0 Digi Commands** — Phase 22 (shipped 2026-01-14)
 - ✅ **v3.1 Improvements** — Phase 23 (shipped 2026-01-15)
-- 🚧 **v4.0 Pipeline Refactor** — Phases 24-26 (in progress)
+- ✅ **v4.0 Pipeline Refactor** — Phases 24-26 (shipped 2026-01-16)
 
 ## Completed Milestones
 
@@ -26,6 +26,9 @@ En PDF-scraper som ansluter till användarens befintliga Chrome-session, naviger
 - ✅ [v2.3 Frontmatter Schema Upgrade](milestones/v2.3-ROADMAP.md) (Phases 15-17) — SHIPPED 2026-01-14
 - ✅ [v2.4 Knowledge Base Delivery](milestones/v2.4-ROADMAP.md) (Phase 18) — SHIPPED 2026-01-14
 - ✅ [v2.5 System Prompt Generation](milestones/v2.5-ROADMAP.md) (Phases 19-21) — SHIPPED 2026-01-14
+- ✅ [v3.0 Digi Commands](milestones/v3.0-ROADMAP.md) (Phase 22) — SHIPPED 2026-01-14
+- ✅ [v3.1 Improvements](milestones/v3.1-ROADMAP.md) (Phase 23) — SHIPPED 2026-01-15
+- ✅ [v4.0 Pipeline Refactor](milestones/v4.0-ROADMAP.md) (Phases 24-26) — SHIPPED 2026-01-16
 
 <details>
 <summary>✅ v2.5 System Prompt Generation (Phases 19-21) — SHIPPED 2026-01-14</summary>
@@ -40,71 +43,40 @@ See [milestones/v2.5-ROADMAP.md](milestones/v2.5-ROADMAP.md) for full details.
 
 </details>
 
-### ✅ v3.0 Digi Commands (Complete)
+<details>
+<summary>✅ v3.0 Digi Commands (Phase 22) — SHIPPED 2026-01-14</summary>
 
 **Milestone Goal:** Create reusable Claude commands for pushing knowledge base content to GitHub.
 
-#### Phase 22: KB Push Command
+- [x] Phase 22: KB Push Command (1/1 plan) — completed 2026-01-14
 
-**Goal**: Create /digi:push-kb command with full sync behavior (converted/, indexes/, prompts/)
-**Depends on**: Previous milestone complete
-**Plans**: 1/1 complete
+See [milestones/v3.0-ROADMAP.md](milestones/v3.0-ROADMAP.md) for full details.
 
-Plans:
+</details>
 
-- [x] 22-01: Create push-kb command — completed 2026-01-14
-
-### ✅ v3.1 Improvements (Complete)
+<details>
+<summary>✅ v3.1 Improvements (Phase 23) — SHIPPED 2026-01-15</summary>
 
 **Milestone Goal:** Förbättra prestanda genom parallella AI-anrop för snabbare dokumentaugmentering.
 
-#### Phase 23: Parallel AI Calls
+- [x] Phase 23: Parallel AI Calls (1/1 plan) — completed 2026-01-15
 
-**Goal**: Implementera asynkron batch-processing med parallella Gemini-anrop
-**Depends on**: Previous milestone complete
-**Research**: Unlikely (Python asyncio/concurrent.futures är standard patterns)
-**Plans**: 1/1 complete
+See [milestones/v3.1-ROADMAP.md](milestones/v3.1-ROADMAP.md) for full details.
 
-Plans:
+</details>
 
-- [x] 23-01: Implement parallel Gemini API calls — completed 2026-01-15
-
-### 🚧 v4.0 Pipeline Refactor (In Progress)
+<details>
+<summary>✅ v4.0 Pipeline Refactor (Phases 24-26) — SHIPPED 2026-01-16</summary>
 
 **Milestone Goal:** Generalisera ETL-flödet till en versionshanterbar pipeline med timestampade output-mappar och stöd för inkrementella uppdateringar.
 
-#### Phase 24: Pipeline Runner
+- [x] Phase 24: Pipeline Runner (1/1 plan) — completed 2026-01-16
+- [x] Phase 25: Incremental Updates (1/1 plan) — completed 2026-01-16
+- [x] Phase 26: KB Sync Integration (1/1 plan) — completed 2026-01-16
 
-**Goal**: Unified CLI that orchestrates all stages (scrape, convert, index, prompts) with timestamped output directories
-**Depends on**: Previous milestone complete
-**Research**: Unlikely (internal patterns, existing scripts to orchestrate)
-**Plans**: 1/1 complete
+See [milestones/v4.0-ROADMAP.md](milestones/v4.0-ROADMAP.md) for full details.
 
-Plans:
-
-- [x] 24-01: Create pipeline.py CLI with timestamped run directories — completed 2026-01-16
-
-#### Phase 25: Incremental Updates
-
-**Goal**: Detect new/changed documents and process only those (skip already-processed files)
-**Depends on**: Phase 24
-**Research**: Unlikely (file comparison, existing skip-existing pattern)
-**Plans**: 1/1 complete
-
-Plans:
-
-- [x] 25-01: Implement manifest-based diff detection and incremental convert — completed 2026-01-16
-
-#### Phase 26: KB Sync Integration
-
-**Goal**: Automatic push to bobot-kb repo after pipeline run completes
-**Depends on**: Phase 25
-**Research**: Unlikely (existing /digi:push-kb command to integrate)
-**Plans**: 1/1 complete
-
-Plans:
-
-- [x] 26-01: Add --push-kb flag and sync_to_kb() function — completed 2026-01-16
+</details>
 
 ## Domain Expertise
 
