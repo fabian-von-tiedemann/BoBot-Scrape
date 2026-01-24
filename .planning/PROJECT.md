@@ -2,11 +2,22 @@
 
 ## What This Is
 
-En komplett ETL-pipeline för rutindokument från Botkyrka kommuns intranät (BoTwebb). Ansluter till användarens befintliga Chrome-session via CDP, laddar ner alla PDF:er och Word-dokument, konverterar till AI-berikad Markdown, genererar verksamhetsspecifika system prompts, och synkar automatiskt till kunskapsbas-repo för AI-assistenter.
+En komplett ETL-pipeline för rutindokument från Botkyrka kommuns intranät (BoTwebb). Ansluter till användarens befintliga Chrome-session via CDP, laddar ner alla PDF:er och Word-dokument, konverterar till AI-berikad Markdown, genererar verksamhetsspecifika system prompts, och synkar automatiskt till kunskapsbas-repo för AI-assistenter. Genererar även QA-par från kunskapsbasen för AI-assistentträning.
 
 ## Core Value
 
 Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
+
+## Current Milestone: v5.0 QA Generation Pipeline
+
+**Goal:** Generera tusentals fråga/svar-par från kunskapsbasen för att bygga affärsregler och evalueringsdata till AI-assistenten.
+
+**Target features:**
+- Persona-driven frågor (roll + situation: stressad undersköterska, ny hemtjänstpersonal, nattjour)
+- Svar grundade i faktiska dokument med källreferens
+- Tvåstegs validering (källverifiering + kvalitetsbedömning)
+- Adaptive svarsformat (kort för fakta, stegvis för instruktioner)
+- Export för prompt-kontext och evaluering
 
 ## Requirements
 
@@ -76,7 +87,14 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 
 ### Active
 
-(None — v4.0 complete, project feature-complete)
+**v5.0 QA Generation Pipeline:**
+- [ ] Persona-modell med roll + situation för realistiska frågor
+- [ ] Frågegenerering från KB-dokument med Gemini
+- [ ] Svarsgrundning i faktiska dokument med källreferens
+- [ ] Tvåstegs validering (källcheck + kvalitetsbedömning)
+- [ ] Adaptivt svarsformat baserat på frågetyp
+- [ ] Export-format för prompt-kontext och evalueringsdata
+- [ ] Pipeline för 1000-tals QA-par
 
 ### Out of Scope
 
@@ -173,4 +191,4 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 | Git CLI over gh CLI | Standard git more portable than GitHub CLI | ✓ Good |
 
 ---
-*Last updated: 2026-01-16 after v4.0 milestone*
+*Last updated: 2026-01-24 after v5.0 milestone start*
