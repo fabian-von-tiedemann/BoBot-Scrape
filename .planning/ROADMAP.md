@@ -1,175 +1,110 @@
-# Roadmap: BoBot-Scrape
+# Roadmap: BoBot-Scrape v5.0 QA Generation Pipeline
 
 ## Overview
 
-En PDF-scraper som ansluter till användarens befintliga Chrome-session, navigerar Botkyrka kommuns intranät, och laddar ner alla rutindokument organiserade i mappar.
+This milestone builds a complete QA generation pipeline that transforms the existing knowledge base (1,086 converted markdown documents) into thousands of validated question-answer pairs for AI assistant training. The pipeline progresses through persona modeling, question generation, answer grounding, validation, and export - each phase delivering a complete, testable capability that feeds the next.
 
 ## Milestones
 
-- ✅ **v1.0 MVP** — Phases 1-4 (shipped 2026-01-13)
-- ✅ **v2.0 Document Processing Pipeline** — Phases 5-8 (shipped 2026-01-14)
-- ✅ **v2.1 Improvements** — Phases 9-10 (shipped 2026-01-14)
-- ✅ **v2.2 Frontmatter Enrichment** — Phases 11-14 (shipped 2026-01-14)
-- ✅ **v2.3 Frontmatter Schema Upgrade** — Phases 15-17 (shipped 2026-01-14)
-- ✅ **v2.4 Knowledge Base Delivery** — Phase 18 (shipped 2026-01-14)
-- ✅ **v2.5 System Prompt Generation** — Phases 19-21 (shipped 2026-01-14)
-- ✅ **v3.0 Digi Commands** — Phase 22 (shipped 2026-01-14)
-- ✅ **v3.1 Improvements** — Phase 23 (shipped 2026-01-15)
-- ✅ **v4.0 Pipeline Refactor** — Phases 24-26 (shipped 2026-01-16)
+- v1.0-v4.0: See PROJECT.md Validated Requirements (shipped)
+- **v5.0 QA Generation Pipeline** - Phases 27-31 (current)
 
-## Completed Milestones
+## Phases
 
-- ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-4) — SHIPPED 2026-01-13
-- ✅ [v2.0 Document Processing Pipeline](milestones/v2.0-ROADMAP.md) (Phases 5-8) — SHIPPED 2026-01-14
-- ✅ [v2.1 Improvements](milestones/v2.1-ROADMAP.md) (Phases 9-10) — SHIPPED 2026-01-14
-- ✅ [v2.2 Frontmatter Enrichment](milestones/v2.2-ROADMAP.md) (Phases 11-14) — SHIPPED 2026-01-14
-- ✅ [v2.3 Frontmatter Schema Upgrade](milestones/v2.3-ROADMAP.md) (Phases 15-17) — SHIPPED 2026-01-14
-- ✅ [v2.4 Knowledge Base Delivery](milestones/v2.4-ROADMAP.md) (Phase 18) — SHIPPED 2026-01-14
-- ✅ [v2.5 System Prompt Generation](milestones/v2.5-ROADMAP.md) (Phases 19-21) — SHIPPED 2026-01-14
-- ✅ [v3.0 Digi Commands](milestones/v3.0-ROADMAP.md) (Phase 22) — SHIPPED 2026-01-14
-- ✅ [v3.1 Improvements](milestones/v3.1-ROADMAP.md) (Phase 23) — SHIPPED 2026-01-15
-- ✅ [v4.0 Pipeline Refactor](milestones/v4.0-ROADMAP.md) (Phases 24-26) — SHIPPED 2026-01-16
+- [ ] **Phase 27: Core Infrastructure** - Persona model and module scaffold
+- [ ] **Phase 28: Question Generation** - Generate persona-driven questions from documents
+- [ ] **Phase 29: Answer Generation** - Ground answers in source documents with citations
+- [ ] **Phase 30: Validation Pipeline** - Two-stage quality gate (source + quality)
+- [ ] **Phase 31: Export & Integration** - JSONL export and pipeline integration
 
-<details>
-<summary>✅ v2.5 System Prompt Generation (Phases 19-21) — SHIPPED 2026-01-14</summary>
+## Phase Details
 
-**Milestone Goal:** Generera skräddarsydda systemprompts per enhet/område baserat på dokumentinnehåll för AI-assistenten.
-
-- [x] Phase 19: Frontmatter Indexer (1/1 plan) — completed 2026-01-14
-- [x] Phase 20: System Prompt Generator (1/1 plan) — completed 2026-01-14
-- [x] Phase 21: General Prompt Template (1/1 plan) — completed 2026-01-14
-
-See [milestones/v2.5-ROADMAP.md](milestones/v2.5-ROADMAP.md) for full details.
-
-</details>
-
-<details>
-<summary>✅ v3.0 Digi Commands (Phase 22) — SHIPPED 2026-01-14</summary>
-
-**Milestone Goal:** Create reusable Claude commands for pushing knowledge base content to GitHub.
-
-- [x] Phase 22: KB Push Command (1/1 plan) — completed 2026-01-14
-
-See [milestones/v3.0-ROADMAP.md](milestones/v3.0-ROADMAP.md) for full details.
-
-</details>
-
-<details>
-<summary>✅ v3.1 Improvements (Phase 23) — SHIPPED 2026-01-15</summary>
-
-**Milestone Goal:** Förbättra prestanda genom parallella AI-anrop för snabbare dokumentaugmentering.
-
-- [x] Phase 23: Parallel AI Calls (1/1 plan) — completed 2026-01-15
-
-See [milestones/v3.1-ROADMAP.md](milestones/v3.1-ROADMAP.md) for full details.
-
-</details>
-
-<details>
-<summary>✅ v4.0 Pipeline Refactor (Phases 24-26) — SHIPPED 2026-01-16</summary>
-
-**Milestone Goal:** Generalisera ETL-flödet till en versionshanterbar pipeline med timestampade output-mappar och stöd för inkrementella uppdateringar.
-
-- [x] Phase 24: Pipeline Runner (1/1 plan) — completed 2026-01-16
-- [x] Phase 25: Incremental Updates (1/1 plan) — completed 2026-01-16
-- [x] Phase 26: KB Sync Integration (1/1 plan) — completed 2026-01-16
-
-See [milestones/v4.0-ROADMAP.md](milestones/v4.0-ROADMAP.md) for full details.
-
-</details>
-
-## Domain Expertise
-
-None
-
-<details>
-<summary>✅ v2.1 Improvements (Phases 9-10) — SHIPPED 2026-01-14</summary>
-
-- [x] Phase 9: Output Quality (1/1 plan) — completed 2026-01-14
-- [x] Phase 10: Batch Re-convert (1/1 plan) — completed 2026-01-14
-
-See [milestones/v2.1-ROADMAP.md](milestones/v2.1-ROADMAP.md) for full details.
-
-</details>
-
-<details>
-<summary>✅ v2.2 Frontmatter Enrichment (Phases 11-14) — SHIPPED 2026-01-14</summary>
-
-**Milestone Goal:** Berika markdown-frontmatter med verksamhet och rutinkategori för bättre dokumentorganisation och AI-sökning.
-
-#### Phase 11: Rutin Scraper Update
-
-**Goal**: Uppdatera scraper för att extrahera rutinkategorier från webbsidor och spara till CSV
-**Depends on**: Previous milestone complete
-**Research**: Unlikely (befintlig scraper-kod, intern förbättring)
-**Plans**: 1/1 complete
+### Phase 27: Core Infrastructure
+**Goal**: Establish persona model and QA module structure as foundation for generation pipeline
+**Depends on**: v4.0 complete (converted documents exist in KB)
+**Requirements**: PERS-01, PERS-02, PERS-03
+**Success Criteria** (what must be TRUE):
+  1. Persona model exists as Pydantic class with roll, erfarenhet, situation, sprakbakgrund fields
+  2. YAML config file contains 5-10 realistic care worker personas
+  3. CLI scaffold (generate_qa.py) accepts --input, --output, --personas arguments
+  4. src/qa/ module structure exists with __init__.py and persona.py
+**Plans**: TBD
 
 Plans:
-- [x] 11-01: Add verksamhet column to CSV export — completed 2026-01-14
+- [ ] 27-01: [To be planned]
 
-#### Phase 12: Frontmatter Properties
-
-**Goal**: Lägg till verksamhet och rutin properties i markdown-konvertering
-**Depends on**: Phase 11
-**Research**: Unlikely (befintlig konverteringskod)
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 12-01: Add verksamhet and rutin to frontmatter — completed 2026-01-14
-
-#### Phase 13: Batch Apply
-
-**Goal**: Kör om konvertering på alla dokument med nya frontmatter-properties
-**Depends on**: Phase 12
-**Research**: Unlikely (samma mönster som Phase 10)
-**Plans**: 1/1 complete
+### Phase 28: Question Generation
+**Goal**: Generate 3-5 diverse questions per document using persona-driven prompts
+**Depends on**: Phase 27 (persona model required)
+**Requirements**: QGEN-01, QGEN-02, QGEN-03, QGEN-04, QGEN-05
+**Success Criteria** (what must be TRUE):
+  1. Running generator on a document produces 3-5 questions in Swedish
+  2. Each question is formulated from a specific persona's perspective
+  3. Each question includes reference to its source document (filename, section)
+  4. Batch mode processes multiple documents with progress bar
+  5. Questions saved to intermediate output file for inspection
+**Plans**: TBD
 
 Plans:
-- [x] 13-01: Re-convert all documents with verksamhet/rutin — completed 2026-01-14
+- [ ] 28-01: [To be planned]
 
-#### Phase 14: Fix Verksamhet/Rutin Hierarchy
-
-**Goal**: Korrigera verksamhet/rutin-logiken - scrapa underkategorier från webbsidor
-**Depends on**: Phase 13
-**Research**: Likely (behöver förstå HTML-struktur för underkategorier)
-**Plans**: 2/2 complete
+### Phase 29: Answer Generation
+**Goal**: Generate grounded answers with explicit source citations in plain Swedish
+**Depends on**: Phase 28 (questions required)
+**Requirements**: AGEN-01, AGEN-02, AGEN-03, AGEN-04
+**Success Criteria** (what must be TRUE):
+  1. Each answer is directly grounded in the source document content
+  2. Answers include citation format [source:filename.md#section]
+  3. Answer text uses klarsprak (B1 Swedish, short sentences, active voice)
+  4. Extraction-style generation (quotes relevant text rather than paraphrasing)
+**Plans**: TBD
 
 Plans:
-- [x] 14-01: Extract subcategory headings from HTML DOM — completed 2026-01-14
-- [x] 14-02: Re-convert all documents with correct hierarchy — completed 2026-01-14
+- [ ] 29-01: [To be planned]
 
-</details>
+### Phase 30: Validation Pipeline
+**Goal**: Two-stage validation filtering out hallucinations and low-quality pairs
+**Depends on**: Phase 29 (QA pairs required)
+**Requirements**: VALD-01, VALD-02, VALD-03, VALD-04, VALD-05
+**Success Criteria** (what must be TRUE):
+  1. Source verification confirms answer content exists in referenced document
+  2. Quality assessment scores relevans, korrekthet, fullstandighet
+  3. Each QA pair has validation_score in output
+  4. Pipeline filters out pairs below quality threshold
+  5. Separate output streams for passed vs failed validation
+**Plans**: TBD
+
+Plans:
+- [ ] 30-01: [To be planned]
+
+### Phase 31: Export & Integration
+**Goal**: Complete pipeline with JSONL export and integration into main workflow
+**Depends on**: Phase 30 (validated QA pairs required)
+**Requirements**: EXPRT-01, EXPRT-02, EXPRT-03, INTG-01, INTG-02, INTG-03
+**Success Criteria** (what must be TRUE):
+  1. JSONL export works with HuggingFace datasets format
+  2. Each QA pair includes metadata: persona, source, validation_score
+  3. Separate files for passed (qa_pairs.jsonl) and failed (qa_rejected.jsonl) pairs
+  4. generate_qa.py works as standalone CLI
+  5. pipeline.py accepts --generate-qa flag to include QA generation
+  6. Checkpointing allows resume after interruption
+**Plans**: TBD
+
+Plans:
+- [ ] 31-01: [To be planned]
 
 ## Progress
 
-**Execution Order:**
-Phases execute in numeric order: 1 → 2 → ... → 17 → 18
+**Execution Order:** Phase 27 -> 28 -> 29 -> 30 -> 31
 
-| Phase                     | Milestone | Plans Complete | Status      | Completed  |
-|---------------------------|-----------|----------------|-------------|------------|
-| 1. Setup                  | v1.0      | 2/2            | Complete    | 2026-01-13 |
-| 2. Page Discovery         | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 3. PDF Extraction         | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 4. Download System        | v1.0      | 1/1            | Complete    | 2026-01-13 |
-| 5. Text Extraction        | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 6. Markdown Formatting    | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 7. Metadata & AI          | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 8. ETL Pipeline           | v2.0      | 1/1            | Complete    | 2026-01-14 |
-| 9. Output Quality         | v2.1      | 1/1            | Complete    | 2026-01-14 |
-| 10. Batch Re-convert      | v2.1      | 1/1            | Complete    | 2026-01-14 |
-| 11. Rutin Scraper Update  | v2.2      | 1/1            | Complete    | 2026-01-14 |
-| 12. Frontmatter Props     | v2.2      | 1/1            | Complete    | 2026-01-14 |
-| 13. Batch Apply           | v2.2      | 1/1            | Complete    | 2026-01-14 |
-| 14. Fix Hierarchy         | v2.2      | 2/2            | Complete    | 2026-01-14 |
-| 15. Scraper Hierarchy     | v2.3      | 1/1            | Complete    | 2026-01-14 |
-| 16. Frontmatter Upgrade   | v2.3      | 1/1            | Complete    | 2026-01-14 |
-| 17. Batch Re-convert      | v2.3      | 1/1            | Complete    | 2026-01-14 |
-| 18. KB Delivery           | v2.4      | 1/1            | Complete    | 2026-01-14 |
-| 19. Frontmatter Indexer   | v2.5      | 1/1            | Complete    | 2026-01-14 |
-| 20. System Prompt Gen     | v2.5      | 1/1            | Complete    | 2026-01-14 |
-| 21. General Prompt        | v2.5      | 1/1            | Complete    | 2026-01-14 |
-| 22. KB Push Command       | v3.0      | 1/1            | Complete    | 2026-01-14 |
-| 23. Parallel AI Calls     | v3.1      | 1/1            | Complete    | 2026-01-15 |
-| 24. Pipeline Runner       | v4.0      | 1/1            | Complete    | 2026-01-16 |
-| 25. Incremental Updates   | v4.0      | 1/1            | Complete    | 2026-01-16 |
-| 26. KB Sync Integration   | v4.0      | 1/1            | Complete    | 2026-01-16 |
+| Phase | Goal | Plans Complete | Status | Completed |
+|-------|------|----------------|--------|-----------|
+| 27. Core Infrastructure | Persona model & scaffold | 0/TBD | Not started | - |
+| 28. Question Generation | Persona-driven questions | 0/TBD | Not started | - |
+| 29. Answer Generation | Grounded answers | 0/TBD | Not started | - |
+| 30. Validation Pipeline | Two-stage quality gate | 0/TBD | Not started | - |
+| 31. Export & Integration | JSONL & pipeline | 0/TBD | Not started | - |
+
+---
+*Roadmap created: 2026-01-24*
+*Milestone: v5.0 QA Generation Pipeline*

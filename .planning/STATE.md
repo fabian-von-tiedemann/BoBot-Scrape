@@ -2,25 +2,25 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-16)
+See: .planning/PROJECT.md (updated 2026-01-24)
 
-**Core value:** Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
-**Current focus:** Project feature-complete — v4.0 shipped
+**Core value:** Generera tusentals validerade QA-par fran kunskapsbasen for AI-assistenttraning
+**Current focus:** v5.0 QA Generation Pipeline - Phase 27 Core Infrastructure
 
 ## Current Position
 
-Phase: 26 of 26 (KB Sync Integration)
-Plan: All plans complete
-Status: ✅ v4.0 Milestone shipped
-Last activity: 2026-01-16 — v4.0 Pipeline Refactor complete
+Phase: 27 of 31 (Core Infrastructure)
+Plan: Ready to plan
+Status: Ready to plan
+Last activity: 2026-01-24 - v5.0 roadmap created
 
-Progress: ██████████ 100%
+Progress: [..........] 0%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 26
+- Total plans completed: 26 (v1.0-v4.0)
 - Average duration: ~5 min
 - Total execution time: ~140 min
 
@@ -38,13 +38,14 @@ Progress: ██████████ 100%
 | v3.0 Digi Commands  | 22     | 1     | ~3 min     |
 | v3.1 Improvements   | 23     | 1     | ~3 min     |
 | v4.0 Pipeline Ref   | 24-26  | 3     | ~34 min    |
+| v5.0 QA Pipeline    | 27-31  | TBD   | In progress |
 
 ## Accumulated Context
 
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
-All decisions validated with ✓ Good outcome after v2.0 ship.
+v5.0-relevant decisions pending - will be logged as implementation progresses.
 
 ### Deferred Issues
 
@@ -52,7 +53,7 @@ None.
 
 ### Pending Todos
 
-2 todos — `/gsd:check-todos` to review
+2 todos from v4.0 - `/gsd:check-todos` to review
 
 ### Blockers/Concerns
 
@@ -60,19 +61,11 @@ None.
 
 ### Roadmap Evolution
 
-- v1.0 MVP: Phases 1-4 (shipped 2026-01-13)
-- v2.0 Document Processing Pipeline: Phases 5-8 (shipped 2026-01-14)
-- v2.1 Improvements: Phases 9-10 (shipped 2026-01-14)
-- v2.2 Frontmatter Enrichment: Phases 11-14 (shipped 2026-01-14)
-- v2.3 Frontmatter Schema Upgrade: Phases 15-17 (shipped 2026-01-14)
-- v2.4 Knowledge Base Delivery: Phase 18 (shipped 2026-01-14)
-- v2.5 System Prompt Generation: Phases 19-21 (shipped 2026-01-14)
-- v3.0 Digi Commands: Phase 22 (shipped 2026-01-14)
-- v3.1 Improvements: Phase 23 (shipped 2026-01-15)
-- v4.0 Pipeline Refactor: Phases 24-26 (shipped 2026-01-16)
+- v1.0-v4.0: 26 phases shipped (see PROJECT.md)
+- v5.0 QA Generation Pipeline: Phases 27-31 (current)
 
 ## Session Continuity
 
-Last session: 2026-01-16
-Stopped at: v4.0 milestone complete
+Last session: 2026-01-24
+Stopped at: v5.0 roadmap created, ready to plan Phase 27
 Resume file: None
