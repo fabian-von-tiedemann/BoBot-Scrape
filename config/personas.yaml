@@ -1,0 +1,27 @@
+# config/personas.yaml
+# Personas for QA generation - underskoterskor with varied backgrounds
+personas:
+  - roll: underskoterska
+    erfarenhet: nyanstald
+    situation: forsta manaden i hemtjansten
+    sprakbakgrund: native
+
+  - roll: underskoterska
+    erfarenhet: erfaren
+    situation: 10 ars erfarenhet, jobbar natt
+    sprakbakgrund: native
+
+  - roll: underskoterska
+    erfarenhet: nyanstald
+    situation: nyexaminerad, vikarie
+    sprakbakgrund: intermediate
+
+  - roll: underskoterska
+    erfarenhet: erfaren
+    situation: teamledare i hemtjansten
+    sprakbakgrund: fluent
+
+  - roll: underskoterska
+    erfarenhet: nyanstald
+    situation: karriarbytare, tidigare lagerarbetare
+    sprakbakgrund: beginner
