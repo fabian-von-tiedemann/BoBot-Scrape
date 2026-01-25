@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Phase: 27 of 31 (Core Infrastructure)
-Plan: Ready to plan
-Status: Ready to plan
-Last activity: 2026-01-24 - v5.0 roadmap created
+Plan: 01 of 01 complete
+Status: Phase 27 complete
+Last activity: 2026-01-25 - Completed 27-01-PLAN.md
 
-Progress: [..........] 0%
+Progress: [=.........] 20% (1 of 5 phases)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 26 (v1.0-v4.0)
+- Total plans completed: 27 (v1.0-v4.0 + v5.0)
 - Average duration: ~5 min
-- Total execution time: ~140 min
+- Total execution time: ~142 min
 
 **By Milestone:**
 
@@ -38,14 +38,18 @@ Progress: [..........] 0%
 | v3.0 Digi Commands  | 22     | 1     | ~3 min     |
 | v3.1 Improvements   | 23     | 1     | ~3 min     |
 | v4.0 Pipeline Ref   | 24-26  | 3     | ~34 min    |
-| v5.0 QA Pipeline    | 27-31  | TBD   | In progress |
+| v5.0 QA Pipeline    | 27-31  | 1     | ~2 min     |
 
 ## Accumulated Context
 
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
-v5.0-relevant decisions pending - will be logged as implementation progresses.
+
+**v5.0 Phase 27 Decisions:**
+- Persona ID format: {roll}-{erfarenhet}-{sprakbakgrund}
+- Pydantic Literal types for constrained field validation
+- CLI follows existing generate_prompts.py patterns
 
 ### Deferred Issues
 
@@ -63,9 +67,10 @@ None.
 
 - v1.0-v4.0: 26 phases shipped (see PROJECT.md)
 - v5.0 QA Generation Pipeline: Phases 27-31 (current)
+  - Phase 27: Core Infrastructure - COMPLETE
 
 ## Session Continuity
 
-Last session: 2026-01-24
-Stopped at: v5.0 roadmap created, ready to plan Phase 27
+Last session: 2026-01-25
+Stopped at: Completed 27-01-PLAN.md (Core Infrastructure)
 Resume file: None
