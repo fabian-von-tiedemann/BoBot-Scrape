@@ -28,10 +28,10 @@ This milestone builds a complete QA generation pipeline that transforms the exis
   2. YAML config file contains 5-10 realistic care worker personas
   3. CLI scaffold (generate_qa.py) accepts --input, --output, --personas arguments
   4. src/qa/ module structure exists with __init__.py and persona.py
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 27-01: [To be planned]
+- [ ] 27-01-PLAN.md - Create persona model, YAML config, and CLI scaffold
 
 ### Phase 28: Question Generation
 **Goal**: Generate 3-5 diverse questions per document using persona-driven prompts
@@ -99,7 +99,7 @@ Plans:
 
 | Phase | Goal | Plans Complete | Status | Completed |
 |-------|------|----------------|--------|-----------|
-| 27. Core Infrastructure | Persona model & scaffold | 0/TBD | Not started | - |
+| 27. Core Infrastructure | Persona model & scaffold | 0/1 | Planned | - |
 | 28. Question Generation | Persona-driven questions | 0/TBD | Not started | - |
 | 29. Answer Generation | Grounded answers | 0/TBD | Not started | - |
 | 30. Validation Pipeline | Two-stage quality gate | 0/TBD | Not started | - |
