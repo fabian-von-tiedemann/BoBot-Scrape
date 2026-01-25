@@ -9,9 +9,9 @@ Requirements for QA generation pipeline. Each maps to roadmap phases.
 
 ### Persona Model
 
-- [ ] **PERS-01**: Definiera persona-modell med roll + situation
-- [ ] **PERS-02**: Skapa 5-10 distinkta personas (underskoterska, hemtjanst, nattjour, ny pa jobbet, etc)
-- [ ] **PERS-03**: Persona-konfiguration i YAML-fil
+- [x] **PERS-01**: Definiera persona-modell med roll + situation
+- [x] **PERS-02**: Skapa 5-10 distinkta personas (underskoterska, hemtjanst, nattjour, ny pa jobbet, etc)
+- [x] **PERS-03**: Persona-konfiguration i YAML-fil
 
 ### Question Generation
 
@@ -83,9 +83,9 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase    | Status  |
 |-------------|----------|---------|
-| PERS-01     | Phase 27 | Pending |
-| PERS-02     | Phase 27 | Pending |
-| PERS-03     | Phase 27 | Pending |
+| PERS-01     | Phase 27 | Complete |
+| PERS-02     | Phase 27 | Complete |
+| PERS-03     | Phase 27 | Complete |
 | QGEN-01     | Phase 28 | Pending |
 | QGEN-02     | Phase 28 | Pending |
 | QGEN-03     | Phase 28 | Pending |

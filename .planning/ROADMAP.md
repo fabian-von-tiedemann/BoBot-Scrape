@@ -11,7 +11,7 @@ This milestone builds a complete QA generation pipeline that transforms the exis
 
 ## Phases
 
-- [ ] **Phase 27: Core Infrastructure** - Persona model and module scaffold
+- [x] **Phase 27: Core Infrastructure** - Persona model and module scaffold
 - [ ] **Phase 28: Question Generation** - Generate persona-driven questions from documents
 - [ ] **Phase 29: Answer Generation** - Ground answers in source documents with citations
 - [ ] **Phase 30: Validation Pipeline** - Two-stage quality gate (source + quality)
@@ -31,7 +31,7 @@ This milestone builds a complete QA generation pipeline that transforms the exis
 **Plans**: 1 plan
 
 Plans:
-- [ ] 27-01-PLAN.md - Create persona model, YAML config, and CLI scaffold
+- [x] 27-01-PLAN.md - Create persona model, YAML config, and CLI scaffold
 
 ### Phase 28: Question Generation
 **Goal**: Generate 3-5 diverse questions per document using persona-driven prompts
@@ -99,7 +99,7 @@ Plans:
 
 | Phase | Goal | Plans Complete | Status | Completed |
 |-------|------|----------------|--------|-----------|
-| 27. Core Infrastructure | Persona model & scaffold | 0/1 | Planned | - |
+| 27. Core Infrastructure | Persona model & scaffold | 1/1 | ✓ Complete | 2026-01-25 |
 | 28. Question Generation | Persona-driven questions | 0/TBD | Not started | - |
 | 29. Answer Generation | Grounded answers | 0/TBD | Not started | - |
 | 30. Validation Pipeline | Two-stage quality gate | 0/TBD | Not started | - |
