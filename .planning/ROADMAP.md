@@ -43,10 +43,10 @@ Plans:
   3. Each question includes reference to its source document (filename, section)
   4. Batch mode processes multiple documents with progress bar
   5. Questions saved to intermediate output file for inspection
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 28-01: [To be planned]
+- [ ] 28-01-PLAN.md - Question generation with Pydantic models, Gemini integration, batch processing
 
 ### Phase 29: Answer Generation
 **Goal**: Generate grounded answers with explicit source citations in plain Swedish
@@ -100,7 +100,7 @@ Plans:
 | Phase | Goal | Plans Complete | Status | Completed |
 |-------|------|----------------|--------|-----------|
 | 27. Core Infrastructure | Persona model & scaffold | 1/1 | ✓ Complete | 2026-01-25 |
-| 28. Question Generation | Persona-driven questions | 0/TBD | Not started | - |
+| 28. Question Generation | Persona-driven questions | 0/1 | Planned | - |
 | 29. Answer Generation | Grounded answers | 0/TBD | Not started | - |
 | 30. Validation Pipeline | Two-stage quality gate | 0/TBD | Not started | - |
 | 31. Export & Integration | JSONL & pipeline | 0/TBD | Not started | - |
