@@ -15,11 +15,11 @@ Requirements for QA generation pipeline. Each maps to roadmap phases.
 
 ### Question Generation
 
-- [ ] **QGEN-01**: Generera fragor fran dokumentinnehall med Gemini
-- [ ] **QGEN-02**: Persona-drivna fragor (formulerade som persona skulle fraga)
-- [ ] **QGEN-03**: Kalldokumentreferens for varje fraga
-- [ ] **QGEN-04**: 3-5 fragor per dokument
-- [ ] **QGEN-05**: Batch-generering med progress-tracking
+- [x] **QGEN-01**: Generera fragor fran dokumentinnehall med Gemini
+- [x] **QGEN-02**: Persona-drivna fragor (formulerade som persona skulle fraga)
+- [x] **QGEN-03**: Kalldokumentreferens for varje fraga
+- [x] **QGEN-04**: 3-5 fragor per dokument
+- [x] **QGEN-05**: Batch-generering med progress-tracking
 
 ### Answer Generation
 
@@ -86,11 +86,11 @@ Deferred to future release. Tracked but not in current roadmap.
 | PERS-01     | Phase 27 | Complete |
 | PERS-02     | Phase 27 | Complete |
 | PERS-03     | Phase 27 | Complete |
-| QGEN-01     | Phase 28 | Pending |
-| QGEN-02     | Phase 28 | Pending |
-| QGEN-03     | Phase 28 | Pending |
-| QGEN-04     | Phase 28 | Pending |
-| QGEN-05     | Phase 28 | Pending |
+| QGEN-01     | Phase 28 | Complete |
+| QGEN-02     | Phase 28 | Complete |
+| QGEN-03     | Phase 28 | Complete |
+| QGEN-04     | Phase 28 | Complete |
+| QGEN-05     | Phase 28 | Complete |
 | AGEN-01     | Phase 29 | Pending |
 | AGEN-02     | Phase 29 | Pending |
 | AGEN-03     | Phase 29 | Pending |
@@ -115,4 +115,4 @@ Deferred to future release. Tracked but not in current roadmap.
 
 ---
 *Requirements defined: 2026-01-24*
-*Last updated: 2026-01-24 after roadmap creation*
+*Last updated: 2026-01-26 after Phase 28 completion*
