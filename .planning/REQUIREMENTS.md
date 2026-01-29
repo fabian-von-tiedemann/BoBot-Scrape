@@ -23,10 +23,10 @@ Requirements for QA generation pipeline. Each maps to roadmap phases.
 
 ### Answer Generation
 
-- [ ] **AGEN-01**: Svar grundade i kalldokument
-- [ ] **AGEN-02**: Kallcitat i varje svar (dokumentnamn, sektion)
-- [ ] **AGEN-03**: Klarsprak (enkel svenska, B1-niva)
-- [ ] **AGEN-04**: Extraktionsstil (citera relevant text fran kalla)
+- [x] **AGEN-01**: Svar grundade i kalldokument
+- [x] **AGEN-02**: Kallcitat i varje svar (dokumentnamn, sektion)
+- [x] **AGEN-03**: Klarsprak (enkel svenska, B1-niva)
+- [x] **AGEN-04**: Extraktionsstil (citera relevant text fran kalla)
 
 ### Validation
 
@@ -91,10 +91,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | QGEN-03     | Phase 28 | Complete |
 | QGEN-04     | Phase 28 | Complete |
 | QGEN-05     | Phase 28 | Complete |
-| AGEN-01     | Phase 29 | Pending |
-| AGEN-02     | Phase 29 | Pending |
-| AGEN-03     | Phase 29 | Pending |
-| AGEN-04     | Phase 29 | Pending |
+| AGEN-01     | Phase 29 | Complete |
+| AGEN-02     | Phase 29 | Complete |
+| AGEN-03     | Phase 29 | Complete |
+| AGEN-04     | Phase 29 | Complete |
 | VALD-01     | Phase 30 | Pending |
 | VALD-02     | Phase 30 | Pending |
 | VALD-03     | Phase 30 | Pending |
@@ -115,4 +115,4 @@ Deferred to future release. Tracked but not in current roadmap.
 
 ---
 *Requirements defined: 2026-01-24*
-*Last updated: 2026-01-26 after Phase 28 completion*
+*Last updated: 2026-01-29 after Phase 29 completion*

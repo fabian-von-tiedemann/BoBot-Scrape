@@ -13,7 +13,7 @@ This milestone builds a complete QA generation pipeline that transforms the exis
 
 - [x] **Phase 27: Core Infrastructure** - Persona model and module scaffold
 - [x] **Phase 28: Question Generation** - Generate persona-driven questions from documents
-- [ ] **Phase 29: Answer Generation** - Ground answers in source documents with citations
+- [x] **Phase 29: Answer Generation** - Ground answers in source documents with citations
 - [ ] **Phase 30: Validation Pipeline** - Two-stage quality gate (source + quality)
 - [ ] **Phase 31: Export & Integration** - JSONL export and pipeline integration
 
@@ -60,8 +60,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 29-01-PLAN.md - Semantic retrieval infrastructure (chunking, Swedish embeddings, FAISS index)
-- [ ] 29-02-PLAN.md - Answer generation with citations and CLI integration
+- [x] 29-01-PLAN.md - Semantic retrieval infrastructure (chunking, Swedish embeddings, FAISS index)
+- [x] 29-02-PLAN.md - Answer generation with citations and CLI integration
 
 ### Phase 30: Validation Pipeline
 **Goal**: Two-stage validation filtering out hallucinations and low-quality pairs
@@ -102,7 +102,7 @@ Plans:
 |-------|------|----------------|--------|-----------|
 | 27. Core Infrastructure | Persona model & scaffold | 1/1 | ✓ Complete | 2026-01-25 |
 | 28. Question Generation | Persona-driven questions | 1/1 | ✓ Complete | 2026-01-26 |
-| 29. Answer Generation | Grounded answers | 0/2 | Planned | - |
+| 29. Answer Generation | Grounded answers | 2/2 | ✓ Complete | 2026-01-29 |
 | 30. Validation Pipeline | Two-stage quality gate | 0/TBD | Not started | - |
 | 31. Export & Integration | JSONL & pipeline | 0/TBD | Not started | - |
 
