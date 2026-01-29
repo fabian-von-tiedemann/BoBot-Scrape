@@ -20,6 +20,14 @@ from .chunker import (
     chunk_all_documents,
 )
 from .retriever import SwedishRetriever
+from .answer import (
+    Citation,
+    GeneratedAnswer,
+    QAEntry,
+    generate_answer,
+    create_qa_entry,
+    generate_answers_batch,
+)
 
 __all__ = [
     # Persona
@@ -38,4 +46,11 @@ __all__ = [
     'chunk_document',
     'chunk_all_documents',
     'SwedishRetriever',
+    # Answer generation
+    'Citation',
+    'GeneratedAnswer',
+    'QAEntry',
+    'generate_answer',
+    'create_qa_entry',
+    'generate_answers_batch',
 ]
