@@ -57,10 +57,11 @@ Plans:
   2. Answers include citation format [source:filename.md#section]
   3. Answer text uses klarsprak (B1 Swedish, short sentences, active voice)
   4. Extraction-style generation (quotes relevant text rather than paraphrasing)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 29-01: [To be planned]
+- [ ] 29-01-PLAN.md - Semantic retrieval infrastructure (chunking, Swedish embeddings, FAISS index)
+- [ ] 29-02-PLAN.md - Answer generation with citations and CLI integration
 
 ### Phase 30: Validation Pipeline
 **Goal**: Two-stage validation filtering out hallucinations and low-quality pairs
@@ -101,7 +102,7 @@ Plans:
 |-------|------|----------------|--------|-----------|
 | 27. Core Infrastructure | Persona model & scaffold | 1/1 | ✓ Complete | 2026-01-25 |
 | 28. Question Generation | Persona-driven questions | 1/1 | ✓ Complete | 2026-01-26 |
-| 29. Answer Generation | Grounded answers | 0/TBD | Not started | - |
+| 29. Answer Generation | Grounded answers | 0/2 | Planned | - |
 | 30. Validation Pipeline | Two-stage quality gate | 0/TBD | Not started | - |
 | 31. Export & Integration | JSONL & pipeline | 0/TBD | Not started | - |
 
