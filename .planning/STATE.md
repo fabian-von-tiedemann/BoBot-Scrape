@@ -5,24 +5,24 @@
 See: .planning/PROJECT.md (updated 2026-01-24)
 
 **Core value:** Generera tusentals validerade QA-par fran kunskapsbasen for AI-assistenttraning
-**Current focus:** v5.0 QA Generation Pipeline - Phase 29 Answer Generation
+**Current focus:** v5.0 QA Generation Pipeline - Phase 29 Complete
 
 ## Current Position
 
 Phase: 29 of 31 (Answer Generation)
-Plan: 01 of 02 complete
-Status: Plan 01 complete, ready for Plan 02 (Answer Generation)
-Last activity: 2026-01-29 - Completed 29-01-PLAN.md
+Plan: 02 of 02 complete
+Status: Phase 29 complete, ready for Phase 30 (QA Validation)
+Last activity: 2026-01-29 - Completed 29-02-PLAN.md
 
-Progress: [===.......] 60% (3 of 5 phases)
+Progress: [====......] 80% (4 of 5 phases)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 28 (v1.0-v4.0 + v5.0)
+- Total plans completed: 29 (v1.0-v4.0 + v5.0)
 - Average duration: ~5 min
-- Total execution time: ~150 min
+- Total execution time: ~163 min
 
 **By Milestone:**
 
@@ -38,7 +38,7 @@ Progress: [===.......] 60% (3 of 5 phases)
 | v3.0 Digi Commands  | 22     | 1     | ~3 min     |
 | v3.1 Improvements   | 23     | 1     | ~3 min     |
 | v4.0 Pipeline Ref   | 24-26  | 3     | ~34 min    |
-| v5.0 QA Pipeline    | 27-31  | 3     | ~13 min    |
+| v5.0 QA Pipeline    | 27-31  | 4     | ~26 min    |
 
 ## Accumulated Context
 
@@ -65,6 +65,13 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - Vector search: FAISS IndexFlatIP with L2 normalization (cosine similarity)
 - Token counting: tiktoken cl100k_base encoding
 
+**v5.0 Phase 29 Decisions (Plan 02):**
+
+- Extraction-style prompting: prefer direct quotes over paraphrasing for accuracy
+- Citation format: [source:document.md#section] inline immediately after content
+- Klarsprak enforcement: max 15 words per sentence, active voice, du-tilltal
+- Coverage tracking: full/partial/none with confidence score 0.0-1.0
+
 ### Deferred Issues
 
 None.
@@ -83,10 +90,10 @@ None.
 - v5.0 QA Generation Pipeline: Phases 27-31 (current)
   - Phase 27: Core Infrastructure - COMPLETE
   - Phase 28: Question Generation - COMPLETE
-  - Phase 29: Answer Generation - Plan 01 COMPLETE (retrieval infrastructure)
+  - Phase 29: Answer Generation - COMPLETE (retrieval + generation)
 
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Phase 29 Plan 01 complete, ready for Plan 02 Answer Generation
+Stopped at: Phase 29 complete, ready for Phase 30 QA Validation
 Resume file: None
