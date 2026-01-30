@@ -73,10 +73,11 @@ Plans:
   3. Each QA pair has validation_score in output
   4. Pipeline filters out pairs below quality threshold
   5. Separate output streams for passed vs failed validation
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 30-01: [To be planned]
+- [ ] 30-01-PLAN.md - Validation module core (Pydantic models, source verification, quality assessment)
+- [ ] 30-02-PLAN.md - CLI integration and batch processing with JSONL output
 
 ### Phase 31: Export & Integration
 **Goal**: Complete pipeline with JSONL export and integration into main workflow
@@ -103,7 +104,7 @@ Plans:
 | 27. Core Infrastructure | Persona model & scaffold | 1/1 | ✓ Complete | 2026-01-25 |
 | 28. Question Generation | Persona-driven questions | 1/1 | ✓ Complete | 2026-01-26 |
 | 29. Answer Generation | Grounded answers | 2/2 | ✓ Complete | 2026-01-29 |
-| 30. Validation Pipeline | Two-stage quality gate | 0/TBD | Not started | - |
+| 30. Validation Pipeline | Two-stage quality gate | 0/2 | Not started | - |
 | 31. Export & Integration | JSONL & pipeline | 0/TBD | Not started | - |
 
 ---
