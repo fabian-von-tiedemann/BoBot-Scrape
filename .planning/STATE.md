@@ -5,24 +5,24 @@
 See: .planning/PROJECT.md (updated 2026-01-24)
 
 **Core value:** Generera tusentals validerade QA-par fran kunskapsbasen for AI-assistenttraning
-**Current focus:** v5.0 QA Generation Pipeline - Phase 29 Complete
+**Current focus:** v5.0 QA Generation Pipeline - Phase 30 In Progress
 
 ## Current Position
 
-Phase: 29 of 31 (Answer Generation)
-Plan: 02 of 02 complete
-Status: Phase 29 complete, ready for Phase 30 (QA Validation)
-Last activity: 2026-01-29 - Completed 29-02-PLAN.md
+Phase: 30 of 31 (Validation Pipeline)
+Plan: 01 of 02 complete
+Status: Phase 30 in progress
+Last activity: 2026-01-30 - Completed 30-01-PLAN.md
 
-Progress: [======....] 60% (3 of 5 phases)
+Progress: [=======...] 70% (4 of 5 phases)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 29 (v1.0-v4.0 + v5.0)
+- Total plans completed: 30 (v1.0-v4.0 + v5.0)
 - Average duration: ~5 min
-- Total execution time: ~163 min
+- Total execution time: ~167 min
 
 **By Milestone:**
 
@@ -38,7 +38,7 @@ Progress: [======....] 60% (3 of 5 phases)
 | v3.0 Digi Commands  | 22     | 1     | ~3 min     |
 | v3.1 Improvements   | 23     | 1     | ~3 min     |
 | v4.0 Pipeline Ref   | 24-26  | 3     | ~34 min    |
-| v5.0 QA Pipeline    | 27-31  | 4     | ~26 min    |
+| v5.0 QA Pipeline    | 27-31  | 5     | ~30 min    |
 
 ## Accumulated Context
 
@@ -72,6 +72,13 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - Klarsprak enforcement: max 15 words per sentence, active voice, du-tilltal
 - Coverage tracking: full/partial/none with confidence score 0.0-1.0
 
+**v5.0 Phase 30 Decisions (Plan 01):**
+
+- Similarity thresholds: >=0.75 auto-pass, 0.5-0.75 LLM borderline check, <0.5 auto-fail
+- Composite weights: source 0.3, relevans 0.2, korrekthet 0.3, fullstandighet 0.2
+- Early exit: Skip quality assessment if source verification fails to save API calls
+- Claim extraction: Split answer by sentences, filter trivial (<10 chars)
+
 ### Deferred Issues
 
 None.
@@ -91,9 +98,10 @@ None.
   - Phase 27: Core Infrastructure - COMPLETE
   - Phase 28: Question Generation - COMPLETE
   - Phase 29: Answer Generation - COMPLETE (retrieval + generation)
+  - Phase 30: QA Validation - Plan 01 complete (validation core)
 
 ## Session Continuity
 
-Last session: 2026-01-29
-Stopped at: Phase 29 complete, ready for Phase 30 QA Validation
+Last session: 2026-01-30
+Stopped at: Phase 30-01 complete, ready for 30-02 CLI
 Resume file: None
