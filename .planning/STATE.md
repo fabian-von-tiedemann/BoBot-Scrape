@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Phase: 30 of 31 (Validation Pipeline)
-Plan: 01 of 02 complete
-Status: Phase 30 in progress
-Last activity: 2026-01-30 - Completed 30-01-PLAN.md
+Plan: 02 of 02 complete
+Status: Phase 30 complete
+Last activity: 2026-01-30 - Completed 30-02-PLAN.md
 
-Progress: [=======...] 70% (4 of 5 phases)
+Progress: [========..] 80% (4 of 5 phases complete)
 
 ## Performance Metrics
 
@@ -79,6 +79,12 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - Early exit: Skip quality assessment if source verification fails to save API calls
 - Claim extraction: Split answer by sentences, filter trivial (<10 chars)
 
+**v5.0 Phase 30 Decisions (Plan 02):**
+
+- JSONL format for output (one JSON object per line) for streaming compatibility
+- Pass/reject threshold at 0.7 composite score
+- Validation object embedded in each output entry for transparency
+
 ### Deferred Issues
 
 None.
@@ -98,10 +104,10 @@ None.
   - Phase 27: Core Infrastructure - COMPLETE
   - Phase 28: Question Generation - COMPLETE
   - Phase 29: Answer Generation - COMPLETE (retrieval + generation)
-  - Phase 30: QA Validation - Plan 01 complete (validation core)
+  - Phase 30: QA Validation - COMPLETE (validation core + CLI)
 
 ## Session Continuity
 
 Last session: 2026-01-30
-Stopped at: Phase 30-01 complete, ready for 30-02 CLI
+Stopped at: Phase 30 complete, ready for Phase 31 Export
 Resume file: None
