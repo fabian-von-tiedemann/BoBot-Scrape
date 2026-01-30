@@ -28,6 +28,15 @@ from .answer import (
     create_qa_entry,
     generate_answers_batch,
 )
+from .validator import (
+    SourceVerification,
+    QualityAssessment,
+    ValidationResult,
+    verify_source,
+    assess_quality,
+    compute_composite_score,
+    validate_qa_pair,
+)
 
 __all__ = [
     # Persona
@@ -53,4 +62,12 @@ __all__ = [
     'generate_answer',
     'create_qa_entry',
     'generate_answers_batch',
+    # Validation
+    'SourceVerification',
+    'QualityAssessment',
+    'ValidationResult',
+    'verify_source',
+    'assess_quality',
+    'compute_composite_score',
+    'validate_qa_pair',
 ]
