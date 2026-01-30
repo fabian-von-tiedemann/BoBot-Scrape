@@ -57,6 +57,7 @@ Examples:
   %(prog)s --build-index                Build FAISS index from documents
   %(prog)s --answers                    Generate answers for questions.yaml
   %(prog)s --answers --limit 10         Generate answers for first 10 questions
+  %(prog)s --validate                   Validate QA pairs from answers.yaml
         """
     )
     parser.add_argument(
@@ -115,6 +116,11 @@ Examples:
         default=Path("qa/embeddings"),
         help="Path to embeddings index directory (default: qa/embeddings)"
     )
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help="Validate QA pairs from answers.yaml, output to qa_passed.jsonl and qa_rejected.jsonl"
+    )
     return parser.parse_args()
 
 
@@ -144,6 +150,72 @@ def build_index_command(args) -> int:
     print(f"\nIndex saved to {args.index_dir}")
     print(f"  - chunks.index: FAISS index file")
     print(f"  - chunks_meta.json: Chunk metadata")
+
+    return 0
+
+
+def validate_command(args) -> int:
+    """Validate QA pairs from answers.yaml."""
+    print("Validation mode")
+
+    # Check answers file exists
+    answers_path = args.output / "answers.yaml"
+    if not answers_path.exists():
+        print(f"Error: answers.yaml not found at {answers_path}")
+        print("Run with --answers first to generate QA pairs")
+        return 1
+
+    # Check index exists
+    index_file = args.index_dir / "chunks.index"
+    if not index_file.exists():
+        print(f"Error: Index not found at {args.index_dir}")
+        print("Run --build-index first to create the FAISS index")
+        return 1
+
+    # Load answers
+    print(f"\nLoading answers from {answers_path}...")
+    with open(answers_path, encoding='utf-8') as f:
+        answers_data = yaml.safe_load(f)
+
+    # Flatten categories to list
+    qa_pairs = []
+    for category, entries in answers_data.get('categories', {}).items():
+        qa_pairs.extend(entries)
+
+    print(f"Found {len(qa_pairs)} QA pairs in {len(answers_data.get('categories', {}))} categories")
+
+    # Load retriever and documents
+    from src.qa import SwedishRetriever, validate_batch, load_document_contents
+
+    print(f"\nLoading index from {args.index_dir}...")
+    retriever = SwedishRetriever(args.index_dir)
+    retriever.load_index()
+
+    print(f"Loading documents from {args.input}...")
+    doc_contents = load_document_contents(Path(args.input))
+    print(f"Loaded {len(doc_contents)} documents")
+
+    # Run validation
+    print("\nRunning validation...")
+    print()
+    stats = validate_batch(
+        qa_pairs=qa_pairs,
+        retriever=retriever,
+        doc_contents=doc_contents,
+        output_passed=args.output / "qa_passed.jsonl",
+        output_rejected=args.output / "qa_rejected.jsonl",
+        threshold=0.7
+    )
+
+    # Print summary
+    print(f"\n=== Validation Summary ===")
+    print(f"Total pairs: {stats['total']}")
+    print(f"Passed: {stats['passed']} ({stats['pass_rate']:.1%})")
+    print(f"Rejected: {stats['rejected']}")
+    print(f"Average score (passed): {stats['avg_score']:.2f}")
+    print(f"\nOutput files:")
+    print(f"  Passed: {args.output / 'qa_passed.jsonl'}")
+    print(f"  Rejected: {args.output / 'qa_rejected.jsonl'}")
 
     return 0
 
@@ -234,6 +306,10 @@ def main():
     # Handle --answers mode
     if args.answers:
         return generate_answers_command(args)
+
+    # Handle --validate mode
+    if args.validate:
+        return validate_command(args)
 
     # Validate input directory
     if not args.input.exists():
