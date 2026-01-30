@@ -30,11 +30,11 @@ Requirements for QA generation pipeline. Each maps to roadmap phases.
 
 ### Validation
 
-- [ ] **VALD-01**: Kallverifiering (svar finns i refererat dokument)
-- [ ] **VALD-02**: Kvalitetsbedomning (relevans, korrekthet, fullstandighet)
-- [ ] **VALD-03**: Tvastegs validering med LLM-as-judge
-- [ ] **VALD-04**: Filtrera bort hallucineringar och lag kvalitet
-- [ ] **VALD-05**: Validerings-score i output (for granskning)
+- [x] **VALD-01**: Kallverifiering (svar finns i refererat dokument)
+- [x] **VALD-02**: Kvalitetsbedomning (relevans, korrekthet, fullstandighet)
+- [x] **VALD-03**: Tvastegs validering med LLM-as-judge
+- [x] **VALD-04**: Filtrera bort hallucineringar och lag kvalitet
+- [x] **VALD-05**: Validerings-score i output (for granskning)
 
 ### Export
 
@@ -95,11 +95,11 @@ Deferred to future release. Tracked but not in current roadmap.
 | AGEN-02     | Phase 29 | Complete |
 | AGEN-03     | Phase 29 | Complete |
 | AGEN-04     | Phase 29 | Complete |
-| VALD-01     | Phase 30 | Pending |
-| VALD-02     | Phase 30 | Pending |
-| VALD-03     | Phase 30 | Pending |
-| VALD-04     | Phase 30 | Pending |
-| VALD-05     | Phase 30 | Pending |
+| VALD-01     | Phase 30 | Complete |
+| VALD-02     | Phase 30 | Complete |
+| VALD-03     | Phase 30 | Complete |
+| VALD-04     | Phase 30 | Complete |
+| VALD-05     | Phase 30 | Complete |
 | EXPRT-01    | Phase 31 | Pending |
 | EXPRT-02    | Phase 31 | Pending |
 | EXPRT-03    | Phase 31 | Pending |
@@ -115,4 +115,4 @@ Deferred to future release. Tracked but not in current roadmap.
 
 ---
 *Requirements defined: 2026-01-24*
-*Last updated: 2026-01-29 after Phase 29 completion*
+*Last updated: 2026-01-30 after Phase 30 completion*
