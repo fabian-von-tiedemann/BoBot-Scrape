@@ -36,6 +36,8 @@ from .validator import (
     assess_quality,
     compute_composite_score,
     validate_qa_pair,
+    validate_batch,
+    load_document_contents,
 )
 
 __all__ = [
@@ -70,4 +72,6 @@ __all__ = [
     'assess_quality',
     'compute_composite_score',
     'validate_qa_pair',
+    'validate_batch',
+    'load_document_contents',
 ]

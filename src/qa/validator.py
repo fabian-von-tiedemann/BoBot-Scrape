@@ -9,12 +9,15 @@ Stage 2: Quality assessment - LLM-as-judge scores three dimensions:
 
 Combined with composite score for pass/fail decision.
 """
+import json
 import logging
 import os
 import re
+from pathlib import Path
 from typing import Literal
 
 from pydantic import BaseModel, Field
+from rich.progress import Progress, SpinnerColumn, BarColumn, TextColumn
 
 logger = logging.getLogger(__name__)
 
@@ -504,3 +507,105 @@ def validate_qa_pair(
         quality_assessment=quality_result,
         failure_reason=failure_reason
     )
+
+
+def write_jsonl(path: Path, entries: list[dict]) -> None:
+    """Write entries to JSONL file (one JSON object per line)."""
+    with open(path, 'w', encoding='utf-8') as f:
+        for entry in entries:
+            f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+
+
+def load_document_contents(docs_dir: Path) -> dict[str, str]:
+    """
+    Load all document contents for LLM judge context.
+
+    Args:
+        docs_dir: Directory containing markdown documents
+
+    Returns:
+        Dict mapping relative document paths to their content
+    """
+    doc_contents = {}
+    for md_file in docs_dir.rglob("*.md"):
+        # Use relative path matching citation format (folder/filename.md)
+        rel_path = f"{md_file.parent.name}/{md_file.name}"
+        doc_contents[rel_path] = md_file.read_text(encoding='utf-8')
+    return doc_contents
+
+
+def validate_batch(
+    qa_pairs: list[dict],
+    retriever: "SwedishRetriever",
+    doc_contents: dict[str, str],
+    output_passed: Path,
+    output_rejected: Path,
+    threshold: float = 0.7,
+) -> dict:
+    """
+    Validate batch of QA pairs with progress tracking.
+
+    Args:
+        qa_pairs: List of QA entry dicts from answers.yaml
+        retriever: SwedishRetriever with loaded index
+        doc_contents: Dict mapping document paths to content
+        output_passed: Path for passed pairs JSONL
+        output_rejected: Path for rejected pairs JSONL
+        threshold: Composite score threshold (default 0.7)
+
+    Returns:
+        Summary dict with total, passed, rejected, pass_rate, avg_score
+    """
+    passed_entries = []
+    rejected_entries = []
+    total_passed_score = 0.0
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        TextColumn("{task.completed}/{task.total}"),
+    ) as progress:
+        task = progress.add_task("Validating QA pairs...", total=len(qa_pairs))
+
+        for qa_entry in qa_pairs:
+            # Validate the QA pair
+            result = validate_qa_pair(
+                qa_entry=qa_entry,
+                retriever=retriever,
+                doc_contents=doc_contents,
+                threshold=threshold
+            )
+
+            # Build output entry with original QA data + validation result
+            output_entry = {
+                **qa_entry,
+                "validation": result.model_dump()
+            }
+
+            if result.passed:
+                passed_entries.append(output_entry)
+                total_passed_score += result.composite_score
+            else:
+                rejected_entries.append(output_entry)
+
+            progress.advance(task)
+
+    # Write output files
+    write_jsonl(output_passed, passed_entries)
+    write_jsonl(output_rejected, rejected_entries)
+
+    # Calculate statistics
+    total = len(qa_pairs)
+    passed_count = len(passed_entries)
+    rejected_count = len(rejected_entries)
+    pass_rate = passed_count / total if total > 0 else 0.0
+    avg_score = total_passed_score / passed_count if passed_count > 0 else 0.0
+
+    return {
+        "total": total,
+        "passed": passed_count,
+        "rejected": rejected_count,
+        "pass_rate": pass_rate,
+        "avg_score": avg_score
+    }
