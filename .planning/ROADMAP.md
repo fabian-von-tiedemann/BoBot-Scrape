@@ -90,10 +90,11 @@ Plans:
   4. generate_qa.py works as standalone CLI
   5. pipeline.py accepts --generate-qa flag to include QA generation
   6. Checkpointing allows resume after interruption
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 31-01: [To be planned]
+- [ ] 31-01-PLAN.md - HuggingFace export module and CLI --export mode
+- [ ] 31-02-PLAN.md - Checkpointing and pipeline.py --generate-qa integration
 
 ## Progress
 
@@ -101,11 +102,11 @@ Plans:
 
 | Phase | Goal | Plans Complete | Status | Completed |
 |-------|------|----------------|--------|-----------|
-| 27. Core Infrastructure | Persona model & scaffold | 1/1 | ✓ Complete | 2026-01-25 |
-| 28. Question Generation | Persona-driven questions | 1/1 | ✓ Complete | 2026-01-26 |
-| 29. Answer Generation | Grounded answers | 2/2 | ✓ Complete | 2026-01-29 |
-| 30. Validation Pipeline | Two-stage quality gate | 2/2 | ✓ Complete | 2026-01-30 |
-| 31. Export & Integration | JSONL & pipeline | 0/TBD | Not started | - |
+| 27. Core Infrastructure | Persona model & scaffold | 1/1 | Complete | 2026-01-25 |
+| 28. Question Generation | Persona-driven questions | 1/1 | Complete | 2026-01-26 |
+| 29. Answer Generation | Grounded answers | 2/2 | Complete | 2026-01-29 |
+| 30. Validation Pipeline | Two-stage quality gate | 2/2 | Complete | 2026-01-30 |
+| 31. Export & Integration | JSONL & pipeline | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-24*
