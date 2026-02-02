@@ -38,15 +38,15 @@ Requirements for QA generation pipeline. Each maps to roadmap phases.
 
 ### Export
 
-- [ ] **EXPRT-01**: JSONL-export (HuggingFace-kompatibelt)
-- [ ] **EXPRT-02**: Metadata per QA-par (persona, kalla, score)
-- [ ] **EXPRT-03**: Separat fil for godkanda vs underkanda QA-par
+- [x] **EXPRT-01**: JSONL-export (HuggingFace-kompatibelt)
+- [x] **EXPRT-02**: Metadata per QA-par (persona, kalla, score)
+- [x] **EXPRT-03**: Separat fil for godkanda vs underkanda QA-par
 
 ### Integration
 
-- [ ] **INTG-01**: Standalone CLI (generate_qa.py)
-- [ ] **INTG-02**: Integration i pipeline.py som valfritt steg
-- [ ] **INTG-03**: Checkpointing for resume vid avbrott
+- [x] **INTG-01**: Standalone CLI (generate_qa.py)
+- [x] **INTG-02**: Integration i pipeline.py som valfritt steg
+- [x] **INTG-03**: Checkpointing for resume vid avbrott
 
 ## v5.1+ Requirements
 
@@ -100,12 +100,12 @@ Deferred to future release. Tracked but not in current roadmap.
 | VALD-03     | Phase 30 | Complete |
 | VALD-04     | Phase 30 | Complete |
 | VALD-05     | Phase 30 | Complete |
-| EXPRT-01    | Phase 31 | Pending |
-| EXPRT-02    | Phase 31 | Pending |
-| EXPRT-03    | Phase 31 | Pending |
-| INTG-01     | Phase 31 | Pending |
-| INTG-02     | Phase 31 | Pending |
-| INTG-03     | Phase 31 | Pending |
+| EXPRT-01    | Phase 31 | Complete |
+| EXPRT-02    | Phase 31 | Complete |
+| EXPRT-03    | Phase 31 | Complete |
+| INTG-01     | Phase 31 | Complete |
+| INTG-02     | Phase 31 | Complete |
+| INTG-03     | Phase 31 | Complete |
 
 **Coverage:**
 
@@ -115,4 +115,4 @@ Deferred to future release. Tracked but not in current roadmap.
 
 ---
 *Requirements defined: 2026-01-24*
-*Last updated: 2026-01-30 after Phase 30 completion*
+*Last updated: 2026-02-02 after Phase 31 completion — v5.0 complete*

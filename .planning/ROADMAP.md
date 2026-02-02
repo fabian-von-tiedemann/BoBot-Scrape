@@ -15,7 +15,7 @@ This milestone builds a complete QA generation pipeline that transforms the exis
 - [x] **Phase 28: Question Generation** - Generate persona-driven questions from documents
 - [x] **Phase 29: Answer Generation** - Ground answers in source documents with citations
 - [x] **Phase 30: Validation Pipeline** - Two-stage quality gate (source + quality)
-- [ ] **Phase 31: Export & Integration** - JSONL export and pipeline integration
+- [x] **Phase 31: Export & Integration** - JSONL export and pipeline integration
 
 ## Phase Details
 
@@ -93,8 +93,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 31-01-PLAN.md - HuggingFace export module and CLI --export mode
-- [ ] 31-02-PLAN.md - Checkpointing and pipeline.py --generate-qa integration
+- [x] 31-01-PLAN.md - HuggingFace export module and CLI --export mode
+- [x] 31-02-PLAN.md - Checkpointing and pipeline.py --generate-qa integration
 
 ## Progress
 
@@ -106,7 +106,7 @@ Plans:
 | 28. Question Generation | Persona-driven questions | 1/1 | Complete | 2026-01-26 |
 | 29. Answer Generation | Grounded answers | 2/2 | Complete | 2026-01-29 |
 | 30. Validation Pipeline | Two-stage quality gate | 2/2 | Complete | 2026-01-30 |
-| 31. Export & Integration | JSONL & pipeline | 0/2 | Not started | - |
+| 31. Export & Integration | JSONL & pipeline | 2/2 | Complete | 2026-02-02 |
 
 ---
 *Roadmap created: 2026-01-24*
