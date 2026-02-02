@@ -38,6 +38,13 @@ from src.qa import (
     SwedishRetriever,
     # Answer generation
     generate_answers_batch,
+    # Checkpoint
+    Checkpoint,
+    compute_dir_hash,
+    save_checkpoint,
+    load_checkpoint,
+    should_skip_stage,
+    delete_checkpoint,
 )
 from src.qa.question import select_persona_for_document
 
@@ -126,6 +133,11 @@ Examples:
         "--export",
         action="store_true",
         help="Export validated QA pairs to HuggingFace-compatible JSONL format"
+    )
+    parser.add_argument(
+        "--no-resume",
+        action="store_true",
+        help="Ignore checkpoint and run fresh (don't resume)"
     )
     return parser.parse_args()
 
@@ -337,6 +349,28 @@ def generate_answers_command(args) -> int:
     return 0
 
 
+def get_checkpoint_path(output_dir: Path) -> Path:
+    """Get checkpoint file path for output directory."""
+    return output_dir / ".checkpoint.json"
+
+
+def update_checkpoint(
+    checkpoint_path: Path,
+    stage: str,
+    input_hash: str,
+    completed_stages: list[str]
+) -> None:
+    """Update checkpoint after completing a stage."""
+    from datetime import datetime, timezone
+    checkpoint = Checkpoint(
+        stage=stage,
+        input_hash=input_hash,
+        completed_stages=completed_stages,
+        timestamp=datetime.now(timezone.utc).isoformat()
+    )
+    save_checkpoint(checkpoint_path, checkpoint)
+
+
 def main():
     """Run the QA generation pipeline."""
     args = parse_args()
@@ -352,21 +386,73 @@ def main():
     # Create output directory
     args.output.mkdir(parents=True, exist_ok=True)
 
+    # Checkpoint setup
+    checkpoint_path = get_checkpoint_path(args.output)
+    checkpoint = None if args.no_resume else load_checkpoint(checkpoint_path)
+    input_hash = compute_dir_hash(args.input) if args.input.exists() else ""
+
+    if checkpoint and not args.no_resume:
+        if checkpoint.input_hash == input_hash:
+            print(f"Resuming from checkpoint (completed: {', '.join(checkpoint.completed_stages)})")
+        else:
+            print("Input changed since checkpoint - starting fresh")
+            checkpoint = None
+
+    completed_stages = list(checkpoint.completed_stages) if checkpoint else []
+
     # Handle --build-index mode
     if args.build_index:
-        return build_index_command(args)
+        if should_skip_stage(checkpoint, "index", input_hash):
+            print("Skipping index stage (already completed)")
+            return 0
+        result = build_index_command(args)
+        if result == 0:
+            completed_stages.append("index")
+            update_checkpoint(checkpoint_path, "index", input_hash, completed_stages)
+        return result
 
     # Handle --answers mode
     if args.answers:
-        return generate_answers_command(args)
+        if should_skip_stage(checkpoint, "answers", input_hash):
+            print("Skipping answers stage (already completed)")
+            return 0
+        result = generate_answers_command(args)
+        if result == 0:
+            completed_stages.append("answers")
+            update_checkpoint(checkpoint_path, "answers", input_hash, completed_stages)
+        return result
 
     # Handle --validate mode
     if args.validate:
-        return validate_command(args)
+        if should_skip_stage(checkpoint, "validate", input_hash):
+            print("Skipping validate stage (already completed)")
+            return 0
+        result = validate_command(args)
+        if result == 0:
+            completed_stages.append("validate")
+            update_checkpoint(checkpoint_path, "validate", input_hash, completed_stages)
+        return result
 
     # Handle --export mode
     if args.export:
-        return export_command(args)
+        if should_skip_stage(checkpoint, "export", input_hash):
+            print("Skipping export stage (already completed)")
+            return 0
+        result = export_command(args)
+        if result == 0:
+            completed_stages.append("export")
+            update_checkpoint(checkpoint_path, "export", input_hash, completed_stages)
+            # All stages done - clean up checkpoint
+            if set(completed_stages) >= {"questions", "index", "answers", "validate", "export"}:
+                delete_checkpoint(checkpoint_path)
+                print("All stages complete - checkpoint removed")
+        return result
+
+    # Default mode: Generate questions
+    # Check if we should skip questions stage
+    if should_skip_stage(checkpoint, "questions", input_hash):
+        print("Skipping questions stage (already completed)")
+        return 0
 
     # Validate input directory
     if not args.input.exists():
@@ -464,6 +550,10 @@ def main():
         category_counts = Counter(q.category for q in unique_questions)
         for category, count in sorted(category_counts.items()):
             print(f"  {category}: {count}")
+
+    # Update checkpoint after successful questions generation
+    completed_stages.append("questions")
+    update_checkpoint(checkpoint_path, "questions", input_hash, completed_stages)
 
     return 0
 

@@ -44,6 +44,15 @@ from .exporter import (
     read_jsonl_streaming,
     export_hf_jsonl,
 )
+from .checkpoint import (
+    Checkpoint,
+    compute_file_hash,
+    compute_dir_hash,
+    save_checkpoint,
+    load_checkpoint,
+    should_skip_stage,
+    delete_checkpoint,
+)
 
 __all__ = [
     # Persona
@@ -83,4 +92,12 @@ __all__ = [
     'transform_to_hf',
     'read_jsonl_streaming',
     'export_hf_jsonl',
+    # Checkpoint
+    'Checkpoint',
+    'compute_file_hash',
+    'compute_dir_hash',
+    'save_checkpoint',
+    'load_checkpoint',
+    'should_skip_stage',
+    'delete_checkpoint',
 ]
