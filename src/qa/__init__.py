@@ -39,6 +39,11 @@ from .validator import (
     validate_batch,
     load_document_contents,
 )
+from .exporter import (
+    transform_to_hf,
+    read_jsonl_streaming,
+    export_hf_jsonl,
+)
 
 __all__ = [
     # Persona
@@ -74,4 +79,8 @@ __all__ = [
     'validate_qa_pair',
     'validate_batch',
     'load_document_contents',
+    # Export
+    'transform_to_hf',
+    'read_jsonl_streaming',
+    'export_hf_jsonl',
 ]
