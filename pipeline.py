@@ -72,6 +72,8 @@ Examples:
   %(prog)s --skip-scrape        Use existing downloads/
   %(prog)s --skip-scrape --skip-ai   Fast run without AI
   %(prog)s --force              Re-process all documents
+  %(prog)s --generate-qa        Full pipeline with QA generation
+  %(prog)s --skip-scrape --generate-qa   Skip scrape, include QA
         """
     )
     parser.add_argument(
@@ -110,6 +112,11 @@ Examples:
         "--dry-run",
         action="store_true",
         help="Show what would be synced without actually pushing (use with --push-kb)"
+    )
+    parser.add_argument(
+        "--generate-qa",
+        action="store_true",
+        help="Run QA generation pipeline after document processing (requires GEMINI_API_KEY)"
     )
     return parser.parse_args()
 
@@ -698,6 +705,66 @@ def main():
             print("Pipeline failed at combine stage")
             sys.exit(1)
 
+    # ========== STAGE 6: QA Generation (optional) ==========
+    if args.generate_qa:
+        if not os.environ.get('GEMINI_API_KEY'):
+            print()
+            print("WARNING: GEMINI_API_KEY not set, skipping QA generation")
+        else:
+            # Determine directories
+            qa_input = converted_dir if converted_dir.exists() else Path("converted")
+            qa_output = run_dir / "qa" if run_dir else Path("qa")
+            qa_index_dir = qa_output / "embeddings"
+
+            # Stage 6a: Build index
+            cmd = [
+                python_exe, "generate_qa.py", "--build-index",
+                "--input", str(qa_input), "--output", str(qa_output),
+                "--index-dir", str(qa_index_dir)
+            ]
+            success, duration = run_stage("QA Index (build FAISS index)", cmd)
+            stage_times["qa_index"] = duration
+
+            if not success:
+                print()
+                print("WARNING: QA index stage failed, skipping remaining QA stages")
+            else:
+                # Stage 6b: Generate questions
+                cmd = [
+                    python_exe, "generate_qa.py",
+                    "--input", str(qa_input), "--output", str(qa_output)
+                ]
+                success, duration = run_stage("QA Questions (generate questions)", cmd)
+                stage_times["qa_questions"] = duration
+
+                # Stage 6c: Generate answers
+                if success:
+                    cmd = [
+                        python_exe, "generate_qa.py", "--answers",
+                        "--output", str(qa_output), "--index-dir", str(qa_index_dir)
+                    ]
+                    success, duration = run_stage("QA Answers (generate answers)", cmd)
+                    stage_times["qa_answers"] = duration
+
+                # Stage 6d: Validate
+                if success:
+                    cmd = [
+                        python_exe, "generate_qa.py", "--validate",
+                        "--input", str(qa_input), "--output", str(qa_output),
+                        "--index-dir", str(qa_index_dir)
+                    ]
+                    success, duration = run_stage("QA Validate (validate pairs)", cmd)
+                    stage_times["qa_validate"] = duration
+
+                # Stage 6e: Export
+                if success:
+                    cmd = [
+                        python_exe, "generate_qa.py", "--export",
+                        "--output", str(qa_output)
+                    ]
+                    success, duration = run_stage("QA Export (HuggingFace JSONL)", cmd)
+                    stage_times["qa_export"] = duration
+
     # ========== SUMMARY ==========
     total_time = time.time() - pipeline_start
 
@@ -727,6 +794,17 @@ def main():
     if combined_dir.exists():
         combined_count = len(list(combined_dir.glob("*-COMBINED.md")))
         print(f"  {combined_dir}: {combined_count} combined prompts")
+
+    # QA output summary
+    if args.generate_qa:
+        qa_dir = run_dir / "qa" if run_dir else Path("qa")
+        qa_pairs_file = qa_dir / "qa_pairs.jsonl"
+        if qa_pairs_file.exists():
+            with open(qa_pairs_file, encoding='utf-8') as f:
+                qa_count = sum(1 for _ in f)
+            print(f"  {qa_dir}/qa_pairs.jsonl: {qa_count} QA pairs")
+        elif (qa_dir / "questions.yaml").exists():
+            print(f"  {qa_dir}: QA generation partial (see questions.yaml)")
     print()
 
     # ========== OPTIONAL: KB Sync ==========
