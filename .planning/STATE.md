@@ -5,24 +5,24 @@
 See: .planning/PROJECT.md (updated 2026-01-24)
 
 **Core value:** Generera tusentals validerade QA-par fran kunskapsbasen for AI-assistenttraning
-**Current focus:** v5.0 QA Generation Pipeline - Phase 30 In Progress
+**Current focus:** v5.0 QA Generation Pipeline - COMPLETE
 
 ## Current Position
 
 Phase: 31 of 31 (Export Integration)
-Plan: 01 of 01 complete
+Plan: 02 of 02 complete
 Status: Phase 31 complete - v5.0 QA Pipeline DONE
-Last activity: 2026-02-02 - Completed 31-01-PLAN.md
+Last activity: 2026-02-02 - Completed 31-02-PLAN.md
 
-Progress: [==========] 100% (5 of 5 phases complete)
+Progress: [==========] 100% (5 of 5 phases complete, 6 of 6 plans)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 30 (v1.0-v4.0 + v5.0)
+- Total plans completed: 31 (v1.0-v4.0 + v5.0)
 - Average duration: ~5 min
-- Total execution time: ~167 min
+- Total execution time: ~172 min
 
 **By Milestone:**
 
@@ -38,7 +38,7 @@ Progress: [==========] 100% (5 of 5 phases complete)
 | v3.0 Digi Commands  | 22     | 1     | ~3 min     |
 | v3.1 Improvements   | 23     | 1     | ~3 min     |
 | v4.0 Pipeline Ref   | 24-26  | 3     | ~34 min    |
-| v5.0 QA Pipeline    | 27-31  | 5     | ~30 min    |
+| v5.0 QA Pipeline    | 27-31  | 6     | ~35 min    |
 
 ## Accumulated Context
 
@@ -91,6 +91,13 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - Persona format: {roll}/{erfarenhet} string for simplicity
 - ensure_ascii=False for Swedish character preservation
 
+**v5.0 Phase 31 Decisions (Plan 02):**
+
+- Stage-level checkpointing: track stages, not individual files within stages
+- Input hash based on sorted file paths + sizes for fast change detection
+- Atomic save with temp file + rename for crash safety
+- Pipeline QA stages warn on failure but don't abort entire pipeline
+
 ### Deferred Issues
 
 None.
@@ -111,10 +118,10 @@ None.
   - Phase 28: Question Generation - COMPLETE
   - Phase 29: Answer Generation - COMPLETE (retrieval + generation)
   - Phase 30: QA Validation - COMPLETE (validation core + CLI)
-  - Phase 31: Export Integration - COMPLETE (HuggingFace export)
+  - Phase 31: Export Integration - COMPLETE (HuggingFace export + checkpoint + pipeline)
 
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Phase 31 complete, v5.0 QA Pipeline finished
+Stopped at: Phase 31 Plan 02 complete, v5.0 QA Pipeline finished
 Resume file: None
