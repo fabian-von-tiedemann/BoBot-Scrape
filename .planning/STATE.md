@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 
 ## Current Position
 
-Phase: 30 of 31 (Validation Pipeline)
-Plan: 02 of 02 complete
-Status: Phase 30 complete
-Last activity: 2026-01-30 - Completed 30-02-PLAN.md
+Phase: 31 of 31 (Export Integration)
+Plan: 01 of 01 complete
+Status: Phase 31 complete - v5.0 QA Pipeline DONE
+Last activity: 2026-02-02 - Completed 31-01-PLAN.md
 
-Progress: [========..] 80% (4 of 5 phases complete)
+Progress: [==========] 100% (5 of 5 phases complete)
 
 ## Performance Metrics
 
@@ -85,6 +85,12 @@ Decisions are logged in PROJECT.md Key Decisions table.
 - Pass/reject threshold at 0.7 composite score
 - Validation object embedded in each output entry for transparency
 
+**v5.0 Phase 31 Decisions (Plan 01):**
+
+- Flat HuggingFace structure: question, answer, source, persona, validation_score
+- Persona format: {roll}/{erfarenhet} string for simplicity
+- ensure_ascii=False for Swedish character preservation
+
 ### Deferred Issues
 
 None.
@@ -100,14 +106,15 @@ None.
 ### Roadmap Evolution
 
 - v1.0-v4.0: 26 phases shipped (see PROJECT.md)
-- v5.0 QA Generation Pipeline: Phases 27-31 (current)
+- v5.0 QA Generation Pipeline: Phases 27-31 - COMPLETE
   - Phase 27: Core Infrastructure - COMPLETE
   - Phase 28: Question Generation - COMPLETE
   - Phase 29: Answer Generation - COMPLETE (retrieval + generation)
   - Phase 30: QA Validation - COMPLETE (validation core + CLI)
+  - Phase 31: Export Integration - COMPLETE (HuggingFace export)
 
 ## Session Continuity
 
-Last session: 2026-01-30
-Stopped at: Phase 30 complete, ready for Phase 31 Export
+Last session: 2026-02-02
+Stopped at: Phase 31 complete, v5.0 QA Pipeline finished
 Resume file: None
