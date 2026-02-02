@@ -58,6 +58,7 @@ Examples:
   %(prog)s --answers                    Generate answers for questions.yaml
   %(prog)s --answers --limit 10         Generate answers for first 10 questions
   %(prog)s --validate                   Validate QA pairs from answers.yaml
+  %(prog)s --export                     Export to HuggingFace JSONL format
         """
     )
     parser.add_argument(
@@ -121,6 +122,11 @@ Examples:
         action="store_true",
         help="Validate QA pairs from answers.yaml, output to qa_passed.jsonl and qa_rejected.jsonl"
     )
+    parser.add_argument(
+        "--export",
+        action="store_true",
+        help="Export validated QA pairs to HuggingFace-compatible JSONL format"
+    )
     return parser.parse_args()
 
 
@@ -150,6 +156,53 @@ def build_index_command(args) -> int:
     print(f"\nIndex saved to {args.index_dir}")
     print(f"  - chunks.index: FAISS index file")
     print(f"  - chunks_meta.json: Chunk metadata")
+
+    return 0
+
+
+def export_command(args) -> int:
+    """Export validated QA pairs to HuggingFace-compatible JSONL format."""
+    print("Export mode")
+
+    # Check qa_passed.jsonl exists
+    passed_path = args.output / "qa_passed.jsonl"
+    if not passed_path.exists():
+        print(f"Error: qa_passed.jsonl not found at {passed_path}")
+        print("Run with --validate first to generate validated QA pairs")
+        return 1
+
+    from src.qa import export_hf_jsonl
+
+    # Export passed pairs
+    print(f"\nExporting passed pairs from {passed_path}...")
+    output_passed = args.output / "qa_pairs.jsonl"
+    passed_stats = export_hf_jsonl(
+        input_path=passed_path,
+        output_path=output_passed,
+        include_rejected=False
+    )
+
+    # Export rejected pairs if they exist
+    rejected_path = args.output / "qa_rejected.jsonl"
+    rejected_stats = {"total": 0, "exported": 0}
+    if rejected_path.exists():
+        print(f"Exporting rejected pairs from {rejected_path}...")
+        output_rejected = args.output / "qa_rejected_hf.jsonl"
+        rejected_stats = export_hf_jsonl(
+            input_path=rejected_path,
+            output_path=output_rejected,
+            include_rejected=True
+        )
+
+    # Print summary
+    print(f"\n=== Export Summary ===")
+    print(f"Passed pairs: {passed_stats['exported']} -> {output_passed}")
+    if rejected_stats['exported'] > 0:
+        print(f"Rejected pairs: {rejected_stats['exported']} -> {args.output / 'qa_rejected_hf.jsonl'}")
+
+    print(f"\nHuggingFace usage:")
+    print(f"  from datasets import load_dataset")
+    print(f"  dataset = load_dataset('json', data_files='{output_passed}')")
 
     return 0
 
@@ -310,6 +363,10 @@ def main():
     # Handle --validate mode
     if args.validate:
         return validate_command(args)
+
+    # Handle --export mode
+    if args.export:
+        return export_command(args)
 
     # Validate input directory
     if not args.input.exists():
