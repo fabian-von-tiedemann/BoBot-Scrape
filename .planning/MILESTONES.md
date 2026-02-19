@@ -1,5 +1,33 @@
 # Project Milestones: BoBot-Scrape
 
+## v5.0 QA Generation Pipeline (Shipped: 2026-02-19)
+
+**Delivered:** Complete QA generation pipeline that transforms 1,086 knowledge base documents into validated question-answer pairs for AI assistant training, with persona-driven questions, grounded answers, two-stage validation, and HuggingFace-compatible export.
+
+**Phases completed:** 27-31 (8 plans total)
+
+**Key accomplishments:**
+
+- Persona-driven question generation with 5 realistic care worker personas and Gemini API
+- Swedish semantic retrieval with KBLab SBERT embeddings and FAISS vector search (6,195 chunks)
+- Extraction-style answer generation with inline source citations and klarspråk (B1 Swedish)
+- Two-stage validation pipeline (semantic similarity + LLM-as-judge) filtering hallucinations
+- HuggingFace-compatible JSONL export with full metadata per QA pair
+- Resumable pipeline with stage-level checkpointing and pipeline.py --generate-qa integration
+
+**Stats:**
+
+- 44 files created/modified
+- 2,626 lines of Python (QA pipeline)
+- 5 phases, 8 plans, 23 requirements
+- 9 days from start to ship (Jan 25 → Feb 2)
+
+**Git range:** `feat(27-01)` → `docs(31)`
+
+**What's next:** v5.1+ advanced question types, multi-document answers, analytics coverage reports
+
+---
+
 ## v4.0 Pipeline Refactor (Shipped: 2026-01-16)
 
 **Delivered:** Generalized ETL pipeline with unified CLI, timestamped run directories, manifest-based incremental updates, and automatic GitHub sync to bobot-kb repository.

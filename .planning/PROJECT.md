@@ -2,22 +2,15 @@
 
 ## What This Is
 
-En komplett ETL-pipeline för rutindokument från Botkyrka kommuns intranät (BoTwebb). Ansluter till användarens befintliga Chrome-session via CDP, laddar ner alla PDF:er och Word-dokument, konverterar till AI-berikad Markdown, genererar verksamhetsspecifika system prompts, och synkar automatiskt till kunskapsbas-repo för AI-assistenter. Genererar även QA-par från kunskapsbasen för AI-assistentträning.
+En komplett ETL- och QA-pipeline för rutindokument från Botkyrka kommuns intranät (BoTwebb). Ansluter till användarens befintliga Chrome-session via CDP, laddar ner alla PDF:er och Word-dokument, konverterar till AI-berikad Markdown, genererar verksamhetsspecifika system prompts, synkar automatiskt till kunskapsbas-repo, och genererar validerade QA-par med persona-drivna frågor, grundade svar och tvåstegs kvalitetsvalidering för AI-assistentträning.
 
 ## Core Value
 
 Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur sidstrukturen ser ut.
 
-## Current Milestone: v5.0 QA Generation Pipeline
+## Latest Milestone: v5.0 QA Generation Pipeline (Shipped 2026-02-19)
 
-**Goal:** Generera tusentals fråga/svar-par från kunskapsbasen för att bygga affärsregler och evalueringsdata till AI-assistenten.
-
-**Target features:**
-- Persona-driven frågor (roll + situation: stressad undersköterska, ny hemtjänstpersonal, nattjour)
-- Svar grundade i faktiska dokument med källreferens
-- Tvåstegs validering (källverifiering + kvalitetsbedömning)
-- Adaptive svarsformat (kort för fakta, stegvis för instruktioner)
-- Export för prompt-kontext och evaluering
+**Delivered:** Komplett QA-pipeline som genererar validerade fråga/svar-par från 1,086 kunskapsbas-dokument med persona-drivna frågor, grundade svar, och tvåstegs kvalitetsvalidering.
 
 ## Requirements
 
@@ -85,16 +78,18 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 - ✓ Automatic GitHub sync with --push-kb flag — v4.0
 - ✓ Dry-run preview mode for sync operations — v4.0
 
+**v5.0 QA Generation Pipeline:**
+
+- ✓ Persona-modell med roll + situation för realistiska frågor — v5.0
+- ✓ Frågegenerering från KB-dokument med Gemini — v5.0
+- ✓ Svarsgrundning i faktiska dokument med källreferens — v5.0
+- ✓ Tvåstegs validering (källcheck + kvalitetsbedömning) — v5.0
+- ✓ Export-format för prompt-kontext och evalueringsdata (HuggingFace JSONL) — v5.0
+- ✓ Pipeline för QA-par med checkpointing och resume — v5.0
+
 ### Active
 
-**v5.0 QA Generation Pipeline:**
-- [ ] Persona-modell med roll + situation för realistiska frågor
-- [ ] Frågegenerering från KB-dokument med Gemini
-- [ ] Svarsgrundning i faktiska dokument med källreferens
-- [ ] Tvåstegs validering (källcheck + kvalitetsbedömning)
-- [ ] Adaptivt svarsformat baserat på frågetyp
-- [ ] Export-format för prompt-kontext och evalueringsdata
-- [ ] Pipeline för 1000-tals QA-par
+(No active requirements — define with `/gsd:new-milestone`)
 
 ### Out of Scope
 
@@ -106,14 +101,17 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 
 ## Context
 
-**Current State:** Shipped v4.0 with ~3,036 LOC Python (pipeline.py, scrape.py, convert.py, index_kb.py, generate_prompts.py, combine_prompts.py, src/ modules).
+**Current State:** Shipped v5.0 with ~5,662 LOC Python (pipeline.py, scrape.py, convert.py, index_kb.py, generate_prompts.py, combine_prompts.py, generate_qa.py, src/ modules including src/qa/).
 
 **Tech stack:**
 - Python 3.11
 - Playwright (sync API) — Chrome CDP connection
 - pymupdf (fitz) — PDF text extraction
 - python-docx — Word text extraction
-- google-genai — Gemini API for AI metadata
+- google-genai — Gemini API for AI metadata and QA generation
+- sentence-transformers — KBLab Swedish SBERT embeddings
+- faiss-cpu — Vector search for semantic retrieval
+- pydantic — Structured LLM output and data models
 - argparse, python-dotenv
 - subprocess, hashlib — Pipeline orchestration
 
@@ -128,9 +126,15 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 - Generate verksamhet-specific index files from frontmatter
 - Generate AI-powered system prompts per verksamhet
 - Combine general + specific prompts for AI assistant deployment
-- **Unified pipeline CLI with timestamped run directories**
-- **Manifest-based incremental updates (only process changed docs)**
-- **Automatic sync to bobot-kb GitHub repository**
+- Unified pipeline CLI with timestamped run directories
+- Manifest-based incremental updates (only process changed docs)
+- Automatic sync to bobot-kb GitHub repository
+- **Persona-driven QA question generation from knowledge base documents**
+- **Swedish semantic retrieval with FAISS and KBLab SBERT embeddings**
+- **Extraction-style answer generation with inline source citations**
+- **Two-stage QA validation (semantic similarity + LLM-as-judge)**
+- **HuggingFace-compatible JSONL export with metadata**
+- **Resumable QA pipeline with stage-level checkpointing**
 
 **Usage:**
 ```bash
@@ -144,7 +148,14 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 .venv/bin/python pipeline.py --skip-scrape             # Skip scrape, use existing downloads
 .venv/bin/python pipeline.py --prev-run runs/latest    # Incremental: only process changes
 .venv/bin/python pipeline.py --push-kb                 # Push to bobot-kb after completion
-.venv/bin/python pipeline.py --push-kb --dry-run       # Preview sync without pushing
+.venv/bin/python pipeline.py --generate-qa             # Include QA generation pipeline
+
+# QA generation (standalone)
+.venv/bin/python generate_qa.py                        # Generate questions
+.venv/bin/python generate_qa.py --build-index          # Build FAISS index
+.venv/bin/python generate_qa.py --answers              # Generate answers
+.venv/bin/python generate_qa.py --validate             # Validate QA pairs
+.venv/bin/python generate_qa.py --export               # Export to HuggingFace JSONL
 
 # Individual scripts (legacy)
 .venv/bin/python scrape.py           # Download new files
@@ -189,6 +200,16 @@ Alla PDF:er nedladdade och konverterade — ingen PDF ska missas, oavsett hur si
 | Manifest-based diff detection | Track changes between pipeline runs | ✓ Good |
 | Fallback source directories | Prefer run_dir, fall back to root | ✓ Good |
 | Git CLI over gh CLI | Standard git more portable than GitHub CLI | ✓ Good |
+| Persona ID {roll}-{erfarenhet}-{sprakbakgrund} | Human-readable, deterministic computed field | ✓ Good |
+| gemini-2.0-flash for QA | gemini-3-flash-preview not yet available | ✓ Good |
+| KBLab/sentence-bert-swedish-cased | Best Swedish embedding model (0.918 Pearson) | ✓ Good |
+| 512-token chunks, 128 overlap | Microsoft RAG guidelines for semantic retrieval | ✓ Good |
+| FAISS IndexFlatIP | Cosine similarity via L2 normalization | ✓ Good |
+| Extraction-style prompting | Direct quotes over paraphrasing for accuracy | ✓ Good |
+| Semantic similarity thresholds (0.75/0.5) | Three-tier validation: auto-pass/LLM-check/auto-fail | ✓ Good |
+| Composite score weights (src 0.3, korr 0.3, rel 0.2, full 0.2) | Prioritizes source grounding and correctness | ✓ Good |
+| Stage-level checkpointing | Simpler than per-file, sufficient for 5-stage pipeline | ✓ Good |
+| JSONL output format | HuggingFace compatible, streaming-friendly | ✓ Good |
 
 ---
-*Last updated: 2026-01-24 after v5.0 milestone start*
+*Last updated: 2026-02-19 after v5.0 milestone completion*
